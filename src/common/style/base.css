@@ -38,7 +38,7 @@ table {
     border-collapse:collapse;
     border-spacing:0;
 }
-input, select {
+input, select, textarea {
     vertical-align:middle;
     outline: none;
     border:none;

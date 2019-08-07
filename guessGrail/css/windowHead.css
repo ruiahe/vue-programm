@@ -1,0 +1,63 @@
+/*
+    头部标题样式
+*/
+#header .header-box {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  z-index: 99;
+}
+#header .header-box .space-between {
+  margin: 0 auto;
+  width: 335px;
+  height: 55px;
+}
+#header .header-box .space-between .arrow {
+  width: 35px;
+  height: 22px;
+  font-size: 10px;
+}
+#header .header-box .space-between .arrow img {
+  width: 10px;
+}
+#header .header-box .space-between .title {
+  flex: 1;
+  text-align: center;
+  font-size: 18px;
+  font-family: PingFangSC-Medium;
+  font-weight: 500;
+  color: #000000;
+}
+#header .header-box .space-between .tool {
+  width: 35px;
+  height: 22px;
+  font-size: 15px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: #9b9b9b;
+  line-height: 21px;
+}
+#header .header-box .space-between .newFont {
+  font-size: 30px;
+  background: #7e8591;
+}
+#header .header-box .space-between .hasRed {
+  position: relative;
+}
+#header .header-box .space-between .hasRed:before {
+  content: '';
+  position: absolute;
+  right: -4px;
+  top: 0;
+  width: 8px;
+  height: 8px;
+  border: 0;
+  border-radius: 100%;
+  background-color: #FF443E;
+}
+#header .header-placeholder {
+  height: 55px;
+  width: 100%;
+}

@@ -1,0 +1,132 @@
+* {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-tap-highlight-color: transparent;
+}
+img {
+  width: 100%;
+}
+/*
+    两侧对齐，垂直居中
+*/
+.space-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+/*
+    仅两侧对齐
+*/
+.between {
+  display: flex;
+  justify-content: center;
+}
+/*
+    水平居中，垂直居中
+*/
+.center-vh {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/*
+    垂直居中，水平居右
+*/
+.center-vr {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+/*
+    垂直居中，水平居左
+*/
+.center-vl {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+/*
+    宽度为百分之89.333且居中
+*/
+.container {
+  width: 89.33333%;
+  margin: 0 auto;
+}
+/*
+    垂直居中
+*/
+.center-v {
+  display: flex;
+  align-items: center;
+}
+/*
+    黑影遮罩
+*/
+.pop {
+  display: none;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 100;
+}
+.pop .list-tip {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 100;
+}
+.pop .list-tip .center-vh {
+  width: 103px;
+  height: 57px;
+  font-size: 16px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: #4c4c4c;
+  background: #fff;
+  border-radius: 4px;
+}
+.pop .list-tip .center-vh span {
+  margin-right: 13px;
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: 1px solid red;
+}
+.pop.show {
+  display: block;
+}
+.pop .list-sort {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 100;
+  width: 149px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.pop .list-sort li {
+  font-size: 15px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: #9b9b9b;
+  width: 100%;
+  height: 51px;
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+}
+.pop .list-sort li:last-child {
+  border: none;
+}
+.pop .list-sort li.chosen {
+  color: #7bc3a1;
+}
+.pop .list-tip.unshow {
+  display: none;
+}
+.pop .list-sort.unshow {
+  display: none;
+}

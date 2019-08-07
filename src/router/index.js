@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import FeedbackToDiscuss from '@/page/feedbackToDiscuss/FeedbackToDiscuss'
-import StatementList from '@/page/statementList/statementList'
-import StatementDetail from '@/page/statementDetail/statementDetail'
-import Message from '@/page/message/message'
 import Test from '@/page/test/test'
+import Feed from '@/page/feed/feed'
+import List from '@/page/list/list'
+import Detail from '@/page/detail/detail'
+import MyMessage from '@/page/myMessage/myMessage'
+import WindowHead from '@/page/windowHead/windowHead'
 
 Vue.use(Router)
 
@@ -16,24 +17,29 @@ export default new Router({
       component: Test
     },
     {
-      path: '/feedbackToDiscuss',
-      name: 'FeedbackToDiscuss',
-      component: FeedbackToDiscuss
+      path: '/feed',
+      name: 'Feed',
+      component: Feed
     },
     {
-      path: '/statementList',
-      name: 'StatementList',
-      component: StatementList
+      path: '/list',
+      name: 'List',
+      component: List
     },
     {
-      path: '/statementDetail',
-      name: 'StatementDetail',
-      component: StatementDetail
+      path: '/detail',
+      name: 'Detail',
+      component: Detail
     },
     {
-      path: '/message',
-      name: 'Message',
-      component: Message
+      path: '/myMessage',
+      name: 'MyMessage',
+      component: MyMessage
+    },
+    {
+      path: '/windowHead',
+      name: 'WindowHead',
+      component: WindowHead
     }
   ]
 })
