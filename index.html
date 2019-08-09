@@ -12,4 +12,14 @@
   <body>
     <div id="app"></div>
   </body>
+  <script>
+    var jsonInfoObj = {};
+    window.webkit.messageHandlers.getInfo.postMessage(null);
+    function getJson(json){
+        alert('开始传入');
+        jsonInfoObj = json;
+        alert(JSON.stringify(jsonInfoObj));
+    }
+  </script>
+  <script src='../src/common/common.js'></script>
 </html>

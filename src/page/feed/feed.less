@@ -1,6 +1,10 @@
 #feedback {
     .box{
-      margin-top:18px;
+      .mescroll{
+        position: fixed;
+        top:75px;
+        bottom:0;
+      }
       .list{
         width:89.333333%;
         margin:0 auto 12px;
@@ -33,7 +37,7 @@
             line-height:17px;
           }
           .list-statement{
-            margin:3px 0 13px;
+            margin:3px 0 0;
             height:18px;
             font-size:14px;
             font-family:PingFangSC-Regular;
@@ -42,6 +46,7 @@
             line-height:20px;
           }
           .list-content{
+            margin-top:13px;
             position: relative;
             padding:0 6px;
             height:30px;
@@ -50,6 +55,7 @@
             .content-img{
               width:20px;
               border-radius: 100%;
+              overflow:hidden;
               img{
                 width:100%;
                 display:block;
@@ -78,6 +84,9 @@
             border-bottom-color:rgba(247,247,247,1);
           }
         }
+      }
+      .list:first-child{
+        margin-top:18px;
       }
     }
   }

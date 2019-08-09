@@ -1,4 +1,10 @@
 #message{
+    .mescroll{
+        position: fixed;
+        top:136px;
+        bottom:0;
+        height:auto;
+    }
     .tab-box{
         padding:2px 0 9px;
         .tab{
@@ -14,6 +20,33 @@
                 font-weight:400;
                 color:rgba(193,193,193,1);
                 line-height:21px;
+                .li-txt{
+                    position: relative;
+                    span{
+                        background:#FF443E;
+                        font-size:8px;
+                        font-family:PingFangSC-Medium;
+                        font-weight:500;
+                        color:rgba(255,255,255,1);
+                        line-height:12px;
+                    }
+                    .jx{
+                        width:21px;
+                        height:12px;
+                        border-radius:6px;
+                        position: absolute;
+                        top:-3px;
+                        right:-16px;
+                    }
+                    .square{
+                        position: absolute;
+                        top:-3px;
+                        right:-7px;
+                        width:12px;
+                        height:12px;
+                        border-radius:100%;
+                    }
+                }
             }
             .chosen{
                 font-family:PingFangSC-Medium;

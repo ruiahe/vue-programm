@@ -4,8 +4,12 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import 'amfe-flexible/index.js'
+import Axios from 'axios'
 
-Vue.config.productionTip = false
+Vue.prototype.$axios = Axios;
+Axios.defaults.baseURL = '/192.168.0.148';
+Axios.defaults.headers.post['Content-Type'] = 'application/json';
+Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
 new Vue({

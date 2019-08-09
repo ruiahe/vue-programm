@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Test from '@/page/test/test'
 import Feed from '@/page/feed/feed'
 import List from '@/page/list/list'
 import Detail from '@/page/detail/detail'
@@ -13,8 +12,10 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'test',
-      component: Test
+      redirect:{
+        name: 'Feed',
+        component: Feed
+      },
     },
     {
       path: '/feed',

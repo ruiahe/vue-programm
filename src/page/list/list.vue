@@ -4,223 +4,51 @@
         <div class="statement-tip">大家有任何建议都可以发送到这儿</div>
         <div class="statement">
             <div class="container space-between">
-                <span class='statement-num'>共389条发言</span>
-                <span class='statement-sort' @click="show_sort($event)">最热发言</span>
+                <span class='statement-num'>共{{totalNum}}条发言</span>
+                <span class='statement-sort' @click="show_sort($event)">{{sortChosenItem.title}}</span>
             </div>
         </div>
-        <div class="list-box">
-            <div class="state" v-on:click='statement_details(1)'>
-                <div class="state-top container space-between">
-                    <div class="state-tx">
-                        <img src="data:image/jpeg;base64,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" alt="">
-                    </div>
-                    <div class="state-inf center-v">
-                        <span class="state-name">赵长安</span>
-                        <img class='state-img' src="../../assets/statement/phone.png" alt="">
-                        <span class='state-model'>OPPO K3 </span>
-                        <span class='state-version'>V2.3.3</span>
-                    </div>
-                    <div class="state-ellipsis" @click.stop='complaint($event,1)'>
-                        <img src="../../assets/statement/ellipsis.png" alt="">
-                    </div>
-                </div>
-                <div class="state-middle">
-                    <div class="middle-txt container">
-                        日子增加个排序功能呗，加个小记的导入导出功能呗，后期会做网页端吗。一直盯着探记的更新日子增加个排序功能呗，加个小记的导入导出功能呗，后期会做网页端吗。一直盯着探记的更新日子增加个排序功能呗，加个小记的导入导出功能呗，后期会做网页端吗。一直盯着探记的更新日子增加个排序功能呗，加个小记的导入导出功能呗，后期会做网页端吗。一直盯着探记的更新
-                    </div>
-                    <div class="middle-img-list" v-if='false'>
-                        <div class="middle-img"> <img src="../../assets/statement/user-img1.png" alt=""> </div>
-                        <div class="middle-img"> <img src="../../assets/statement/user-img2.png" alt=""> </div>
-                        <div class="middle-img"> <img src="../../assets/statement/user-img3.png" alt=""> </div>
-                        <div class="middle-img"> <img src="../../assets/statement/user-img1.png" alt=""> </div>
-                        <div class="middle-img"> <img src="../../assets/statement/user-img2.png" alt=""> </div>
-                        <div class="middle-img"> <img src="../../assets/statement/user-img3.png" alt=""> </div>
-                        <div class="middle-img"> <img src="../../assets/statement/user-img1.png" alt=""> </div>
-                        <div class="middle-img"> <img src="../../assets/statement/user-img1.png" alt=""> </div>
-                    </div>
-                </div>
-                <div class="state-bottom container space-between">
-                    <div class="state-operate center-v">
-                        <img src="../../assets/statement/discuss.png" alt="" v-on:click='show_input()'>
-                        16
-                        <img class='up' src="../../assets/statement/upGray.png" alt="" v-if='false'>
-                        <img class='up' src="../../assets/statement/upGreen.png" alt="" v-if='true'>
-                        <span :class='{"like": true}'>52</span>
-                    </div>
-                    <div class="state-time">
-                        今天 11:53
-                    </div>
-                </div>
-            </div>
-            <div class="state" v-on:click='statement_details(1)'>
-                <div class="state-top container space-between">
-                    <div class="state-tx">
-                        <img src="data:image/jpeg;base64,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" alt="">
-                    </div>
-                    <div class="state-inf center-v">
-                        <span class="state-name">赵长安</span>
-                        <img class='state-img' src="../../assets/statement/phone.png" alt="">
-                        <span class='state-model'>OPPO K3 </span>
-                        <span class='state-version'>V2.3.3</span>
-                    </div>
-                    <div class="state-ellipsis" @click.stop='complaint($event,1)'>
-                        <img src="../../assets/statement/ellipsis.png" alt="">
-                    </div>
-                </div>
-                <div class="state-middle">
-                    <div class="middle-txt container">
-                        日子增加个排序功能呗，加个小记的导入导出功能呗，后期会做网页端吗。一直盯着探记的更新日子增加个排序功能呗，加个小记的导入导出功能呗，后期会做网页端吗。一直盯着探记的更新日子增加个排序功能呗，加个小记的导入导出功能呗，后期会做网页端吗。一直盯着探记的更新日子增加个排序功能呗，加个小记的导入导出功能呗，后期会做网页端吗。一直盯着探记的更新
-                    </div>
-                    <div class="middle-img-list" v-if='false'>
-                        <div class="middle-img"> <img src="../../assets/statement/user-img1.png" alt=""> </div>
-                        <div class="middle-img"> <img src="../../assets/statement/user-img2.png" alt=""> </div>
-                        <div class="middle-img"> <img src="../../assets/statement/user-img3.png" alt=""> </div>
-                        <div class="middle-img"> <img src="../../assets/statement/user-img1.png" alt=""> </div>
-                        <div class="middle-img"> <img src="../../assets/statement/user-img2.png" alt=""> </div>
-                        <div class="middle-img"> <img src="../../assets/statement/user-img3.png" alt=""> </div>
-                        <div class="middle-img"> <img src="../../assets/statement/user-img1.png" alt=""> </div>
-                        <div class="middle-img"> <img src="../../assets/statement/user-img1.png" alt=""> </div>
-                    </div>
-                </div>
-                <div class="state-bottom container space-between">
-                    <div class="state-operate center-v">
-                        <img src="../../assets/statement/discuss.png" alt="" v-on:click='show_input()'>
-                        16
-                        <img class='up' src="../../assets/statement/upGray.png" alt="" v-if='true'>
-                        <img class='up' src="../../assets/statement/upGreen.png" alt="" v-if='false'>
-                        <span :class='{"like": false}'>5</span>
-                    </div>
-                    <div class="state-time">
-                        今天 11:53
-                    </div>
-                </div>
-            </div>
-            <div class="state" v-on:click='statement_details(1)'>
-                <div class="state-top container space-between">
-                    <div class="state-tx">
-                        <img src="data:image/jpeg;base64,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" alt="">
-                    </div>
-                    <div class="state-inf center-v">
-                        <span class="state-name">赵长安</span>
-                        <img class='state-img' src="../../assets/statement/phone.png" alt="">
-                        <span class='state-model'>OPPO K3 </span>
-                        <span class='state-version'>V2.3.3</span>
-                    </div>
-                    <div class="state-ellipsis" @click.stop='complaint($event,1)'>
-                        <img src="../../assets/statement/ellipsis.png" alt="">
-                    </div>
-                </div>
-                <div class="state-middle">
-                    <div class="middle-txt container">
-                        日子增加个排序功能呗，加个小记的导入导出功能呗，后期会做网页端吗。一直盯着探记的更新日子增加个排序功能呗，加个小记的导入导出功能呗，后期会做网页端吗。一直盯着探记的更新日子增加个排序功能呗，加个小记的导入导出功能呗，后期会做网页端吗。一直盯着探记的更新日子增加个排序功能呗，加个小记的导入导出功能呗，后期会做网页端吗。一直盯着探记的更新
-                    </div>
-                    <div class="middle-img-list" v-if='false'>
-                        <div class="middle-img"> <img src="../../assets/statement/user-img1.png" alt=""> </div>
-                        <div class="middle-img"> <img src="../../assets/statement/user-img2.png" alt=""> </div>
-                        <div class="middle-img"> <img src="../../assets/statement/user-img3.png" alt=""> </div>
-                        <div class="middle-img"> <img src="../../assets/statement/user-img1.png" alt=""> </div>
-                        <div class="middle-img"> <img src="../../assets/statement/user-img2.png" alt=""> </div>
-                        <div class="middle-img"> <img src="../../assets/statement/user-img3.png" alt=""> </div>
-                        <div class="middle-img"> <img src="../../assets/statement/user-img1.png" alt=""> </div>
-                        <div class="middle-img"> <img src="../../assets/statement/user-img1.png" alt=""> </div>
-                    </div>
-                </div>
-                <div class="state-bottom container space-between">
-                    <div class="state-operate center-v">
-                        <img src="../../assets/statement/discuss.png" alt="" v-on:click='show_input()'>
-                        16
-                        <img class='up' src="../../assets/statement/upGray.png" alt="" v-if='false'>
-                        <img class='up' src="../../assets/statement/upGreen.png" alt="" v-if='true'>
-                        <span :class='{"like": true}'>52</span>
-                    </div>
-                    <div class="state-time">
-                        今天 11:53
-                    </div>
-                </div>
-            </div>
-            <div class="state" v-on:click='statement_details(1)'>
-                <div class="state-top container space-between">
-                    <div class="state-tx">
-                        <img src="data:image/jpeg;base64,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" alt="">
-                    </div>
-                    <div class="state-inf center-v">
-                        <span class="state-name">赵长安</span>
-                        <img class='state-img' src="../../assets/statement/phone.png" alt="">
-                        <span class='state-model'>OPPO K3 </span>
-                        <span class='state-version'>V2.3.3</span>
-                    </div>
-                    <div class="state-ellipsis" @click.stop='complaint($event,1)'>
-                        <img src="../../assets/statement/ellipsis.png" alt="">
-                    </div>
-                </div>
-                <div class="state-middle">
-                    <div class="middle-txt container">
-                        日子增加个排序功能呗，加个小记的导入导出功能呗，后期会做网页端吗。一直盯着探记的更新日子增加个排序功能呗，加个小记的导入导出功能呗，后期会做网页端吗。一直盯着探记的更新日子增加个排序功能呗，加个小记的导入导出功能呗，后期会做网页端吗。一直盯着探记的更新日子增加个排序功能呗，加个小记的导入导出功能呗，后期会做网页端吗。一直盯着探记的更新
-                    </div>
-                    <div class="middle-img-list" v-if='false'>
-                        <div class="middle-img"> <img src="../../assets/statement/user-img1.png" alt=""> </div>
-                        <div class="middle-img"> <img src="../../assets/statement/user-img2.png" alt=""> </div>
-                        <div class="middle-img"> <img src="../../assets/statement/user-img3.png" alt=""> </div>
-                        <div class="middle-img"> <img src="../../assets/statement/user-img1.png" alt=""> </div>
-                        <div class="middle-img"> <img src="../../assets/statement/user-img2.png" alt=""> </div>
-                        <div class="middle-img"> <img src="../../assets/statement/user-img3.png" alt=""> </div>
-                        <div class="middle-img"> <img src="../../assets/statement/user-img1.png" alt=""> </div>
-                        <div class="middle-img"> <img src="../../assets/statement/user-img1.png" alt=""> </div>
-                    </div>
-                </div>
-                <div class="state-bottom container space-between">
-                    <div class="state-operate center-v">
-                        <img src="../../assets/statement/discuss.png" alt="" v-on:click='show_input()'>
-                        16
-                        <img class='up' src="../../assets/statement/upGray.png" alt="" v-if='false'>
-                        <img class='up' src="../../assets/statement/upGreen.png" alt="" v-if='true'>
-                        <span :class='{"like": true}'>52</span>
-                    </div>
-                    <div class="state-time">
-                        今天 11:53
-                    </div>
-                </div>
-            </div>
-            <div class="state" v-on:click='statement_details(1)'>
-                <div class="state-top container space-between">
-                    <div class="state-tx">
-                        <img src="data:image/jpeg;base64,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" alt="">
-                    </div>
-                    <div class="state-inf center-v">
-                        <span class="state-name">赵长安</span>
-                        <img class='state-img' src="../../assets/statement/phone.png" alt="">
-                        <span class='state-model'>OPPO K3 </span>
-                        <span class='state-version'>V2.3.3</span>
-                    </div>
-                    <div class="state-ellipsis" @click.stop='complaint($event,1)'>
-                        <img src="../../assets/statement/ellipsis.png" alt="">
-                    </div>
-                </div>
-                <div class="state-middle">
-                    <div class="middle-txt container">
-                        日子增加个排序功能呗，加个小记的导入导出功能呗，后期会做网页端吗。一直盯着探记的更新日子增加个排序功能呗，加个小记的导入导出功能呗，后期会做网页端吗。一直盯着探记的更新日子增加个排序功能呗，加个小记的导入导出功能呗，后期会做网页端吗。一直盯着探记的更新日子增加个排序功能呗，加个小记的导入导出功能呗，后期会做网页端吗。一直盯着探记的更新
-                    </div>
-                    <div class="middle-img-list" v-if='false'>
-                        <div class="middle-img"> <img src="../../assets/statement/user-img1.png" alt=""> </div>
-                        <div class="middle-img"> <img src="../../assets/statement/user-img2.png" alt=""> </div>
-                        <div class="middle-img"> <img src="../../assets/statement/user-img3.png" alt=""> </div>
-                        <div class="middle-img"> <img src="../../assets/statement/user-img1.png" alt=""> </div>
-                        <div class="middle-img"> <img src="../../assets/statement/user-img2.png" alt=""> </div>
-                        <div class="middle-img"> <img src="../../assets/statement/user-img3.png" alt=""> </div>
-                        <div class="middle-img"> <img src="../../assets/statement/user-img1.png" alt=""> </div>
-                        <div class="middle-img"> <img src="../../assets/statement/user-img1.png" alt=""> </div>
-                    </div>
-                </div>
-                <div class="state-bottom container space-between">
-                    <div class="state-operate center-v">
-                        <img src="../../assets/statement/discuss.png" alt="" v-on:click='show_input()'>
-                        16
-                        <img class='up' src="../../assets/statement/upGray.png" alt="" v-if='false'>
-                        <img class='up' src="../../assets/statement/upGreen.png" alt="" v-if='true'>
-                        <span :class='{"like": true}'>52</span>
-                    </div>
-                    <div class="state-time">
-                        今天 11:53
+        <!-- 滚动区域 -->
+        <div ref='mescroll' class="mescroll" id='mescrollList'>
+            <div>
+                <div class="list-box" id="list-box">
+                    <div class="state" v-on:click='statement_details(i.id)' v-for='(i, index) in list' :key="index">
+                        <div class="state-top container space-between">
+                            <div class="state-tx">
+                                <img :src="i.uimg" alt="">
+                            </div>
+                            <div class="state-inf center-v">
+                                <span class="state-name">{{i.nickName}}</span>
+                                <img class='state-img' src="../../assets/statement/phone.png" alt="">
+                                <span class='state-model'>{{i.deviceOsVersion}} </span>
+                                <span class='state-version'>{{i.appVersion}}</span>
+                            </div>
+                            <div class="state-ellipsis" @click.stop='complaint($event, i.id, i)'>
+                                <img src="../../assets/statement/ellipsis.png" alt="">
+                            </div>
+                        </div>
+                        <div class="state-middle">
+                            <div class="middle-txt container">
+                                {{i.replyContent}}
+                            </div>
+                            <div class="middle-img-list" v-if='i.replyImg'>
+                                <div class="middle-img" v-for="(img, ind) in i.replyImg" :key="ind"> <img :src="img.img" alt=""> </div>
+                            </div>
+                        </div>
+                        <div class="state-bottom container space-between">
+                            <div class="state-operate center-v">
+                                <img src="../../assets/statement/discuss.png" alt="" @click.stop='show_input(i)'>
+                                {{i.replyCount}}
+                                <span class='center-v' @click.stop='give_a_like(i, index)'>
+                                    <img class='up' src="../../assets/statement/upGray.png" alt="" v-if='!i.isUp'>
+                                    <img class='up' src="../../assets/statement/upGreen.png" alt="" v-if='i.isUp'>
+                                    <span :class='{"like": i.isUp}'>{{i.upCount}}</span>    
+                                </span>    
+                            </div>
+                            <div class="state-time">
+                                {{i.replyDatetime}}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -231,117 +59,264 @@
                 <span>我要发言...</span>
             </div>
         </div>
+        <div class="input-placehold"></div>
+        <!-- 阴影加弹框 （举报&删除&排序） -->
         <div class="pop" @touchmove.prevent>
-            <div class="pop-content list-tip" v-on:click='complaint_item()' :class='{"unshow": clickKind != "list-tip"}'>
+            <div class="pop-content list-tip list-tip-complaint" v-on:click='complaint_item()' :class='{"unshow": clickKind != "list-tip-complaint"}'>
                 <div class="center-vh">
                     <span></span>举报
+                </div>
+            </div>
+            <div class="pop-content list-tip list-tip-del" v-on:click='delete_item()' :class='{"unshow": clickKind != "list-tip-del"}'>
+                <div class="center-vh">
+                    <span></span>删除
                 </div>
             </div>
             <ul class="pop-content list-sort" :class='{"unshow": clickKind != "list-sort"}'>
                 <li class='center-vh' v-for='(i,index) in sortList' :key = 'index' :class="{'chosen': i.chosen}" v-on:click='chose_sort(i)'>{{i.title}}</li>
             </ul>
         </div>
-        <div class="pop-comment">
+        <!-- 阴影加弹框  （评论弹框） -->
+        <div class="pop-comment" @touchmove.prevent>
             <div class="comment">
                 <div class="comment-top">
                     <div class="container space-between">
-                        <span class='comment-close'>X</span>
+                        <span class='comment-close' @click="close_comment()">X</span>
                         <span class="comment-title">评论</span>
-                        <span class="comment-btn center-vh">发送</span>
+                        <span class="comment-btn center-vh" @click.stop="send_comment()">发送</span>
                     </div>
                 </div>
                 <div class="comment-txt container">
-                    <textarea name="" id="" placeholder="评论点什么..." type='search'></textarea>
+                    <textarea name="" placeholder="评论点什么..." type='search' @input='change_num()' v-model='comment'></textarea>
+                </div>
+                <div class="comment-emoji container space-between">
+                    <span class='emoji'></span>
+                    <span class='emoji-txt'>{{commentLen}}/200</span>
                 </div>
             </div>
         </div>
     </div>
 </template>
 <script>
+    import MeScroll from 'mescroll.js'
+    import 'mescroll.js/mescroll.min.css'
     import wHead from '../windowHead/windowHead'
     import $ from 'jquery'
+    import {Request} from '@/common/js/api.js'
+    import {common} from '@/common/js/common.js'
     export default {
-    name: 'statement',
-    components:{
-        wHead
-    },
-    data() {
-      return {
-        titleJson:{
-            title: '',
-            toolBol: false,
-            toolTitle: '',
-            hasRed: false
+        name: 'statement',
+        components:{
+            wHead,
         },
-        choseItem: '',
-        sortList:[
-            {title: '最热发言', id: 1, chosen: false},
-            {title: '最新发言', id: 2, chosen: false},
-            {title: '最近回复', id: 3, chosen: false}
-        ],
-        clickKind: ''
-      }
-    },
-    methods:{
-        // 打开举报遮罩（有可能是举报有可能是删除）
-        complaint(e,id){
-            this.clickKind = 'list-tip';
-            this.pop_position(e.target,'.pop .list-tip',true);
-            this.choseItem = id;
+        data() {
+            return {
+                titleJson:{
+                    title: '',
+                    toolBol: false,
+                    toolTitle: '',
+                    hasRed: false
+                },                                                  //标题栏数据
+                choseItem: {},                                      
+                sortList:[
+                    {title: '最热发言', id: 1, chosen: true},
+                    {title: '最新发言', id: 2, chosen: false},
+                    {title: '最近回复', id: 3, chosen: false}
+                ],                                                  //排序数据
+                clickKind: '',                                      //当前操作的发言类型：list-tip-del(删除)、list-tip-complaint(举报)
+                comment: '',                                        //评论内容
+                commentLen: 0,                                      //评论内容长度
+                list:[],                                            //列表数据
+                mescroll: null,                                     //滚动区域
+                mescrollObj: null,                                  //滚动对象
+                totalNum: 0,                                        //列表数据总数                                    
+                sortChosenItem: {id: 1, title: '最热发言'},         //当前选中的排序
+                orderBy: 1,                                        //排序
+                operaItem: {},                                     //当前操作的数据
+                discussId: 0                                       //当前发言id
+            }
         },
-        // 选中举报
-        complaint_item(){
-            $('.pop .pop-content').slideUp(200);
-            $('.pop').fadeOut(200);
+        methods:{
+            // 打开举报遮罩（有可能是举报有可能是删除）
+            complaint(e,id,i){
+                if (i.isSelf) {
+                    this.clickKind = 'list-tip-del';
+                    this.pop_position(e.target,'.pop .list-tip-del',true);
+                } else {
+                    this.clickKind = 'list-tip-complaint';
+                    this.pop_position(e.target,'.pop .list-tip-complaint',true);
+                }
+                this.choseItem = i;
+            },
+            // 选中举报
+            complaint_item(){
+                
+                $('.pop .pop-content').slideUp(200);
+                $('.pop').fadeOut(200);
+            },
+            // 选中算出
+            delete_item(){
+                $('.pop .pop-content').slideUp(200);
+                $('.pop').fadeOut(200);
+            },
+            // 选中排序方式
+            chose_sort(i){
+                this.sortList.forEach(s => {
+                    s.chosen = s.id == i.id ? true : false;
+                })
+                this.sortChosenItem = i;
+                this.orderBy = this.sortChosenItem.id;
+                this.list = [];
+                this.mescrollObj.triggerDownScroll();
+                $('.pop .pop-content').slideUp(200);
+                $('.pop').fadeOut(200);
+            },
+            // 打开排序遮罩
+            show_sort(e){
+                this.clickKind = 'list-sort';
+                var ele = e.target.className == 'statement-sort'? e.target : e.target.querySelector('.statement-sort');
+                this.pop_position(ele,'.pop .list-sort',false);
+            },
+            // 定位黑色遮罩中的白框的位置
+            pop_position(ele,cName,bol){
+                $('.pop').fadeIn(200);
+                var yBody = window.screen.availHeight;
+                var x = ele.getBoundingClientRect().left - 79;
+                var y = ele.getBoundingClientRect().top + 24;
+                y = (bol && (y + 57)) > yBody ? y - 81 : y; 
+                document.querySelector(cName).style.top = y+'px';
+                document.querySelector(cName).style.left = x+'px';
+                $(cName).slideDown(200);
+            },
+            // 跳转至详情页
+            statement_details(id){
+                this.$router.push({
+                    path: '/detail', 
+                    query:{id: id}
+                });
+            },
+            // 跳转到app的评论页
+            link_to_app(){
+                common.link_to_app({
+                    "titleId": this.discussId,
+                    "methodName": "speak"
+                })
+            },
+            // 关闭评论弹框
+            close_comment(){
+                $('.pop-comment').fadeOut(200);
+            },
+            // 计算输入的字数
+            change_num(){
+                var num = this.comment.length;
+                if(num < 200) {
+                    this.commentLen = num++;
+                } else {
+                    this.comment = this.comment.substr(0,200);
+                    this.commentLen = this.comment.length;
+                }
+            },
+            //上拉回调
+            upCallback(page) {
+                var pageNum = page.num; 
+                var pageSize = page.size;
+                var _this = this;
+                this.getData(pageNum, pageSize, (data)=>{
+                    var curPageData = data['data']['dataList'];
+                    _this.totalNum = data['data']['totalNum'];
+                    _this.list = _this.list.concat(curPageData);
+                    _this.mescrollObj.endBySize(curPageData.length, _this.totalNum);
+                    this.$nextTick(() => {
+                        this.mescrollObj.endSuccess(curPageData.length)
+                    })
+                });
+            },
+            // 下拉刷新
+            downCallback() {
+                var _this = this;
+                this.getData(1, 10, (data)=>{
+                    var curPageData = data['data']['dataList'];
+                    _this.totalNum = data['data']['totalNum'];
+                    _this.list = curPageData;
+                    _this.$nextTick(() => {
+                        _this.mescrollObj.endSuccess()// 结束下拉刷新,无参
+                    })
+                });
+            },
+            // 获取数据
+            getData(pageNum, pageSize, callbackSuc, callbackErr, obj){
+                var _this = this;
+                new Request('app/forum/queryForumReplyList',{
+                    "titleId": _this.discussId,
+                    "pageSize":pageSize,
+                    "pageNum":pageNum,
+                    "orderBy": _this.orderBy
+                } , 'post' ,false,false, callbackSuc, function(err){
+                    console.log('这里是错误回调');
+                    console.log(err);
+                });
+            },
+            // 打开发言框
+            show_input(item){
+                this.operaItem = item;
+                $('.pop-comment').fadeIn(200);
+            },
+            // 发送回复
+            send_comment(){
+                var _this = this;
+                new Request('app/forum/userReplyForumInfo',{
+                    "titleId": this.operaItem.id,
+                    "replyContent":this.comment,
+                    "isOne":false,
+                } , 'post' ,'ios' ,'2.0.0', (data) => {
+                    _this.close_comment();
+                    _this.mescrollObj.triggerDownScroll();
+                    _this.comment = '';
+                }, (err) => {
+                    console.log('这里是错误回调');
+                    console.log(err);
+                });
+            },
+            // 点赞
+            give_a_like(item,index){
+                var _this = this;
+                new Request('app/forum/upReply',{
+                    "titleId": item.id,
+                    "isUp": !item.isUp,
+                } , 'post' ,false ,false, (data) => {
+                    _this.mescrollObj.triggerDownScroll();
+                }, (err) => {
+                    console.log('这里是错误回调');
+                    console.log(err);
+                });
+            }
         },
-        // 选中排序方式
-        chose_sort(i){
-            this.sortList.forEach(s => {
-                s.chosen = s.id == i.id ? true : false;
+        mounted () {
+            var _this = this;
+            this.titleJson['title'] = this.$route.query.title;
+            this.discussId = this.$route.query.id;
+            //创建MeScroll对象
+            this.mescrollObj = new MeScroll(this.$refs.mescroll, { //在mounted初始化mescroll,确保此处配置的ref有值
+                down:{
+                    auto: false, // 是否在初始化完毕之后自动执行下拉回调callback; 默认true
+                    callback: _this.downCallback
+                },
+                up: {
+                    callback: _this.upCallback,
+                    htmlNodata: '<p class="upwarp-nodata">-- END --</p>',
+                    noMoreSize: 3, //如果列表已无数据,可设置列表的总数量要大于5才显示无更多数据;避免列表数据过少(比如只有一条数据),显示无更多数据会不好看
+                    empty: {
+                        //列表第一页无任何数据时,显示的空提示布局; 需配置warpId才显示
+                        warpId: "list-box", //父布局的id (1.3.5版本支持传入dom元素)
+                        tip: "暂无数据~" //提示
+                    }
+                },
             })
-            $('.pop .pop-content').slideUp(200);
-            $('.pop').fadeOut(200);
-
         },
-        // 打开排序遮罩
-        show_sort(e){
-            this.clickKind = 'list-sort';
-            var ele = e.target.className == 'statement-sort'? e.target : e.target.querySelector('.statement-sort');
-            this.pop_position(ele,'.pop .list-sort',false);
-        },
-        // 定位黑色遮罩中的白框的位置
-        pop_position(ele,cName,bol){
-            $('.pop').fadeIn(200);
-            var yBody = window.screen.availHeight;
-            var x = ele.getBoundingClientRect().left - 79;
-            var y = ele.getBoundingClientRect().top + 24;
-            y = (bol && (y + 57)) > yBody ? y - 81 : y; 
-            document.querySelector(cName).style.top = y+'px';
-            document.querySelector(cName).style.left = x+'px';
-            $(cName).slideDown(200);
-        },
-        // 跳转至详情页
-        statement_details(id){
-            this.$router.push({
-                path: '/detail', 
-                query:{id: id}
-            });
-        },
-        show_input(){
-
-        },
-        // 跳转到app的评论页
-        link_to_app(){
-            alert('跳转到app');
+        beforeCreate(){
+            document.querySelector('body').style='background:#F7F7F7;';
         }
-    },
-    mounted () {
-        this.titleJson['title'] = this.$route.query.title;
-    },
-    beforeCreate(){
-        document.querySelector('body').style='background:#F7F7F7;';
     }
-  }
 </script>
 <style lang="less" scoped>
     @import '../../common/style/stateList.less';

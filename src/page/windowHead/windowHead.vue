@@ -41,8 +41,17 @@
               this.$router.push({path: url});
           },
           back_to(){
-              common.back()
+              this.$router.go(-1)
           }
+        },
+        beforeRouteEnter(to, from, next) {
+          console.log('------------------------')
+          console.log(to)
+          next(vm=>{          //  这里的vm指的就是vue实例，可以用来当做this使用
+          console.log('---------------');
+              console.log(to)
+              console.log(from)
+          })
         }
     }
 </script>

@@ -146,7 +146,6 @@ html,body{
                 }
                 .item-content{
                     margin-top:8px;
-                    height:40px;
                     font-size:14px;
                     font-family:PingFangSC-Regular;
                     font-weight:400;
@@ -173,46 +172,53 @@ html,body{
         }
     }
     .bottom{
-        padding: 8px 0 15px;
-        position: fixed;
-        bottom:0;
-        left:0;
-        width:100%;
-        border-top:1px solid #eee;
-        img{
-            width:20px;
+        .placeholder{
+            height:66px;
+            border-top:1px solid #eee;
+            background:#fff;
         }
-        .bottom-input{
-            padding:0 15px;
-            width:240px;
-            height:36px;
-            border-radius:19px;
-            box-sizing: content-box;
-            background:rgba(244,244,244,1);
+        .bottom-box{
+            padding: 8px 0 15px;
+            position: fixed;
+            bottom:0;
+            left:0;
+            width:100%;
+            background:#fff;
             img{
-                width:16px;
-            }
-            input{
-                margin-left:8px;
-                flex:1;
-                background:rgba(244,244,244,1);
-                font-size:15px;
-                font-family:PingFangSC-Regular;
-                font-weight:400;
-                color:rgba(193,193,193,1);
-            }
-        }
-        .bottom-up{
-            display:flex;
-            align-items: center;
-            justify-content: flex-end;
-            font-size:15px;
-            font-family:DINAlternate-Bold;
-            font-weight:bold;
-            color:rgba(126,133,145,1);
-            img{
-                margin-right:5px;
                 width:20px;
+            }
+            .bottom-input{
+                padding:0 15px;
+                width:240px;
+                height:36px;
+                border-radius:19px;
+                box-sizing: content-box;
+                background:rgba(244,244,244,1);
+                img{
+                    width:16px;
+                }
+                input{
+                    margin-left:8px;
+                    flex:1;
+                    background:rgba(244,244,244,1);
+                    font-size:15px;
+                    font-family:PingFangSC-Regular;
+                    font-weight:400;
+                    color:rgba(193,193,193,1);
+                }
+            }
+            .bottom-up{
+                display:flex;
+                align-items: center;
+                justify-content: flex-end;
+                font-size:15px;
+                font-family:DINAlternate-Bold;
+                font-weight:bold;
+                color:rgba(126,133,145,1);
+                img{
+                    margin-right:5px;
+                    width:20px;
+                }
             }
         }
     }

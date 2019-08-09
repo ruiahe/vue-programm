@@ -1,6 +1,5 @@
 <template>
     <div id="statement">
-        <headerTool ref='headerTool' :titleJson='titleJson'></headerTool>
         <div class="statement-tip">大家有任何建议都可以发送到这儿</div>
         <div class="statement">
             <div class="container space-between">

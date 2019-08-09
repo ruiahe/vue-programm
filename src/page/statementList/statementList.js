@@ -1,8 +1,6 @@
-import headerTool from '../headers/headerTool'
 export default {
     name: 'statement',
     components:{
-      headerTool
     },
     data() {
       return {
