@@ -137,7 +137,7 @@ img{
     评论 & 回复弹框
 */
 .pop-comment{
-    display:none;
+    // display:none;
     position: fixed;
     top:0;
     bottom:0;
@@ -196,6 +196,15 @@ img{
     color:rgba(123,195,161,1);
     line-height:22px;
 }
+.pop-comment .comment .comment-txt .textarea{
+    width:100%;
+    height:65px;
+    font-size:15px;
+    font-family:PingFangSC-Regular;
+    font-weight:400;
+    color:rgba(123,195,161,1);
+    line-height:22px;
+}
 .pop-comment .comment .comment-emoji{
     height:53px;
 }
@@ -232,3 +241,33 @@ img{
     flex:1;
 
 }
+
+
+
+.emotion {
+    margin: 0 auto;
+    margin-top: 20px;
+    width: 400px;
+  }
+  .text {
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    width: 400px;
+    resize: none;
+    box-sizing: border-box;
+    padding: 5px 10px;
+    border-radius: 8px;
+  }
+  .text-place {
+    height: 80px;
+    box-sizing: border-box;
+    padding: 5px 10px;
+    border-radius: 8px;
+    background: #ddd5d5;
+  }
+  .text-place p {
+    display: flex;
+    align-items: center;
+    margin: 0;
+  }
