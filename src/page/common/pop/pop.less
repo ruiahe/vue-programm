@@ -1,0 +1,69 @@
+/*
+    黑影遮罩
+*/
+#pop{
+    display:none;
+    position: fixed;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    background-color:rgba(0,0,0,0.6);
+    z-index:100;
+    .list-tip{
+        display: none;
+        position:absolute;
+        top:0;
+        right:0;
+        z-index:100;
+        .center-vh{
+            width:103px;
+            height:57px;
+            font-size:16px;
+            font-family:PingFangSC-Regular;
+            font-weight:400;
+            color:rgba(76,76,76,1);
+            background:#fff;
+            border-radius:4px;
+            span{
+                margin-right:13px;
+                display:inline-block;
+                width:12px;
+                height:12px;
+            }
+        }
+    }
+    .list-sort{
+        display: none;
+        position:absolute;
+        top:0;
+        right:0;
+        z-index:100;
+        width:149px;
+        border-radius:8px;
+        overflow:hidden;
+        li{
+            font-size:15px;
+            font-family:PingFangSC-Regular;
+            font-weight:400;
+            color:rgba(155,155,155,1);
+        
+            width:100%;
+            height:51px;
+            background-color:#fff;
+            border-bottom:1px solid #eee;
+        }
+        li:last-child{
+            border:none;
+        }
+        .chosen{
+            color:rgba(123,195,161,1);
+        }
+    }
+    .unshow{
+        display:none;
+    }
+}
+#pop.show{
+    display:block;
+}
