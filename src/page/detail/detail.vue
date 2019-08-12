@@ -1,6 +1,6 @@
 <template>
     <div id="detail" v-cloak>
-        <wHead :titleJson='titleJson'></wHead>
+        <wHead :titleJson='titleJson' @emitClick='complaint'></wHead>
         <div class="detail">
             <div class="detail-top space-between container">
                 <div class="detail-img">
@@ -38,16 +38,18 @@
                         <div class="item-info-right  center-vh">
                             <img class='' src="../../assets/statement/discuss.png" alt="" @click.stop="show_input(item, false)">
                             {{item.replyCount}}
-                            <img class='up' src="../../assets/statement/upGray.png" alt="" v-if='false'>
-                            <img class='up' src="../../assets/statement/upGreen.png" alt="" v-if='true'>
-                            <span :class='{"like": true}'>{{item.upCount}}</span>
+                            <span class='center-v' @click.stop='give_up(item)'>
+                                <img class='up' src="../../assets/statement/upGray.png" alt="" v-if='!item.isUp'>
+                                <img class='up' src="../../assets/statement/upGreen.png" alt="" v-if='item.isUp'>
+                                <span :class='{"like": item.isUp}'>{{item.upCount}}</span>
+                            </span>
                         </div>
                     </div>
                     <div class="item-content">
                         {{item.replyContent}}
                     </div>
                     <div class="item-gray" v-if="item.replyModelDataList.length > 0">
-                        <div class="gray-list" v-for="(it, ind) in item.replyModelDataList" :key='ind'><span>{{it.responser}}</span>回复<span>{{it.replyer}}</span>：{{it.content}}</div>
+                        <div class="gray-list" v-for="(it, ind) in item.replyModelDataList" :key='ind' @click.stop="is_self(it, false)"><span>{{it.replyer}}</span>回复<span>{{it.responser}}</span>：{{it.content}}</div>
                     </div>
                 </div>
             </div>
@@ -59,58 +61,38 @@
                         <img src="../../assets/statement/phone.png" alt="">
                         <input type="text" placeholder="评论点什么" readonly @click.stop='show_input(detailId, true)'>
                     </span>
-                    <span class='bottom-up'>
-                        <img src="../../assets/statement/upGray.png" alt="">
-                        <span class="bottom-up-txt">65</span>
+                    <span class='bottom-up' @click.stop='give_up(makeStatement["id"], makeStatement["isUp"], true)'>
+                        <img src="../../assets/statement/upGray.png" alt="" v-if='!makeStatement["isUp"]'>
+                        <img src="../../assets/statement/upGreen.png" alt="" v-if='makeStatement["isUp"]'>
+                        <span class="bottom-up-txt">{{makeStatement['upCount']}}</span>
                     </span>
                 </div>
             </div>
             <div class="placeholder"></div>
         </div>
         <!-- 阴影加弹框  （评论弹框） -->
-        <div class="pop-comment" @touchmove.prevent>
-            <div class="comment">
-                <div class="comment-top">
-                    <div class="container space-between">
-                        <span class='comment-close' @click="close_comment()">X</span>
-                        <span class="comment-title">评论</span>
-                        <span class="comment-btn center-vh" @click.stop="send_comment()">发送</span>
-                    </div>
-                </div>
-                <div class="comment-txt container">
-                    <textarea name="" placeholder="评论点什么..." type='search' @input='change_num()' v-model='comment'></textarea>
-                </div>
-                <div class="comment-emoji container space-between">
-                    <span class='emoji'></span>
-                    <span class='emoji-txt'>{{commentLen}}/200</span>
-                </div>
-            </div>
-        </div>
+        <popCommit :operaId='operaId' :commitUrl='commitUrl' @refresh='getData'></popCommit>
         <!-- 强提示弹框 -->
-        <div class="strong-tip">
-            <div class="strong-box center-vh">
-                <div class="strong-con">
-                    <div class="strong-top center-vh">
-                        <span>是否删除您的回复</span>
-                    </div>
-                    <div class="strong-btn space-between">
-                        <span>取消</span>
-                        <span>确认</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <strongTip :showStronTip = 'showStrongTip' :deleteUrl='deleteUrl' :chosenItem = 'chosenItem' @delete_suc='getData'></strongTip>
+        <!-- 阴影加弹框 （举报&删除&排序） -->
+        <pop :clickKind = 'clickKind' :chosenItem = 'chosenItem' :deleteUrl='deleteUrl' :compaintUrl='compaintUrl' @delete_current='delete_current'></pop>
     </div>
 </template>
 <script>
-    import $ from 'jquery'
-    import {Request} from '@/common/js/api.js'
-    import wHead from '../windowHead/windowHead'
+    import $ from 'jquery';
+    import {Request} from '@/common/js/api.js';
+    import wHead from '../windowHead/windowHead';
     import { common } from '../../common/js/common';
+    import strongTip from '@/page/common/strongTip/strongTip';
+    import pop from '@/page/common/pop/pop'
+    import popCommit from '@/page/common/popComment/popComment'
     export default {
         name: 'detail',
         components:{
-            wHead
+            wHead,
+            strongTip,
+            pop,
+            popCommit
         },
         data() {
             return {
@@ -118,18 +100,27 @@
                 titleJson:{
                     title: '发言详情',
                     toolBol: true,
-                    toolTitle: '· · ·',
+                    toolTitle: '···',
                     hasRed: false,
                 },
                 makeStatement: {},
-                comment: '',                                        //评论内容
+                commentText: '',                                        //评论内容
                 commentLen: 0,
-                operaId: {}
+                clickKind: '',
+                isSelf: false,
+                operaId: {},
+                chosenItem: null,
+                showStrongTip: false,
+                deleteUrl: 'app/forum/deleteForumReplyInfo',
+                compaintUrl: 'app/forum/reportForumReplyInfo',
+                commitUrl: 'app/forum/userReplyForumInfo',
+                x: 0,                                                   //当前操作项div的水平位置
+                y: 0,                                                   //当前操作项div的垂直位置
             }
         },
         mounted () {
             this.detailId = this.$route.query.id;
-            this.getDate();
+            this.getData();
         },
         methods:{
             interactive(){
@@ -139,61 +130,72 @@
                 }
                 window.webkit.messageHandlers.linkTo.postMessage(json);
             },
-            change_type(jsonStr){
-                return common.change_type(jsonStr);
+            // 打开发言框
+            show_input(item, bol){
+                this.operaId = bol ? item : item.id;
+                popCommit.methods.show_input();
             },
-            // 关闭评论弹框
-            close_comment(){
-                $('.pop-comment').fadeOut(200);
+            // 获取数据
+            getData(){
+                new Request('app/forum/queryForumReplyInfo',{
+                    "titleId":this.detailId,
+                }, 'post' ,false,false, (data) => {
+                    this.makeStatement = data['data'];
+                    this.isSelf = this.makeStatement['isSelf'];
+                }, function(err){
+                    console.log('这里是错误回调');
+                    console.log(err);
+                });
             },
-            // 发送回复
-            send_comment(){
+            // 判断是打开评论弹框还是删除并执行对应方法
+            is_self(item,bol){
+                this.chosenItem = item;
+                if(!item.isSelf){
+                    this.show_input(item, bol);
+                } else {
+                    this.show_opera();
+                }
+            },
+            // 展示删除强提示框
+            show_opera(){
+                strongTip['methods'].show_opera();
+            },
+            // 点赞和取消点赞
+            give_up(item, isUp, bol){
                 var _this = this;
-                new Request('app/forum/userReplyForumInfo',{
-                    "titleId": this.operaId,
-                    "replyContent":this.comment,
-                    "isOne":false,
-                } , 'post' ,'ios' ,'2.0.0', (data) => {
-                    _this.close_comment();
-                    _this.comment = '';
-                    _this.getDate();
+                var id = bol ? item : item.id;
+                var isUp = bol ? isUp : item.isUp;
+                new Request('app/forum/upReply',{
+                    "titleId": id,
+                    "isUp": !isUp,
+                } , 'post' ,false ,false, (data) => {
+                    _this.getData();
                 }, (err) => {
                     console.log('这里是错误回调');
                     console.log(err);
                 });
             },
-            // 计算输入的字数
-            change_num(){
-                var num = this.comment.length;
-                if(num < 200) {
-                    this.commentLen = num++;
+            // 打开举报遮罩（有可能是举报有可能是删除）
+            complaint(e){
+                this.chosenItem = {'id': this.detailId};
+                this.x = e.target.getBoundingClientRect().left - 79;
+                this.y = e.target.getBoundingClientRect().top + 24;
+                if (this.isSelf) {
+                    this.clickKind = 'list-tip-del';
+                    pop.methods.pop_position(this.x, this.y, '#pop .list-tip-del',true);
                 } else {
-                    this.comment = this.comment.substr(0,200);
-                    this.commentLen = this.comment.length;
+                    this.clickKind = 'list-tip-complaint';
+                    pop.methods.pop_position(this.x, this.y, '#pop .list-tip-complaint',true);
                 }
             },
-            // 打开发言框
-            show_input(item, bol){
-                this.operaId = bol ? item : item.id;
-                $('.pop-comment').fadeIn(200);
-            },
-            // 获取数据
-            getDate(){
-                new Request('app/forum/queryForumReplyInfo',{
-                    "titleId":this.detailId,
-                }, 'post' ,false,false, (data) => {
-                    console.log(data);
-                    this.makeStatement = data['data'];
-                    // console.log(this.makeStatement)
-                }, function(err){
-                    console.log('这里是错误回调');
-                    console.log(err);
-                });
+            // 删除当前数据
+            delete_current(){
+                alert('删除了当前数据~该干啥？返回上一页？');
             }
         },
         beforeCreate(){
             document.querySelector('body').style='background:#fff;';
-        },
+        }
     }
 </script>
 <style lang="less" scoped>

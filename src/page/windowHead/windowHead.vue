@@ -14,8 +14,11 @@
               <img src="../../assets/header/arrow.png" alt="">
           </div>
           <div class="title">{{titleJson['title']}}</div>
-          <span class="tool" :class="{'hasRed': titleJson['hasRed'], 'newFont': titleJson['toolTitle']=='···'}">
-            <span v-if='titleJson["toolBol"]' v-on:click='link_to(titleJson["url"])'>{{titleJson['toolTitle']}}</span>
+          <span class="tool" :class="{'hasRed': titleJson['hasRed']}">
+            <span v-if='titleJson["toolBol"] && titleJson["toolTitle"]!="···"' v-on:click='link_to(titleJson["url"])'>{{titleJson['toolTitle']}}</span>
+            <span v-if='titleJson["toolBol"] && titleJson["toolTitle"]=="···"' class='center-vh' @click.stop="emit_parent($event)">
+              <img src="../../assets/statement/ellipsis.png" alt="">
+            </span>
           </span>
         </div>
       </div>
@@ -41,17 +44,11 @@
               this.$router.push({path: url});
           },
           back_to(){
-              this.$router.go(-1)
+              this.$router.go(-1);
+          },
+          emit_parent(e){
+              this.$emit('emitClick',e);
           }
-        },
-        beforeRouteEnter(to, from, next) {
-          console.log('------------------------')
-          console.log(to)
-          next(vm=>{          //  这里的vm指的就是vue实例，可以用来当做this使用
-          console.log('---------------');
-              console.log(to)
-              console.log(from)
-          })
         }
     }
 </script>

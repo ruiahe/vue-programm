@@ -10,6 +10,8 @@ import $ from 'jquery'
     headers: 请求头
 */
 var token = common.token;
+var test = window.localStorage.getItem('jsonInfo');
+// alert(JSON.stringify(test));
 export function Request(url, params, method, deviceName, appVersion, sucCal, errCal){
     var data = method == 'post' ? JSON.stringify(params) : params;
     var headerJson = {};
@@ -33,17 +35,17 @@ export function Request(url, params, method, deviceName, appVersion, sucCal, err
                 if(data['code'] == 0) {
                     sucCal(data);
                 }else{
-                    alert('服务器繁忙，请稍后再试1！')
+                    console.log('服务器繁忙，请稍后再试1！')
                 }
             },
             error(err){
-                alert('服务器繁忙，请稍后再试2！')
+                console.log('服务器繁忙，请稍后再试2！')
                 console.log(err)
                 errCal(err);
             }
         })
     } catch (err){
-        alert('服务器繁忙，请稍后再试3！')
+        console.log('服务器繁忙，请稍后再试3！')
         console.log(err);
     }
     

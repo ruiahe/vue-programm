@@ -13,13 +13,12 @@
     <div id="app"></div>
   </body>
   <script>
-    var jsonInfoObj = {};
-    window.webkit.messageHandlers.getInfo.postMessage(null);
-    function getJson(json){
-        alert('开始传入');
-        jsonInfoObj = json;
-        alert(JSON.stringify(jsonInfoObj));
-    }
+    // function getJson(){
+    //     alert('开始传入拉');
+    //     common.jsonInfoObj = json;
+    //     window.localStorage.setItem('jsonInfo', json);
+    //     alert(JSON.stringify(common.jsonInfoObj));
+    // }
+    // window.webkit.messageHandlers.getInfo.postMessage(null);
   </script>
-  <script src='../src/common/common.js'></script>
 </html>

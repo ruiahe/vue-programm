@@ -61,40 +61,9 @@
         </div>
         <div class="input-placehold"></div>
         <!-- 阴影加弹框 （举报&删除&排序） -->
-        <div class="pop" @touchmove.prevent>
-            <div class="pop-content list-tip list-tip-complaint" v-on:click='complaint_item()' :class='{"unshow": clickKind != "list-tip-complaint"}'>
-                <div class="center-vh">
-                    <span></span>举报
-                </div>
-            </div>
-            <div class="pop-content list-tip list-tip-del" v-on:click='delete_item()' :class='{"unshow": clickKind != "list-tip-del"}'>
-                <div class="center-vh">
-                    <span></span>删除
-                </div>
-            </div>
-            <ul class="pop-content list-sort" :class='{"unshow": clickKind != "list-sort"}'>
-                <li class='center-vh' v-for='(i,index) in sortList' :key = 'index' :class="{'chosen': i.chosen}" v-on:click='chose_sort(i)'>{{i.title}}</li>
-            </ul>
-        </div>
+        <pop :sortChosenItem='sortChosenItem' :clickKind='clickKind' :chosenItem = 'choseItem' :deleteUrl='deleteUrl' :compaintUrl='compaintUrl' @delete_current='delete_current' @change_sort='change_sort'></pop>
         <!-- 阴影加弹框  （评论弹框） -->
-        <div class="pop-comment" @touchmove.prevent>
-            <div class="comment">
-                <div class="comment-top">
-                    <div class="container space-between">
-                        <span class='comment-close' @click="close_comment()">X</span>
-                        <span class="comment-title">评论</span>
-                        <span class="comment-btn center-vh" @click.stop="send_comment()">发送</span>
-                    </div>
-                </div>
-                <div class="comment-txt container">
-                    <textarea name="" placeholder="评论点什么..." type='search' @input='change_num()' v-model='comment'></textarea>
-                </div>
-                <div class="comment-emoji container space-between">
-                    <span class='emoji'></span>
-                    <span class='emoji-txt'>{{commentLen}}/200</span>
-                </div>
-            </div>
-        </div>
+        <popCommit :operaId='operaId' :commitUrl='commitUrl' @refresh='delete_current'></popCommit>
     </div>
 </template>
 <script>
@@ -104,10 +73,14 @@
     import $ from 'jquery'
     import {Request} from '@/common/js/api.js'
     import {common} from '@/common/js/common.js'
+    import pop from '@/page/common/pop/pop'
+    import popCommit from '@/page/common/popComment/popComment'
     export default {
         name: 'statement',
         components:{
             wHead,
+            pop,
+            popCommit
         },
         data() {
             return {
@@ -118,75 +91,41 @@
                     hasRed: false
                 },                                                  //标题栏数据
                 choseItem: {},                                      
-                sortList:[
-                    {title: '最热发言', id: 1, chosen: true},
-                    {title: '最新发言', id: 2, chosen: false},
-                    {title: '最近回复', id: 3, chosen: false}
-                ],                                                  //排序数据
                 clickKind: '',                                      //当前操作的发言类型：list-tip-del(删除)、list-tip-complaint(举报)
-                comment: '',                                        //评论内容
-                commentLen: 0,                                      //评论内容长度
                 list:[],                                            //列表数据
                 mescroll: null,                                     //滚动区域
                 mescrollObj: null,                                  //滚动对象
                 totalNum: 0,                                        //列表数据总数                                    
                 sortChosenItem: {id: 1, title: '最热发言'},         //当前选中的排序
                 orderBy: 1,                                        //排序
-                operaItem: {},                                     //当前操作的数据
-                discussId: 0                                       //当前发言id
+                discussId: 0,                                       //当前发言id
+                deleteUrl: 'app/forum/deleteForumReplyInfo',
+                compaintUrl: 'app/forum/reportForumReplyInfo',
+                commitUrl: 'app/forum/userReplyForumInfo',
+                operaId: 0
             }
         },
         methods:{
             // 打开举报遮罩（有可能是举报有可能是删除）
             complaint(e,id,i){
+                var x = e.target.getBoundingClientRect().left - 79;
+                var y = e.target.getBoundingClientRect().top + 24;
                 if (i.isSelf) {
                     this.clickKind = 'list-tip-del';
-                    this.pop_position(e.target,'.pop .list-tip-del',true);
+                    pop.methods.pop_position(x, y, '#pop .list-tip-del',true);
                 } else {
                     this.clickKind = 'list-tip-complaint';
-                    this.pop_position(e.target,'.pop .list-tip-complaint',true);
+                    pop.methods.pop_position(x, y, '#pop .list-tip-complaint',true);
                 }
                 this.choseItem = i;
-            },
-            // 选中举报
-            complaint_item(){
-                
-                $('.pop .pop-content').slideUp(200);
-                $('.pop').fadeOut(200);
-            },
-            // 选中算出
-            delete_item(){
-                $('.pop .pop-content').slideUp(200);
-                $('.pop').fadeOut(200);
-            },
-            // 选中排序方式
-            chose_sort(i){
-                this.sortList.forEach(s => {
-                    s.chosen = s.id == i.id ? true : false;
-                })
-                this.sortChosenItem = i;
-                this.orderBy = this.sortChosenItem.id;
-                this.list = [];
-                this.mescrollObj.triggerDownScroll();
-                $('.pop .pop-content').slideUp(200);
-                $('.pop').fadeOut(200);
             },
             // 打开排序遮罩
             show_sort(e){
                 this.clickKind = 'list-sort';
                 var ele = e.target.className == 'statement-sort'? e.target : e.target.querySelector('.statement-sort');
-                this.pop_position(ele,'.pop .list-sort',false);
-            },
-            // 定位黑色遮罩中的白框的位置
-            pop_position(ele,cName,bol){
-                $('.pop').fadeIn(200);
-                var yBody = window.screen.availHeight;
                 var x = ele.getBoundingClientRect().left - 79;
                 var y = ele.getBoundingClientRect().top + 24;
-                y = (bol && (y + 57)) > yBody ? y - 81 : y; 
-                document.querySelector(cName).style.top = y+'px';
-                document.querySelector(cName).style.left = x+'px';
-                $(cName).slideDown(200);
+                pop.methods.pop_position(x, y, '#pop .list-sort',false);
             },
             // 跳转至详情页
             statement_details(id){
@@ -201,20 +140,6 @@
                     "titleId": this.discussId,
                     "methodName": "speak"
                 })
-            },
-            // 关闭评论弹框
-            close_comment(){
-                $('.pop-comment').fadeOut(200);
-            },
-            // 计算输入的字数
-            change_num(){
-                var num = this.comment.length;
-                if(num < 200) {
-                    this.commentLen = num++;
-                } else {
-                    this.comment = this.comment.substr(0,200);
-                    this.commentLen = this.comment.length;
-                }
             },
             //上拉回调
             upCallback(page) {
@@ -258,24 +183,8 @@
             },
             // 打开发言框
             show_input(item){
-                this.operaItem = item;
-                $('.pop-comment').fadeIn(200);
-            },
-            // 发送回复
-            send_comment(){
-                var _this = this;
-                new Request('app/forum/userReplyForumInfo',{
-                    "titleId": this.operaItem.id,
-                    "replyContent":this.comment,
-                    "isOne":false,
-                } , 'post' ,'ios' ,'2.0.0', (data) => {
-                    _this.close_comment();
-                    _this.mescrollObj.triggerDownScroll();
-                    _this.comment = '';
-                }, (err) => {
-                    console.log('这里是错误回调');
-                    console.log(err);
-                });
+                this.operaId = item.id;
+                popCommit.methods.show_input();
             },
             // 点赞
             give_a_like(item,index){
@@ -289,6 +198,18 @@
                     console.log('这里是错误回调');
                     console.log(err);
                 });
+            },
+            // 删除数据后
+            delete_current(){
+                this.list = [];
+                this.mescrollObj.resetUpScroll(true);
+            },
+            // 排序后
+            change_sort(i){
+                this.sortChosenItem = i;
+                this.orderBy = this.sortChosenItem.id;
+                this.list = [];
+                this.mescrollObj.triggerDownScroll();
             }
         },
         mounted () {

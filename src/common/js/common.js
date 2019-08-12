@@ -1,6 +1,6 @@
 import config from '../json/config.json'
 export const common = {
-    token: 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIyNzQiLCJpYXQiOjE1NjUzMzA4MDksInN1YiI6IjI3NCIsImlzcyI6InRhbmtlIiwiZXhwIjoxNTY3OTIyODA5fQ.WwmLyxKttyAf9hw8biLnQkR0R1e9CQm9TB89fWvZ-p4',
+    token: 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIzMjgiLCJpYXQiOjE1NjU1NzI5NDUsInN1YiI6IjMyOCIsImlzcyI6InRhbmtlIiwiZXhwIjoxNTY4MTY0OTQ1fQ.Tq8hT90IxcTSs4mGRMQD-snPvEgPsSpa2vHeK1t5B_A ',
     domain: getDomain(),
     back: function(){
         // alert(document.referrer);
@@ -26,9 +26,7 @@ export const common = {
     // 转换json字符串
     change_type(jsonStr){
         return JSON.parse(jsonStr);
-    },
-    // 设备信息
-    jsonInfo: {}
+    }
 }
 // domain: beta => 测试；local => 本地； 
 function getDomain(){
