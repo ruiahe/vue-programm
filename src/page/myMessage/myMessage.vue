@@ -81,7 +81,7 @@
                                     <span>{{repItem['reply']['nickname']}}</span>
                                 </div>
                                 <div class="reply-con" v-if="repItem['reply']">
-                                    {{repItem['commentContent']}}
+                                    {{repItem['reply']['replyContent']}}
                                 </div>
                                 <div class="repl" v-if='!repItem["reply"]'>
                                     该评论已删除
