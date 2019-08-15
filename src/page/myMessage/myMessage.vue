@@ -1,7 +1,7 @@
 <template>
     <div id="message">
         <wHead :titleJson='titleJson'></wHead>
-        <div class="tab-box">
+        <div class="tab-box" @touchmove.prevent>
             <ul class="tab">
                 <li class='center-vh' v-for="(item, index) in tabList" :key='index' :class="{'chosen': item.chosen}" v-on:click='chosen_li(item)'>
                     <span class="li-txt">
@@ -18,8 +18,7 @@
                 <div class="release" v-if='chosen_tab.id == 0'>
                     <div class="state" v-for='(relItem, relInd) in releaseList' :key='relInd'>
                         <div class="state-top container space-between">
-                            <div class="state-tx">
-                                <img :src="relItem['uimg']" alt="">
+                            <div class="state-tx" :imgurl="relItem['uimg']" style="background-image: url('../../assets/load.jpg');">
                             </div>
                             <div class="state-inf center-v">
                                 <span class="state-name">{{relItem['nickname']}}</span>
@@ -36,14 +35,14 @@
                                 {{relItem['replyContent']}}
                             </div>
                             <div class="middle-img-list" v-if='relItem["replyImg"]'>
-                                <div class="middle-img" v-for='(imgItem, imgInd) in relItem["replyImg"]' :key='imgInd'> 
-                                    <img :src="imgItem.img" alt=""> 
+                                <div class="middle-img" v-for='(imgItem, imgInd) in relItem["replyImg"]' :key='imgInd' :imgurl="imgItem.img" style="background-image: url('../../assets/load.jpg');"> 
+                                    <!-- <img :src="imgItem.img" alt="">  -->
                                 </div>
                             </div>
                         </div>
                         <div class="state-bottom container space-between">
                             <div class="state-operate center-v" @click.stop='give_a_like(relItem, relInd)'>
-                                <img src="../../assets/statement/discuss.png" alt="" @click.stop='show_input(relItem)'>
+                                <img src="../../assets/statement/discuss.png" alt="" @click.stop='show_input(relItem,relInd)'>
                                 {{relItem['replyCount']}}
                                 <img class='up' src="../../assets/statement/upGray.png" alt="" v-if='!relItem["isUp"]'>
                                 <img class='up' src="../../assets/statement/upGreen.png" alt="" v-if='relItem["isUp"]'>
@@ -73,22 +72,25 @@
                             </div>
                         </div>
                         <div class="state-middle">
-                            <div class="middle-txt container" @click.stop='show_input(repItem)'>
-                                回复<span>{{repItem['reply']['nickname']}}</span>：{{repItem['commentContent']}}
+                            <div class="middle-txt container" @click.stop='show_input(repItem,repInd)'>
+                                回复<span>我</span>：{{repItem['replyContent']}}//<span>我</span> 回复 <span>{{repItem['commentWho']}}</span>
                             </div>
                             <div class="middle-reply container">
-                                <div class="reply-img center-v">
+                                <div class="reply-img center-v" v-if="repItem['reply']">
                                     <img :src="repItem['reply']['uimg']" alt="">
                                     <span>{{repItem['reply']['nickname']}}</span>
                                 </div>
-                                <div class="reply-con">
-                                    {{repItem['reply']['replyContent']}}
+                                <div class="reply-con" v-if="repItem['reply']">
+                                    {{repItem['commentContent']}}
+                                </div>
+                                <div class="repl" v-if='!repItem["reply"]'>
+                                    该评论已删除
                                 </div>
                             </div>
                         </div>
                         <div class="state-bottom container space-between">
                             <div class="state-operate center-v">
-                                <span class="state-reply">回复</span>
+                                <span class="state-reply" @click.stop='show_input(repItem,repInd)'>回复</span>
                                 <span class="center-v" @click.stop='give_a_like(repItem, repInd)'>
                                     <img class='up' src="../../assets/statement/upGray.png" alt="" v-if="!repItem['isUp']">
                                     <img class='up' src="../../assets/statement/upGreen.png" alt="" v-if="repItem['isUp']">
@@ -126,13 +128,14 @@
                                 赞了我的评论
                             </div>
                             <div class="middle-reply container">
-                                <div class="reply-img center-v">
-                                    <img :src="upItem['reply']['uimg']" alt="">
+                                <div class="reply-img center-v" v-if='upItem["reply"]'>
+                                    <img :imgurl="upItem['reply']['uimg']" src='../../assets/load.jpg' alt="">
                                     <span>{{upItem['reply']['nickname']}}</span>
                                 </div>
-                                <div class="reply-con">
+                                <div class="reply-con" v-if='upItem["reply"]'>
                                     {{upItem['reply']['replyContent']}}
                                 </div>
+                                <div class="reply-con" v-if='!upItem["reply"]'>该评论已删除</div>
                             </div>
                         </div>
                         <div class="state-bottom container space-between">
@@ -145,7 +148,9 @@
         <!-- 阴影加弹框 （举报&删除&排序） -->
         <pop :clickKind='clickKind' :chosenItem = 'choseItem' :deleteUrl='deleteUrl' @delete_current='delete_current'></pop>
         <!-- 阴影加弹框  （评论弹框） -->
-        <popCommit :operaId='operaId' :commitUrl='commitUrl' @refresh='delete_current'></popCommit>
+        <popCommit :operaId='operaId' :commitUrl='commitUrl' @refresh='commit_current'></popCommit>
+        <!-- 弱提示 -->
+        <span class="weakTip"></span>
     </div>
 </template>
 <script>
@@ -156,6 +161,7 @@
     import {Request} from '@/common/js/api.js'
     import popCommit from '@/page/common/popComment/popComment'
     import pop from '@/page/common/pop/pop'
+    import { common } from '../../common/js/common';
     export default {
     name: 'message',
     components:{
@@ -185,20 +191,14 @@
             deleteUrl: 'app/forum/deleteForumReplyInfo',
             compaintUrl: 'app/forum/reportForumReplyInfo',
             commitUrl: 'app/forum/userReplyForumInfo',
-            choseItem: null
+            choseItem: null,
+            clickKind: 'list-tip-del',
+            index: 0
         }
     },
     mounted () {
         var _this = this;
-        new Request('app/forum/statisticsReplyInfo',{} , 'post' ,false,false, (data) => {
-            _this.$nextTick(()=> {
-                _this.tabList[1]['num'] = data['data']['replyCount'];
-                _this.tabList[2]['num'] = data['data']['upCount'];
-            })
-        }, (err) => {
-            console.log('这里是错误回调');
-            console.log(err);
-        });
+        this.get_message_num();
         //创建MeScroll对象
         this.mescrollObj = new MeScroll(this.$refs.mescroll, { //在mounted初始化mescroll,确保此处配置的ref有值
             down:{
@@ -211,8 +211,11 @@
                 noMoreSize: 3, //如果列表已无数据,可设置列表的总数量要大于5才显示无更多数据;避免列表数据过少(比如只有一条数据),显示无更多数据会不好看
                 empty: {
                     //列表第一页无任何数据时,显示的空提示布局; 需配置warpId才显示
-                    warpId: "list-box", //父布局的id (1.3.5版本支持传入dom元素)
+                    warpId: "mescrollList", //父布局的id (1.3.5版本支持传入dom元素)
                     tip: "暂无数据~" //提示
+                },
+                lazyLoad: {
+                    use: true, // 是否开启懒加载,默认false
                 }
             },
         })
@@ -248,8 +251,7 @@
                 'pageSize': size,
                 'pageNum': num
             }, 'post' ,false,false, sucCal, (err) => {
-                console.log('这里是错误回调');
-                console.log(err);
+                common.show_weakTip('服务器正忙，请稍后再试');
             });
         },
         // 下拉刷新
@@ -259,8 +261,8 @@
                 var curPageData = data['data']['dataList'];
                 _this.totalNum = data['data']['totalNum'];
                 _this.list = curPageData;
-                _this.mescrollObj.resetUpScroll( true );
                 _this.$nextTick(() => {
+                    _this.get_message_num();
                     _this.mescrollObj.endSuccess();// 结束下拉刷新,无参
                 })
             });
@@ -285,13 +287,15 @@
                         break;
                 }
                 _this.$nextTick(() => {
-                    _this.mescrollObj.endSuccess(curPageData.length)
+                    _this.mescrollObj.endSuccess(curPageData.length);
+                    _this.get_message_num();
                 })
             });
         },
         // 打开评论
-        show_input(item){
+        show_input(item,index){
             this.operaId = item.id;
+            this.index = index;
             popCommit.methods.show_input();
         },
         // 发送评论后刷新
@@ -316,20 +320,55 @@
                 "titleId": item.id,
                 "isUp": !item.isUp,
             } , 'post' ,false ,false, (data) => {
-                _this.delete_current();
+                switch(_this.chosen_tab.id) {
+                    case 0:
+                        _this.$nextTick(()=>{
+                            _this.releaseList[index]['isUp'] = !item.isUp;
+                            _this.releaseList[index]['upCount'] = data['data']['upCount'];
+                        });
+                        break;
+                    case 1: 
+                        _this.$nextTick(()=>{
+                            _this.replymeList[index]['isUp'] = !item.isUp;
+                            _this.replymeList[index]['upCount'] = data['data']['upCount'];
+                        });
+                        break;
+                }
+
             }, (err) => {
-                console.log('这里是错误回调');
-                console.log(err);
+                common.show_weakTip('服务器正忙，请稍后再试');
             });
         },
         // 打开举报遮罩（有可能是举报有可能是删除）
         complaint(e,id,i){
             var x = e.target.getBoundingClientRect().left - 79;
             var y = e.target.getBoundingClientRect().top + 24;
-            this.clickKind = 'list-tip-del';
             pop.methods.pop_position(x, y, '#pop .list-tip-del',true);
             this.choseItem = i;
         },
+        // 获取消息的数量
+        get_message_num(){
+            var _this = this;
+            new Request('app/forum/statisticsReplyInfo',{} , 'post' ,false,false, (data) => {
+                _this.$nextTick(()=> {
+                    _this.tabList[1]['num'] = data['data']['replyCount'];
+                    _this.tabList[2]['num'] = data['data']['upCount'];
+                })
+            }, (err) => {
+                common.show_weakTip('服务器正忙，请稍后再试');
+            });
+        },
+        commit_current(data){
+            var _this = this;
+            this.$nextTick(()=>{
+                if(_this.chosen_tab.id == 0){
+                    console.log()
+                    console.log(_this.releaseList)
+                    console.log(_this.releaseList[_this.index])
+                    _this.releaseList[_this.index]['replyCount'] = data['data']['replyCount'];
+                }
+            });
+        }
     },
     beforeCreate(){
         document.querySelector('body').style='background:#F7F7F7;';

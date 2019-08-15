@@ -4,13 +4,13 @@
         <div class="box">
             <div class="mescroll" ref='mescroll' id='mescroll'>
                 <div>
-                    <div class="list" v-for='(item,index) in list' :key="index" v-on:click='link_to("/list", item.id, item.title)'>
+                    <div class="list" v-for='(item,index) in list' :key="index" v-on:click='link_to("/list", item.id, item.title, item.viceTitle)'>
                         <div class="list-box">
                             <div class='space-between'>
                                 <div class='list-title'>{{item.title}}</div>
-                                <div class='list-participants'>{{item.replyCount}}人参与</div>
+                                <div class='list-participants'>{{item.replyPersonCount}}人参与</div>
                             </div>
-                            <div class='list-statement'>{{item.replyPersonCount}} 条发言</div>
+                            <div class='list-statement'>{{item.replyCount}} 条发言</div>
                             <div class='list-content space-between' v-if='item.replyContent != "" && item.replyContent != null'>
                                 <div class="content-img">
                                     <img :src="item.uimg" alt=""></div>
@@ -24,17 +24,18 @@
     </div>
 </template>
 <script>
-    import {Request} from '@/common/js/api.js'
+    import wHead from '../windowHead/windowHead'
+    import {Request} from '@/common/js/api.js';
     import MeScroll from 'mescroll.js'
     import 'mescroll.js/mescroll.min.css'
-    import wHead from '../windowHead/windowHead'
+    import { common } from '../../common/js/common';
     export default {
         name: 'Feed',
         data () {
             return {
                 list: [],                       //数据列表
                 titleJson:{
-                    title: '反馈讨论',           //标题栏标题文案
+                    title: '探友天地',           //标题栏标题文案
                     url: '/myMessage',          //标题栏右侧工具跳转链接
                     toolBol: true,              //标题栏右侧是否有功能
                     toolTitle: '消息',          //标题栏右侧工具文案
@@ -45,13 +46,14 @@
             }
         },
         components:{
-            wHead
+            wHead                               //引入头部
         },
         methods:{
-            link_to(url, id, title){
+            // 跳转
+            link_to(url, id, title, subtitle){
                 this.$router.push({
                     path: url, 
-                    query:{id: id, title: title}
+                    query:{id: id, title: title, subtitle: subtitle}
                 });
             },
             // 上拉加载
@@ -64,8 +66,8 @@
                     var totalSize = data['data']['totalNum'];
                     _this.list = _this.list.concat(curPageData);
                     _this.mescrollObj.endBySize(curPageData.length, totalSize);
-                    this.$nextTick(() => {
-                        this.mescrollObj.endSuccess(curPageData.length)
+                    _this.$nextTick(() => {
+                        _this.mescrollObj.endSuccess(curPageData.length)
                     })
                 });
             },
@@ -118,10 +120,13 @@
             });
             // 获取消息小红点相关
             new Request('app/forum/statisticsReplyInfo',{}, 'post' ,false,false, function(data){
-                if(data['data']['replyCount'] + data['data']['upCount'] > 0) _this.titleJson['hasRed'] = true;
+                if(data['data']['replyCount'] + data['data']['upCount'] > 0) {
+                    _this.$nextTick(()=>{
+                        _this.titleJson['hasRed'] = true;
+                    })
+                }
             }, function(err){
-                console.log('这里是错误回调');
-                console.log(err);
+                common.show_weakTip('服务器正忙，请稍后再试');
             });
         }
     }

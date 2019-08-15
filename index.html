@@ -13,12 +13,31 @@
     <div id="app"></div>
   </body>
   <script>
-    // function getJson(){
-    //     alert('开始传入拉');
-    //     common.jsonInfoObj = json;
-    //     window.localStorage.setItem('jsonInfo', json);
-    //     alert(JSON.stringify(common.jsonInfoObj));
-    // }
-    // window.webkit.messageHandlers.getInfo.postMessage(null);
+    function getJson(json){
+        window.localStorage.setItem('infJson', JSON.stringify(json));
+    }
+    function getback(){
+        var num = window.sessionStorage.getItem('pageNum');
+        if(num - 1 >= 0){
+          window.sessionStorage.setItem('pageNum', num - 2);
+          window.history.go(-1);
+        } else {
+          window.sessionStorage.setItem('pageNum', -1)
+          window.Android.linkTo(JSON.stringify({
+                "methodName": "back"
+          }));
+        }
+    }
+    function reload(sort){
+        // alert('进了reload3');
+        // alert(sort);
+        var num = window.sessionStorage.getItem('pageNum');
+        window.localStorage.setItem('pageNum', num);
+        // alert(window.location.href);
+        var url = window.location.href + '&sort='+sort;
+        // alert(url);
+        // document.URL = url;
+        window.history.go(0);
+    }
   </script>
 </html>

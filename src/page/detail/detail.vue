@@ -6,7 +6,7 @@
                 <div class="detail-img">
                     <img :src="makeStatement.uimg" alt="">
                 </div>
-                <div class="detail-inf" @click='interactive()'>
+                <div class="detail-inf">
                     <div class="detail-name">{{makeStatement['nickname']}}</div>
                     <div class="detail-time">{{makeStatement['replyDatetime']}}</div>
                 </div>
@@ -20,7 +20,9 @@
             </div>
             <div class="detail-middle container">{{makeStatement['replyContent']}}</div>
             <div class="detail-bottom" v-if="makeStatement['replyImg']">
-                <div class="bottom-img center-vh" v-for="(img, ind) in makeStatement['replyImg']" :key='ind'> <img :src="img.img" alt=""> </div>
+                <div class="bottom-img" v-for="(img, ind) in makeStatement['replyImg']" :key='ind'  :style="{ 'background-image': 'url('+img.img+')'}"> 
+                    <!-- <img :src="img.img" alt="">  -->
+                </div>
             </div>
         </div>
         <div class="gray-box"></div>
@@ -76,6 +78,8 @@
         <strongTip :showStronTip = 'showStrongTip' :deleteUrl='deleteUrl' :chosenItem = 'chosenItem' @delete_suc='getData'></strongTip>
         <!-- 阴影加弹框 （举报&删除&排序） -->
         <pop :clickKind = 'clickKind' :chosenItem = 'chosenItem' :deleteUrl='deleteUrl' :compaintUrl='compaintUrl' @delete_current='delete_current'></pop>
+        <!-- 弱提示 -->
+        <span class="weakTip"></span>
     </div>
 </template>
 <script>
@@ -123,28 +127,28 @@
             this.getData();
         },
         methods:{
-            interactive(){
-                alert('要跳转拉');
-                var json = {
-                    "methodName": "back"
-                }
-                window.webkit.messageHandlers.linkTo.postMessage(json);
-            },
             // 打开发言框
             show_input(item, bol){
-                this.operaId = bol ? item : item.id;
-                popCommit.methods.show_input();
+                // if(!item.isSelf){
+                    this.operaId = bol ? item : item.id;
+                    popCommit.methods.show_input();
+                // } else {
+                //     common.show_weakTip('目前不支持回复自己');
+                // }
             },
             // 获取数据
             getData(){
+                var _this = this;
                 new Request('app/forum/queryForumReplyInfo',{
-                    "titleId":this.detailId,
+                    "titleId":_this.detailId,
                 }, 'post' ,false,false, (data) => {
-                    this.makeStatement = data['data'];
-                    this.isSelf = this.makeStatement['isSelf'];
+                    _this.$nextTick(()=>{
+                        console.log('show')
+                        _this.makeStatement = data['data'];
+                        _this.isSelf = _this.makeStatement['isSelf'];
+                    })
                 }, function(err){
-                    console.log('这里是错误回调');
-                    console.log(err);
+                    common.show_weakTip('服务器正忙，请稍后再试');
                 });
             },
             // 判断是打开评论弹框还是删除并执行对应方法
@@ -164,15 +168,14 @@
             give_up(item, isUp, bol){
                 var _this = this;
                 var id = bol ? item : item.id;
-                var isUp = bol ? isUp : item.isUp;
+                var up = bol ? isUp : item.isUp;
                 new Request('app/forum/upReply',{
                     "titleId": id,
-                    "isUp": !isUp,
+                    "isUp": !up,
                 } , 'post' ,false ,false, (data) => {
                     _this.getData();
                 }, (err) => {
-                    console.log('这里是错误回调');
-                    console.log(err);
+                    common.show_weakTip('服务器正忙，请稍后再试');
                 });
             },
             // 打开举报遮罩（有可能是举报有可能是删除）
@@ -190,7 +193,7 @@
             },
             // 删除当前数据
             delete_current(){
-                alert('删除了当前数据~该干啥？返回上一页？');
+                common.back();
             }
         },
         beforeCreate(){

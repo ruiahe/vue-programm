@@ -1,8 +1,8 @@
 <template>
     <div id="statement">
         <wHead :titleJson='titleJson'></wHead>
-        <div class="statement-tip">大家有任何建议都可以发送到这儿</div>
-        <div class="statement">
+        <div class="statement-tip" @touchmove.prevent>{{subTitle}}</div>
+        <div class="statement" @touchmove.prevent>
             <div class="container space-between">
                 <span class='statement-num'>共{{totalNum}}条发言</span>
                 <span class='statement-sort' @click="show_sort($event)">{{sortChosenItem.title}}</span>
@@ -14,9 +14,7 @@
                 <div class="list-box" id="list-box">
                     <div class="state" v-on:click='statement_details(i.id)' v-for='(i, index) in list' :key="index">
                         <div class="state-top container space-between">
-                            <div class="state-tx">
-                                <img :src="i.uimg" alt="">
-                            </div>
+                            <div class="state-tx" :imgurl="i.uimg" style="background-image: url('../../assets/load.jpg');"></div>
                             <div class="state-inf center-v">
                                 <span class="state-name">{{i.nickName}}</span>
                                 <img class='state-img' src="../../assets/statement/phone.png" alt="">
@@ -32,12 +30,12 @@
                                 {{i.replyContent}}
                             </div>
                             <div class="middle-img-list" v-if='i.replyImg'>
-                                <div class="middle-img" v-for="(img, ind) in i.replyImg" :key="ind"> <img :src="img.img" alt=""> </div>
+                                <div class="middle-img" v-for="(img, ind) in i.replyImg" :key="ind"  :imgurl="img.img" style="background-image: url('../../assets/load.jpg');"></div>
                             </div>
                         </div>
                         <div class="state-bottom container space-between">
                             <div class="state-operate center-v">
-                                <img src="../../assets/statement/discuss.png" alt="" @click.stop='show_input(i)'>
+                                <img src="../../assets/statement/discuss.png" alt="" @click.stop='show_input(i, index)'>
                                 {{i.replyCount}}
                                 <span class='center-v' @click.stop='give_a_like(i, index)'>
                                     <img class='up' src="../../assets/statement/upGray.png" alt="" v-if='!i.isUp'>
@@ -53,7 +51,7 @@
                 </div>
             </div>
         </div>
-        <div class="input-box">
+        <div class="input-box" @touchmove.prevent>
             <div class="input container space-between" @click="link_to_app()">
                 <img src="../../assets/statement/phone.png" alt="">
                 <span>我要发言...</span>
@@ -63,7 +61,9 @@
         <!-- 阴影加弹框 （举报&删除&排序） -->
         <pop :sortChosenItem='sortChosenItem' :clickKind='clickKind' :chosenItem = 'choseItem' :deleteUrl='deleteUrl' :compaintUrl='compaintUrl' @delete_current='delete_current' @change_sort='change_sort'></pop>
         <!-- 阴影加弹框  （评论弹框） -->
-        <popCommit :operaId='operaId' :commitUrl='commitUrl' @refresh='delete_current'></popCommit>
+        <popCommit :operaId='operaId' :commitUrl='commitUrl' @refresh='commit_current'></popCommit>
+        <!-- 弱提示 -->
+        <span class="weakTip"></span>
     </div>
 </template>
 <script>
@@ -89,20 +89,22 @@
                     toolBol: false,
                     toolTitle: '',
                     hasRed: false
-                },                                                  //标题栏数据
-                choseItem: {},                                      
-                clickKind: '',                                      //当前操作的发言类型：list-tip-del(删除)、list-tip-complaint(举报)
-                list:[],                                            //列表数据
-                mescroll: null,                                     //滚动区域
-                mescrollObj: null,                                  //滚动对象
-                totalNum: 0,                                        //列表数据总数                                    
-                sortChosenItem: {id: 1, title: '最热发言'},         //当前选中的排序
-                orderBy: 1,                                        //排序
-                discussId: 0,                                       //当前发言id
-                deleteUrl: 'app/forum/deleteForumReplyInfo',
-                compaintUrl: 'app/forum/reportForumReplyInfo',
-                commitUrl: 'app/forum/userReplyForumInfo',
-                operaId: 0
+                },                                                      //标题栏数据
+                choseItem: {},                                          //当前选中对象
+                clickKind: '',                                          //当前操作的发言类型：list-tip-del(删除)、list-tip-complaint(举报)
+                list:[],                                                //列表数据
+                mescroll: null,                                         //滚动区域
+                mescrollObj: null,                                      //滚动对象
+                totalNum: 0,                                            //列表数据总数                                    
+                sortChosenItem: {id: 1, title: '最热发言'},              //当前选中的排序
+                orderBy: 1,                                             //排序
+                discussId: 0,                                           //当前发言id
+                deleteUrl: 'app/forum/deleteForumReplyInfo',            //删除链接 
+                compaintUrl: 'app/forum/reportForumReplyInfo',          //举报链接
+                commitUrl: 'app/forum/userReplyForumInfo',              // 
+                operaId: 0,
+                index: 0,                                                    //当前是第n条数据
+                subTitle: ''
             }
         },
         methods:{
@@ -138,6 +140,7 @@
             link_to_app(){
                 common.link_to_app({
                     "titleId": this.discussId,
+                    "sortNum": this.orderBy,
                     "methodName": "speak"
                 })
             },
@@ -164,7 +167,7 @@
                     _this.totalNum = data['data']['totalNum'];
                     _this.list = curPageData;
                     _this.$nextTick(() => {
-                        _this.mescrollObj.endSuccess()// 结束下拉刷新,无参
+                        _this.mescrollObj.endSuccess();// 结束下拉刷新,无参
                     })
                 });
             },
@@ -177,13 +180,13 @@
                     "pageNum":pageNum,
                     "orderBy": _this.orderBy
                 } , 'post' ,false,false, callbackSuc, function(err){
-                    console.log('这里是错误回调');
-                    console.log(err);
+                    common.show_weakTip('服务器正忙，请稍后再试');
                 });
             },
             // 打开发言框
-            show_input(item){
+            show_input(item, index){
                 this.operaId = item.id;
+                this.index = index;
                 popCommit.methods.show_input();
             },
             // 点赞
@@ -193,16 +196,25 @@
                     "titleId": item.id,
                     "isUp": !item.isUp,
                 } , 'post' ,false ,false, (data) => {
-                    _this.mescrollObj.triggerDownScroll();
+                    _this.$nextTick(()=>{
+                        _this.list[index]['isUp'] = !item.isUp;
+                        _this.list[index]['upCount'] = data['data']['upCount'];
+                    })
                 }, (err) => {
-                    console.log('这里是错误回调');
-                    console.log(err);
+                    common.show_weakTip('服务器正忙，请稍后再试');
                 });
             },
             // 删除数据后
             delete_current(){
                 this.list = [];
                 this.mescrollObj.resetUpScroll(true);
+            },
+            // 评论后
+            commit_current(data){
+                var _this = this;
+                this.$nextTick(()=>{
+                    _this.list[this.index]['replyCount'] = data['data']['replyCount'];
+                });
             },
             // 排序后
             change_sort(i){
@@ -215,7 +227,9 @@
         mounted () {
             var _this = this;
             this.titleJson['title'] = this.$route.query.title;
+            this.subTitle = this.$route.query.subtitle;
             this.discussId = this.$route.query.id;
+            this.orderBy = this.$route.query.sort ? this.$route.query.sort : 1;
             //创建MeScroll对象
             this.mescrollObj = new MeScroll(this.$refs.mescroll, { //在mounted初始化mescroll,确保此处配置的ref有值
                 down:{
@@ -225,11 +239,14 @@
                 up: {
                     callback: _this.upCallback,
                     htmlNodata: '<p class="upwarp-nodata">-- END --</p>',
-                    noMoreSize: 3, //如果列表已无数据,可设置列表的总数量要大于5才显示无更多数据;避免列表数据过少(比如只有一条数据),显示无更多数据会不好看
+                    noMoreSize: 0, //如果列表已无数据,可设置列表的总数量要大于5才显示无更多数据;避免列表数据过少(比如只有一条数据),显示无更多数据会不好看
                     empty: {
                         //列表第一页无任何数据时,显示的空提示布局; 需配置warpId才显示
                         warpId: "list-box", //父布局的id (1.3.5版本支持传入dom元素)
                         tip: "暂无数据~" //提示
+                    },
+                    lazyLoad: {
+                        use: true, // 是否开启懒加载,默认false
                     }
                 },
             })

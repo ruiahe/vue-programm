@@ -1,14 +1,14 @@
 <template>
     <!-- 阴影加弹框 （举报&删除&排序） -->
-    <div id="pop" @touchmove.prevent>
+    <div id="pop" @touchmove.prevent @click.prevent='close_pop()'>
         <div class="pop-content list-tip list-tip-complaint" v-on:click='complaint_item()' :class='{"unshow": clickKind != "list-tip-complaint"}'>
             <div class="center-vh">
-                <span></span>举报
+                <span><img src="../../../assets/complaint.png" alt=""></span>举报
             </div>
         </div>
         <div class="pop-content list-tip list-tip-del" v-on:click='delete_item()' :class='{"unshow": clickKind != "list-tip-del"}'>
             <div class="center-vh">
-                <span></span>删除
+                <span><img src="../../../assets/delete.png" alt=""></span>删除
             </div>
         </div>
         <ul class="pop-content list-sort" :class='{"unshow": clickKind != "list-sort"}'>
@@ -20,6 +20,7 @@
 <script>
     import $ from 'jquery'
     import {Request} from '@/common/js/api.js'
+    import { common } from '@/common/js/common';
     export default {
         name: 'strongTip',
         props:{
@@ -41,13 +42,14 @@
             // 选中举报
             complaint_item(){
                 this.commit_data(this.compaintUrl, (data)=>{
-                    alert('这里是成功举报拉');
+                    common.show_weakTip('举报成功');
                 });
             },
             // 选中删除
             delete_item(){
                 this.commit_data(this.deleteUrl, (data)=>{
                     this.$emit('delete_current');
+                    common.show_weakTip('删除成功');
                 });
             },
             // 定位黑色遮罩中的白框的位置
@@ -73,8 +75,7 @@
                     calSuc(data);
                     _this.close_pop();
                 }, function(err){
-                    console.log('这里是错误回调');
-                    console.log(err);
+                    common.show_weakTip('服务器正忙，请稍后再试');
                 });
             },
             // 选中排序方式
