@@ -36,12 +36,12 @@ export const common = {
     // app获取手机信息
     getInfo(){
         var info;
-        // if(isAndroid()){
-        //     info = window.Android.getInfo();
-        //     window.localStorage.setItem('infJson', info);
-        // } else if(isIos()){
-        //     window.webkit.messageHandlers.linkTo.postMessage({'methodName': 'getInfo'});
-        // }
+        if(isAndroid()){
+            info = window.Android.getInfo();
+            window.localStorage.setItem('infJson', info);
+        } else if(isIos()){
+            window.webkit.messageHandlers.linkTo.postMessage({'methodName': 'getInfo'});
+        }
     }
 }
 // domain: fomal => 正式; beta => 测试; local => 本地; 

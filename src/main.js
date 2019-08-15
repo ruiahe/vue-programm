@@ -5,10 +5,6 @@ import App from './App'
 import router from './router'
 import 'amfe-flexible/index.js'
 
-// router.beforeEach((to, from, next)=>{
-
-// });
-
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

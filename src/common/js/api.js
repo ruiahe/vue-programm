@@ -33,17 +33,17 @@ function setTime(calSuc){
 }
 function req(url, params, method, deviceName, appVersion, sucCal, errCal){
     info = getInfo();
-    // token = JSON.parse(info)['token'];//app
-    token = info['token'];//js
+    token = JSON.parse(info)['token'];//app
+    // token = info['token'];//js
     var data = method == 'post' ? JSON.stringify(params) : params;
     var headerJson = {};
     if(token) headerJson['token'] = token;
-    if(deviceName) {
-        headerJson['Device-Name'] = info['device'];
-        headerJson['App-Version'] = info['version'];
-    }
-    // if(deviceName) headerJson['Device-Name'] = JSON.parse(info)['device'];//app
-    // if(appVersion) headerJson['App-Version'] = JSON.parse(info)['version'];//app
+    // if(deviceName) {
+    //     headerJson['Device-Name'] = info['device'];
+    //     headerJson['App-Version'] = info['version'];
+    // }
+    if(deviceName) headerJson['Device-Name'] = JSON.parse(info)['device'];//app
+    if(appVersion) headerJson['App-Version'] = JSON.parse(info)['version'];//app
     try{
         $.ajax({
             contentType:"application/json",
@@ -72,7 +72,7 @@ function req(url, params, method, deviceName, appVersion, sucCal, errCal){
     }
 }
 function getInfo(){
-    // var info = window.localStorage.getItem('infJson');
-    var info = { 'token': common.token, 'device': 'asdf', 'version': '2.2.2' };//js
+    var info = window.localStorage.getItem('infJson');
+    // var info = { 'token': common.token, 'device': 'asdf', 'version': '2.2.2' };//js
     return info;
 }
