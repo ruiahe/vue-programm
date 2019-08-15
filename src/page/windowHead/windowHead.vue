@@ -49,13 +49,9 @@
               this.$router.push({path: url});
           },
           back_to(){
-              if(this.pageNum - 1 >= 0){
-                window.sessionStorage.setItem('pageNum', this.pageNum - 2);
-                common.back();
-              } else {
-                window.sessionStorage.setItem('pageNum', -1)
-                common.back(true)
-              }
+              var path = this.$route.path;
+              var bol = path.indexOf('feed') > -1;
+              common.back(bol);
           },
           emit_parent(e){
               this.$emit('emitClick',e);
@@ -63,16 +59,6 @@
         },
         beforeCreate(){
             common.getInfo();
-        },
-        mounted(){
-            var num = window.localStorage.getItem('pageNum');
-            if(num > 0){
-                window.localStorage.setItem('pageNum', -1);
-            } else {
-                num = window.sessionStorage.getItem('pageNum');
-            }
-            this.pageNum = num ? (Number(num)+1) : 0;
-            window.sessionStorage.setItem('pageNum', this.pageNum);
         }
     }
 </script>
