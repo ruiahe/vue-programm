@@ -2,6 +2,60 @@ html{
     background-color: rgba(247,247,247,1);
     #statement{
         background-color: rgba(247,247,247,1);
+        overflow: hidden;
+        .statement-top{
+            background-color:#fff;
+            position: fixed;
+            top:0;
+            left:0;
+            width:100%;
+            .statement-tip{
+                padding-top:5px;
+                width:100%;
+                padding-bottom:25px;
+                font-size:15px;
+                font-family:PingFangSC-Regular;
+                font-weight:400;
+                color:rgba(155,155,155,1);
+                line-height:21px;
+                background-color:#fff;
+                text-align:center;
+                .container{
+                    width:83%;
+                }
+            }
+            .statement{
+                background:#F7F7F7;
+                .container{
+                    height:46px;
+                    background-color:transparent;
+                    .statement-num{
+                        font-size:13px;
+                        font-family:PingFangSC-Regular;
+                        font-weight:400;
+                        color:rgba(155,155,155,1);
+                    }
+                    .statement-sort{
+                        position: relative;
+                        padding-right:12px;
+                        font-size:13px;
+                        font-family:PingFangSC-Semibold;
+                        font-weight:600;
+                        color:rgba(126,133,145,1);
+                    }
+                    .statement-sort:before{
+                        position: absolute;
+                        right:0;
+                        top:5px;
+                        content: '';
+                        width:0;
+                        height:0;
+                        border:5px solid transparent;
+                        border-top-color: #7E8591;
+                    }
+                }
+            }
+        }
         .mescroll{
             position: fixed;
             left:0;
@@ -9,48 +63,8 @@ html{
             top:167px;
             bottom:70px!important;
             height:auto;
+            width:100%;
             box-sizing: border-box;
-        }
-        .statement-tip{
-            padding-bottom:25px;
-            font-size:15px;
-            font-family:PingFangSC-Regular;
-            font-weight:400;
-            color:rgba(155,155,155,1);
-            line-height:21px;
-            height:21px;
-            background-color:#fff;
-            text-align:center;
-        }
-        .statement{
-            .container{
-                height:46px;
-                background-color:transparent;
-                .statement-num{
-                    font-size:13px;
-                    font-family:PingFangSC-Regular;
-                    font-weight:400;
-                    color:rgba(155,155,155,1);
-                }
-                .statement-sort{
-                    position: relative;
-                    padding-right:12px;
-                    font-size:13px;
-                    font-family:PingFangSC-Semibold;
-                    font-weight:600;
-                    color:rgba(126,133,145,1);
-                }
-                .statement-sort:before{
-                    position: absolute;
-                    right:0;
-                    top:5px;
-                    content: '';
-                    width:0;
-                    height:0;
-                    border:5px solid transparent;
-                    border-top-color: #7E8591;
-                }
-            }
         }
         .input-box{
             position: fixed;

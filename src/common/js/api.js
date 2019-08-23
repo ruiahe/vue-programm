@@ -37,7 +37,7 @@ function req(url, params, method, deviceName, appVersion, sucCal, errCal){
     // token = info['token'];//js
     var data = method == 'post' ? JSON.stringify(params) : params;
     var headerJson = {};
-    if(token) headerJson['token'] = token;
+    // if(token) headerJson['token'] = token;
     // if(deviceName) {
     //     headerJson['Device-Name'] = info['device'];
     //     headerJson['App-Version'] = info['version'];
@@ -60,6 +60,7 @@ function req(url, params, method, deviceName, appVersion, sucCal, errCal){
                 if(data['code'] == 0) {
                     sucCal(data);
                 } else if (data['code'] == 1006 || data['1011'] || data['1012']){
+                    window.localStorage.setItem('token',false);
                     window.webkit.messageHandlers.linkTo.postMessage({'methodName': 'login'});
                 }
             },

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0， viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta content="black" name="apple-mobile-web-app-status-bar-style">
     <meta content="telephone=no, email=no" name="format-detection">
@@ -18,17 +18,13 @@
     }
     function getback(){
         var bol = window.location.href.indexOf('feed') > -1;
-        if(bol){
+        if(!bol){
           window.history.go(-1);
         } else {
           window.Android.linkTo(JSON.stringify({
                 "methodName": "back"
           }));
         }
-    }
-    function reload(sort){
-        var url = window.location.href + '&sort='+sort;
-        window.history.go(0);
     }
   </script>
 </html>

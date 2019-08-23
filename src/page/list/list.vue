@@ -1,17 +1,23 @@
 <template>
     <div id="statement">
-        <wHead :titleJson='titleJson'></wHead>
-        <div class="statement-tip" @touchmove.prevent>{{subTitle}}</div>
-        <div class="statement" @touchmove.prevent>
-            <div class="container space-between">
-                <span class='statement-num'>共{{totalNum}}条发言</span>
-                <span class='statement-sort' @click="show_sort($event)">{{sortChosenItem.title}}</span>
+        <div class="statement-top">
+            <wHead :titleJson='titleJson'></wHead>
+            <div class="statement-tip" @touchmove.prevent>
+                <div class="container">
+                    {{subTitle}}
+                </div>
+            </div>
+            <div class="statement" @touchmove.prevent>
+                <div class="container space-between">
+                    <span class='statement-num'>共{{totalNum}}条发言</span>
+                    <span class='statement-sort' @click="show_sort($event)">{{sortChosenItem.title}}</span>
+                </div>
             </div>
         </div>
         <!-- 滚动区域 -->
         <div ref='mescroll' class="mescroll" id='mescrollList'>
             <div>
-                <div class="list-box" id="list-box">
+                <div class="list-box" id="list-box" @touchmove.stop>
                     <div class="state" v-on:click='statement_details(i.id)' v-for='(i, index) in list' :key="index">
                         <div class="state-top container space-between">
                             <div class="state-tx" :imgurl="i.uimg" style="background-image: url('../../assets/load.jpg');"></div>
@@ -30,7 +36,7 @@
                                 {{i.replyContent}}
                             </div>
                             <div class="middle-img-list" v-if='i.replyImg'>
-                                <div class="middle-img" v-for="(img, ind) in i.replyImg" :key="ind"  :imgurl="img.img" style="background-image: url('../../assets/load.jpg');"></div>
+                                <div class="middle-img" v-for="(img, ind) in i.replyImg" :key="ind"  :imgurl="img.img" style="background-image: url('../../assets/load.jpg');" @click.stop='show_big_img(i.replyImg, ind)'></div>
                             </div>
                         </div>
                         <div class="state-bottom container space-between">
@@ -61,9 +67,11 @@
         <!-- 阴影加弹框 （举报&删除&排序） -->
         <pop :sortChosenItem='sortChosenItem' :clickKind='clickKind' :chosenItem = 'choseItem' :deleteUrl='deleteUrl' :compaintUrl='compaintUrl' @delete_current='delete_current' @change_sort='change_sort'></pop>
         <!-- 阴影加弹框  （评论弹框） -->
-        <popCommit :operaId='operaId' :commitUrl='commitUrl' @refresh='commit_current'></popCommit>
+        <popCommit ref='popCommit' :operaId='operaId' :commitUrl='commitUrl' @refresh='commit_current'></popCommit>
         <!-- 弱提示 -->
         <span class="weakTip"></span>
+        <!-- 图片轮播 -->
+        <swiper :imgsList = 'imgsList' ref='swiperImgs'></swiper>
     </div>
 </template>
 <script>
@@ -75,12 +83,14 @@
     import {common} from '@/common/js/common.js'
     import pop from '@/page/common/pop/pop'
     import popCommit from '@/page/common/popComment/popComment'
+    import swiper from '@/page/common/swiper/swiper'
     export default {
         name: 'statement',
         components:{
             wHead,
             pop,
-            popCommit
+            popCommit,
+            swiper
         },
         data() {
             return {
@@ -104,7 +114,8 @@
                 commitUrl: 'app/forum/userReplyForumInfo',              // 
                 operaId: 0,
                 index: 0,                                                    //当前是第n条数据
-                subTitle: ''
+                subTitle: '',
+                imgsList:[]
             }
         },
         methods:{
@@ -187,7 +198,7 @@
             show_input(item, index){
                 this.operaId = item.id;
                 this.index = index;
-                popCommit.methods.show_input();
+                this.$refs['popCommit'].show_input();
             },
             // 点赞
             give_a_like(item,index){
@@ -222,9 +233,19 @@
                 this.orderBy = this.sortChosenItem.id;
                 this.list = [];
                 this.mescrollObj.triggerDownScroll();
+            },
+            // 点击展示大图
+            show_big_img(imgs, index){
+                this.imgsList = imgs;
+                this.$refs['swiperImgs'].show(index);
             }
         },
         mounted () {
+            window['reload'] = (sort) => {
+                this.orderBy = sort;
+                this.list = [];
+                this.mescrollObj.resetUpScroll(true);
+            }
             var _this = this;
             this.titleJson['title'] = this.$route.query.title;
             this.subTitle = this.$route.query.subtitle;
@@ -242,17 +263,21 @@
                     noMoreSize: 0, //如果列表已无数据,可设置列表的总数量要大于5才显示无更多数据;避免列表数据过少(比如只有一条数据),显示无更多数据会不好看
                     empty: {
                         //列表第一页无任何数据时,显示的空提示布局; 需配置warpId才显示
-                        warpId: "list-box", //父布局的id (1.3.5版本支持传入dom元素)
                         tip: "暂无数据~" //提示
                     },
                     lazyLoad: {
                         use: true, // 是否开启懒加载,默认false
                     }
                 },
+                isBounce: false
             })
         },
+        updated(){
+            var height = $('.statement').offset().top + 46;
+            $('#mescrollList').css('top', height + 'px');
+        },
         beforeCreate(){
-            document.querySelector('body').style='background:#F7F7F7;';
+            document.querySelector('body').style='background: linear-gradient(#F7F7F7 95%, #fff 100%);';
         }
     }
 </script>

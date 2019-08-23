@@ -35,7 +35,7 @@
                                 {{relItem['replyContent']}}
                             </div>
                             <div class="middle-img-list" v-if='relItem["replyImg"]'>
-                                <div class="middle-img" v-for='(imgItem, imgInd) in relItem["replyImg"]' :key='imgInd' :imgurl="imgItem.img" style="background-image: url('../../assets/load.jpg');"> 
+                                <div class="middle-img" v-for='(imgItem, imgInd) in relItem["replyImg"]' :key='imgInd' :imgurl="imgItem.img" style="background-image: url('../../assets/load.jpg');" @click.stop='show_big_img(relItem["replyImg"], imgInd)'> 
                                     <!-- <img :src="imgItem.img" alt="">  -->
                                 </div>
                             </div>
@@ -151,6 +151,8 @@
         <popCommit :operaId='operaId' :commitUrl='commitUrl' @refresh='commit_current'></popCommit>
         <!-- 弱提示 -->
         <span class="weakTip"></span>
+        <!-- 图片轮播 -->
+        <swiper :imgsList = 'imgsList' ref='swiperImgs'></swiper>
     </div>
 </template>
 <script>
@@ -161,13 +163,15 @@
     import {Request} from '@/common/js/api.js'
     import popCommit from '@/page/common/popComment/popComment'
     import pop from '@/page/common/pop/pop'
-    import { common } from '../../common/js/common';
+    import { common } from '../../common/js/common'
+    import swiper from '@/page/common/swiper/swiper'
     export default {
     name: 'message',
     components:{
         wHead,
         pop,
-        popCommit
+        popCommit,
+        swiper
     },
     data() {
         return {
@@ -193,7 +197,8 @@
             commitUrl: 'app/forum/userReplyForumInfo',
             choseItem: null,
             clickKind: 'list-tip-del',
-            index: 0
+            index: 0,
+            imgsList:[]
         }
     },
     mounted () {
@@ -368,6 +373,11 @@
                     _this.releaseList[_this.index]['replyCount'] = data['data']['replyCount'];
                 }
             });
+        },
+        // 点击展示大图
+        show_big_img(imgs, index){
+            this.imgsList = imgs;
+            this.$refs['swiperImgs'].show(index);
         }
     },
     beforeCreate(){

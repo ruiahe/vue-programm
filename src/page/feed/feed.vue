@@ -28,14 +28,14 @@
     import {Request} from '@/common/js/api.js';
     import MeScroll from 'mescroll.js'
     import 'mescroll.js/mescroll.min.css'
-    import { common } from '../../common/js/common';
+    import { common } from '@/common/js/common';
     export default {
         name: 'Feed',
         data () {
             return {
                 list: [],                       //数据列表
                 titleJson:{
-                    title: '探友天地',           //标题栏标题文案
+                    title: '探记说吧',           //标题栏标题文案
                     url: '/myMessage',          //标题栏右侧工具跳转链接
                     toolBol: true,              //标题栏右侧是否有功能
                     toolTitle: '消息',          //标题栏右侧工具文案
@@ -46,7 +46,7 @@
             }
         },
         components:{
-            wHead                               //引入头部
+            wHead,                               //引入头部
         },
         methods:{
             // 跳转

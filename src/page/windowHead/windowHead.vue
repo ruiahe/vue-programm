@@ -58,7 +58,7 @@
           }
         },
         beforeCreate(){
-            common.getInfo();
+            // common.getInfo();
         }
     }
 </script>

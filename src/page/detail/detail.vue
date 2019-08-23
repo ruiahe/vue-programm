@@ -20,13 +20,13 @@
             </div>
             <div class="detail-middle container">{{makeStatement['replyContent']}}</div>
             <div class="detail-bottom" v-if="makeStatement['replyImg']">
-                <div class="bottom-img" v-for="(img, ind) in makeStatement['replyImg']" :key='ind'  :style="{ 'background-image': 'url('+img.img+')'}"> 
+                <div class="bottom-img" v-for="(img, ind) in makeStatement['replyImg']" :key='ind'  :style="{ 'background-image': 'url('+img.img+')'}" @click.stop="show_big_img(makeStatement['replyImg'], ind)"> 
                     <!-- <img :src="img.img" alt="">  -->
                 </div>
             </div>
         </div>
         <div class="gray-box"></div>
-        <div class="list container">
+        <div class="list container" v-if="makeStatement['dataList']">
             <div class="item between" v-for="(item, index) in makeStatement['dataList']" :key='index'>
                 <div class="item-tx">
                     <img :src="item.uimg" alt="">
@@ -70,7 +70,7 @@
                     </span>
                 </div>
             </div>
-            <div class="placeholder"></div>
+            <!-- <div class="placeholder"></div> -->
         </div>
         <!-- 阴影加弹框  （评论弹框） -->
         <popCommit :operaId='operaId' :commitUrl='commitUrl' @refresh='getData'></popCommit>
@@ -80,6 +80,8 @@
         <pop :clickKind = 'clickKind' :chosenItem = 'chosenItem' :deleteUrl='deleteUrl' :compaintUrl='compaintUrl' @delete_current='delete_current'></pop>
         <!-- 弱提示 -->
         <span class="weakTip"></span>
+        <!-- 图片轮播 -->
+        <swiper :imgsList = "imgsList" ref='swiperImgs'></swiper>
     </div>
 </template>
 <script>
@@ -90,13 +92,15 @@
     import strongTip from '@/page/common/strongTip/strongTip';
     import pop from '@/page/common/pop/pop'
     import popCommit from '@/page/common/popComment/popComment'
+    import swiper from '@/page/common/swiper/swiper'
     export default {
         name: 'detail',
         components:{
             wHead,
             strongTip,
             pop,
-            popCommit
+            popCommit,
+            swiper
         },
         data() {
             return {
@@ -120,6 +124,7 @@
                 commitUrl: 'app/forum/userReplyForumInfo',
                 x: 0,                                                   //当前操作项div的水平位置
                 y: 0,                                                   //当前操作项div的垂直位置
+                imgsList: []
             }
         },
         mounted () {
@@ -194,10 +199,15 @@
             // 删除当前数据
             delete_current(){
                 common.back();
+            },
+            // 放大图片
+            show_big_img(list, index){
+                this.imgsList = list;
+                this.$refs['swiperImgs'].show(index);
             }
         },
         beforeCreate(){
-            document.querySelector('body').style='background:#fff;';
+            document.querySelector('body').style='background: linear-gradient(#F7F7F7 95%, #fff 100%);';
         }
     }
 </script>

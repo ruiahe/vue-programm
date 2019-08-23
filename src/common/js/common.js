@@ -1,6 +1,10 @@
 import config from '../json/config.json'
 import $ from 'jquery'
 const token1 = 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIzMjQiLCJpYXQiOjE1NjU2NjQ2MTEsInN1YiI6IjMyNCIsImlzcyI6InRhbmtlIiwiZXhwIjoxNTY4MjU2NjExfQ.kAfzIp_SnJpo-J2GJOxrcJ-Dtjf9fcAXbzRhm6iLcdw';
+const token2 = 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIzMjgiLCJpYXQiOjE1NjU3NzY4ODksInN1YiI6IjMyOCIsImlzcyI6InRhbmtlIiwiZXhwIjoxNTY4MzY4ODg5fQ.Y-IECwhbDb97INsVYYPxG1J-bw5VAE75c8LlQG51Boo0';
+const token3 = 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIzMjgiLCJpYXQiOjE1NjU3NzY4ODksInN1YiI6IjMyOCIsImlzcyI6InRhbmtlIiwiZXhwIjoxNTY4MzY4ODg5fQ.Y-IECwhbDb97INsVYYPxG1J-bw5VAE75c8LlQG51Boo00';
+const device = 'ios';
+const version = '1.0.0';
 // const token2 = 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI0NzUiLCJpYXQiOjE1NjU3OTMzMTQsInN1YiI6IjQ3NSIsImlzcyI6InRhbmtlIiwiZXhwIjoxNTY4Mzg1MzE0fQ.oTNKmwlMFfd3zHAKzj4qBNMHgvXczmtVfvV_xALKPfI'
 // 设置info信息
 export const common = {

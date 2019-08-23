@@ -1,6 +1,6 @@
 <template>
     <!-- 阴影加弹框  （评论弹框） -->
-    <div id="pop-comment" @touchmove.prevent>
+    <div id="pop-comment">
         <div class="comment">
             <div class="comment-top">
                 <div class="container space-between">
@@ -12,12 +12,15 @@
                 </div>
             </div>
             <div class="comment-txt container">
-                <textarea name="" id="" v-model="commentText" @input="change_num($event)" placeholder="评论点什么..."></textarea>
+                <div class="textarea-box">
+                    <textarea name="" id="" v-model="commentText" @input="change_num($event)" placeholder="评论点什么..." @focus="get_focus()" @blur='blur()'></textarea>
+                </div>
             </div>
             <div class="comment-emoji container">
                 <span class='emoji-txt'>{{commentLen}}/200</span>
             </div>
         </div>
+        <div id="pop-comment-box" @touchmove.prevent></div>
     </div>
 </template>
 <script>
@@ -39,12 +42,13 @@
         methods: {
             // 打开发言框
             show_input(){
-                $('#pop-comment').fadeIn(200);
-                $('#pop-comment').focus();
+                $('#pop-comment-box').fadeIn(200);
+                $('#pop-comment .comment').slideDown(200);
             },
             // 关闭评论弹框
             close_comment(){
-                $('#pop-comment').fadeOut(200);
+                $('#pop-comment-box').fadeOut(200);
+                $('#pop-comment .comment').slideUp(200);
             },
             // 发送回复
             send_comment(){
@@ -74,6 +78,24 @@
                 } else {
                     this.commentText = this.commentText.substr(0,200);
                     this.commentLen = this.commentText.length;
+                }
+            },
+            // 获取焦点后
+            get_focus(){
+                var u = navigator.userAgent;
+                var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+                if(isAndroid){
+                    $('body').height( $('body').height()+200)
+                    $('body').scrollTop(200)
+                }
+            },
+            // 失去焦点后
+            blur(){
+                var u = navigator.userAgent;
+                var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+                if(isAndroid){
+                    $('body').height( $('body').height()-200)
+                    $('body').scrollTop(0)
                 }
             }
         }
