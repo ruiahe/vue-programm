@@ -1,0 +1,364 @@
+html,
+body {
+  background-color: #fff!important;
+}
+#detail {
+  background-color: #fff;
+}
+#detail .detail {
+  padding: 6px 0 21px;
+  width: 100%;
+  border-top: 1px solid #eee;
+}
+#detail .detail .detail-top {
+  height: 66px;
+}
+#detail .detail .detail-top .detail-img {
+  width: 36px!important;
+  height: 36px!important;
+  overflow: hidden;
+  border-radius: 100%;
+}
+#detail .detail .detail-top .detail-img img {
+  width: 100%;
+}
+#detail .detail .detail-top .detail-inf {
+  flex: 1;
+  margin-left: 10px;
+  font-size: 15px;
+  font-family: PingFangSC-Medium;
+  font-weight: 500;
+  color: #1b1b1b;
+}
+#detail .detail .detail-top .detail-inf .detail-name {
+  max-width: 110px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 21px;
+  line-height: 21px;
+}
+#detail .detail .detail-top .detail-inf .detail-time {
+  height: 14px;
+  font-size: 10px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: #c1c1c1;
+  line-height: 14px;
+}
+#detail .detail .detail-top .detail-version {
+  text-align: right;
+  width: 150px;
+  font-size: 12px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: #cdcdcd;
+}
+#detail .detail .detail-top .detail-version img {
+  width: 12px;
+}
+#detail .detail .detail-top .detail-version .detail-txt {
+  height: 21px;
+  line-height: 21px;
+}
+#detail .detail .detail-top .detail-version .detail-blank {
+  height: 14px;
+}
+#detail .detail .detail-middle {
+  font-size: 15px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: #000000;
+  line-height: 24px;
+}
+#detail .detail .detail-bottom {
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: flex-start;
+  align-content: stretch;
+  width: 344px;
+}
+#detail .detail .detail-bottom .bottom-img {
+  width: 108px;
+  height: 108px;
+  border-radius: 5px;
+  margin-top: 5px;
+  margin-left: 5px;
+  overflow: hidden;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+#detail .gray-box {
+  height: 7px;
+  width: 100%;
+  background: #F7F7F7;
+}
+#detail .list {
+  padding-bottom: 77px;
+}
+#detail .list .item {
+  padding-top: 14px;
+}
+#detail .list .item .item-tx {
+  width: 32px;
+  height: 32px;
+  border-radius: 100%;
+  overflow: hidden;
+}
+#detail .list .item .item-con {
+  padding-bottom: 13px;
+  margin-left: 13px;
+  flex: 1;
+  border-bottom: 1px solid #eee;
+}
+#detail .list .item .item-con .item-info {
+  height: 30px;
+}
+#detail .list .item .item-con .item-info .item-info-left {
+  height: 30px;
+}
+#detail .list .item .item-con .item-info .item-info-left .item-name {
+  height: 17px;
+  font-size: 12px;
+  font-family: PingFangSC-Medium;
+  font-weight: 500;
+  color: #1b1b1b;
+  line-height: 17px;
+}
+#detail .list .item .item-con .item-info .item-info-left .item-time {
+  height: 14px;
+  font-size: 10px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: #c1c1c1;
+  line-height: 14px;
+}
+#detail .list .item .item-con .item-info .item-info-right {
+  padding-right: 4px;
+  height: 30px;
+  font-size: 13px;
+  font-family: DINAlternate-Bold;
+  font-weight: bold;
+  color: #7e8591;
+}
+#detail .list .item .item-con .item-info .item-info-right img {
+  width: 16px;
+  margin-right: 2px;
+}
+#detail .list .item .item-con .item-info .item-info-right i {
+  position: relative;
+  margin-right: 4px;
+  margin-left: 19px;
+  font-style: normal;
+  width: 20px;
+  height: 20px;
+}
+#detail .list .item .item-con .item-info .item-info-right i::before {
+  position: absolute;
+  bottom: 0;
+  content: '';
+  width: 20px;
+  height: 60px;
+  background-image: url('../../assets/statement/upGray.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position-y: bottom;
+}
+#detail .list .item .item-con .item-info .item-info-right .isUp::before {
+  background-image: url('../../assets/statement/upGreen.png');
+}
+#detail .list .item .item-con .item-info .item-info-right .up {
+  margin-left: 19px;
+}
+#detail .list .item .item-con .item-info .item-info-right .like {
+  color: #709E91;
+}
+#detail .list .item .item-con .item-info .animate i::before {
+  background-image: url('../../assets/statement/giveUp01.png');
+  animation: test-gif 1s steps(25, start) 0ms;
+}
+#detail .list .item .item-con .item-content {
+  margin-top: 8px;
+  font-size: 14px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: #4c4c4c;
+  line-height: 20px;
+  word-wrap: break-word;
+  word-break: break-all;
+  white-space: normal;
+}
+#detail .list .item .item-con .item-gray {
+  margin-top: 9px;
+  padding: 11px 15px 14px;
+  background: #f7f7f7;
+}
+#detail .list .item .item-con .item-gray .gray-list {
+  margin-top: 4px;
+  font-size: 12px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: #1b1b1b;
+  line-height: 17px;
+}
+#detail .list .item .item-con .item-gray .gray-list span {
+  color: #709E91;
+}
+#detail .bottom .placeholder {
+  height: 66px;
+  border-top: 1px solid #eee;
+  background: #fff;
+}
+#detail .bottom .bottom-box {
+  padding: 8px 0 15px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #fff;
+}
+#detail .bottom .bottom-box img {
+  width: 20px;
+}
+#detail .bottom .bottom-box .bottom-input {
+  padding: 0 15px;
+  width: 240px;
+  height: 36px;
+  border-radius: 19px;
+  box-sizing: content-box;
+  background: #f4f4f4;
+}
+#detail .bottom .bottom-box .bottom-input img {
+  width: 16px;
+}
+#detail .bottom .bottom-box .bottom-input input {
+  margin-left: 8px;
+  flex: 1;
+  background: #f4f4f4;
+  font-size: 15px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: #c1c1c1;
+}
+#detail .bottom .bottom-box .bottom-up {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 15px;
+  font-family: DINAlternate-Bold;
+  font-weight: bold;
+  color: #7e8591;
+}
+#detail .bottom .bottom-box .bottom-up i {
+  width: 20px;
+  height: 20px;
+  margin-right: 4px;
+}
+#detail .bottom .bottom-box .bottom-up i::before {
+  position: absolute;
+  bottom: 0;
+  content: '';
+  width: 20px;
+  height: 60px;
+  background-image: url('../../assets/statement/upGray.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position-y: bottom;
+}
+#detail .bottom .bottom-box .isUp i::before {
+  background-image: url('../../assets/statement/upGreen.png');
+}
+#detail .bottom .bottom-box .isUp .bottom-up-txt {
+  color: #709E91;
+}
+#detail .bottom .bottom-box .animate {
+  color: #709E91;
+}
+#detail .bottom .bottom-box .animate i::before {
+  background-image: url('../../assets/statement/giveUp01.png');
+  animation: test-gif 1s steps(25, start) 0ms;
+}
+@keyframes test-gif {
+  0% {
+    background-image: url('../../assets/statement/giveUp01.png');
+  }
+  4% {
+    background-image: url('../../assets/statement/giveUp02.png');
+  }
+  8% {
+    background-image: url('../../assets/statement/giveUp03.png');
+  }
+  12% {
+    background-image: url('../../assets/statement/giveUp04.png');
+  }
+  16% {
+    background-image: url('../../assets/statement/giveUp05.png');
+  }
+  20% {
+    background-image: url('../../assets/statement/giveUp06.png');
+  }
+  24% {
+    background-image: url('../../assets/statement/giveUp07.png');
+  }
+  28% {
+    background-image: url('../../assets/statement/giveUp08.png');
+  }
+  32% {
+    background-image: url('../../assets/statement/giveUp09.png');
+  }
+  36% {
+    background-image: url('../../assets/statement/giveUp10.png');
+  }
+  40% {
+    background-image: url('../../assets/statement/giveUp11.png');
+  }
+  44% {
+    background-image: url('../../assets/statement/giveUp12.png');
+  }
+  48% {
+    background-image: url('../../assets/statement/giveUp13.png');
+  }
+  52% {
+    background-image: url('../../assets/statement/giveUp14.png');
+  }
+  56% {
+    background-image: url('../../assets/statement/giveUp15.png');
+  }
+  60% {
+    background-image: url('../../assets/statement/giveUp16.png');
+  }
+  64% {
+    background-image: url('../../assets/statement/giveUp17.png');
+  }
+  68% {
+    background-image: url('../../assets/statement/giveUp18.png');
+  }
+  72% {
+    background-image: url('../../assets/statement/giveUp19.png');
+  }
+  76% {
+    background-image: url('../../assets/statement/giveUp20.png');
+  }
+  80% {
+    background-image: url('../../assets/statement/giveUp21.png');
+  }
+  84% {
+    background-image: url('../../assets/statement/giveUp22.png');
+  }
+  88% {
+    background-image: url('../../assets/statement/giveUp23.png');
+  }
+  92% {
+    background-image: url('../../assets/statement/giveUp24.png');
+  }
+  96% {
+    background-image: url('../../assets/statement/giveUp25.png');
+  }
+  to {
+    background-image: url('../../assets/statement/giveUp25.png');
+  }
+}

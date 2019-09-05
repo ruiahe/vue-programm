@@ -37,12 +37,11 @@
                             <div class="item-name">{{item.nickname}}</div>
                             <div class="item-time">{{item.replyDatetime}}</div>
                         </div>
-                        <div class="item-info-right  center-vh">
+                        <div class="item-info-right  center-vh" :class="{'animate': item.animate}">
                             <img class='' src="../../assets/statement/discuss.png" alt="" @click.stop="show_input(item, false)">
                             {{item.replyCount}}
-                            <span class='center-v' @click.stop='give_up(item)'>
-                                <img class='up' src="../../assets/statement/upGray.png" alt="" v-if='!item.isUp'>
-                                <img class='up' src="../../assets/statement/upGreen.png" alt="" v-if='item.isUp'>
+                            <span class='center-v' @click.stop='give_up(index,item)'>
+                                <i class="img" :class="{'isUp':item.isUp}"></i>
                                 <span :class='{"like": item.isUp}'>{{item.upCount}}</span>
                             </span>
                         </div>
@@ -63,9 +62,11 @@
                         <img src="../../assets/statement/phone.png" alt="">
                         <input type="text" placeholder="评论点什么" readonly @click.stop='show_input(detailId, true)'>
                     </span>
-                    <span class='bottom-up' @click.stop='give_up(makeStatement["id"], makeStatement["isUp"], true)'>
-                        <img src="../../assets/statement/upGray.png" alt="" v-if='!makeStatement["isUp"]'>
-                        <img src="../../assets/statement/upGreen.png" alt="" v-if='makeStatement["isUp"]'>
+                    <span class='bottom-up' :class="{'animate': makeStatement['animate'], 'isUp': makeStatement['isUp']}" @click.stop='give_up("bottom",makeStatement["id"], makeStatement["isUp"], true)'>
+                        <i>
+                            <!-- <img src="../../assets/statement/upGray.png" alt="" v-if='!makeStatement["isUp"]'>
+                            <img src="../../assets/statement/upGreen.png" alt="" v-if='makeStatement["isUp"]'> -->
+                        </i>
                         <span class="bottom-up-txt">{{makeStatement['upCount']}}</span>
                     </span>
                 </div>
@@ -73,7 +74,7 @@
             <!-- <div class="placeholder"></div> -->
         </div>
         <!-- 阴影加弹框  （评论弹框） -->
-        <popCommit :operaId='operaId' :commitUrl='commitUrl' @refresh='getData'></popCommit>
+        <popCommit ref='popCommit' :operaId='operaId' :commitUrl='commitUrl' @refresh='getData'></popCommit>
         <!-- 强提示弹框 -->
         <strongTip :showStronTip = 'showStrongTip' :deleteUrl='deleteUrl' :chosenItem = 'chosenItem' @delete_suc='getData'></strongTip>
         <!-- 阴影加弹框 （举报&删除&排序） -->
@@ -136,7 +137,7 @@
             show_input(item, bol){
                 // if(!item.isSelf){
                     this.operaId = bol ? item : item.id;
-                    popCommit.methods.show_input();
+                    this.$refs['popCommit'].show_input(item.nickname?item.nickname:(item.replyer?item.replyer:false));
                 // } else {
                 //     common.show_weakTip('目前不支持回复自己');
                 // }
@@ -148,7 +149,6 @@
                     "titleId":_this.detailId,
                 }, 'post' ,false,false, (data) => {
                     _this.$nextTick(()=>{
-                        console.log('show')
                         _this.makeStatement = data['data'];
                         _this.isSelf = _this.makeStatement['isSelf'];
                     })
@@ -170,7 +170,7 @@
                 strongTip['methods'].show_opera();
             },
             // 点赞和取消点赞
-            give_up(item, isUp, bol){
+            give_up(index,item, isUp, bol){
                 var _this = this;
                 var id = bol ? item : item.id;
                 var up = bol ? isUp : item.isUp;
@@ -178,7 +178,31 @@
                     "titleId": id,
                     "isUp": !up,
                 } , 'post' ,false ,false, (data) => {
-                    _this.getData();
+                    _this.$nextTick(function(){
+                        if(index != 'bottom'){
+                            _this.makeStatement['dataList'][index]['upCount'] = data['data']['upCount'];
+                            if(!up){
+                                _this.makeStatement['dataList'][index]['animate'] = true;
+                                setTimeout(function(){
+                                    _this.makeStatement['dataList'][index]['isUp'] = !up;
+                                    _this.makeStatement['dataList'][index]['animate'] = false;
+                                },1000);
+                            } else {
+                                _this.makeStatement['dataList'][index]['isUp'] = !up;
+                            }
+                        } else {
+                            _this.makeStatement['upCount'] = data['data']['upCount'];
+                            if(!up){
+                                _this.makeStatement['animate'] = true;
+                                setTimeout(function(){
+                                    _this.makeStatement['isUp'] = !up;
+                                    _this.makeStatement['animate'] = false;
+                                },1000);
+                            } else {
+                                _this.makeStatement['isUp'] = !up;
+                            }
+                        }
+                    });
                 }, (err) => {
                     common.show_weakTip('服务器正忙，请稍后再试');
                 });

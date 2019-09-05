@@ -1,0 +1,86 @@
+/*
+    评论 & 回复弹框
+*/
+#pop-comment #pop-comment-box {
+  display: none;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  background-color: rgba(26, 16, 16, 0.6);
+  z-index: 1000;
+}
+#pop-comment .comment {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  border-radius: 16px 16px 0px 0px;
+  z-index: 1001;
+}
+#pop-comment .comment .comment-top {
+  border-bottom: 1px solid #eee;
+}
+#pop-comment .comment .comment-top .container {
+  height: 59px;
+}
+#pop-comment .comment .comment-top .container .comment-close {
+  width: 68px;
+  font-size: 12px;
+  color: #C9C9C9;
+  text-align: left;
+}
+#pop-comment .comment .comment-top .container .comment-close img {
+  width: 12px;
+}
+#pop-comment .comment .comment-top .container .comment-btn {
+  width: 68px;
+  height: 28px;
+  background: #7bc3a1;
+  border-radius: 24px;
+  font-size: 15px;
+  font-family: PingFangSC-Medium;
+  font-weight: 500;
+  color: #ffffff;
+}
+#pop-comment .comment .comment-top .container .comment-title {
+  flex: 1;
+  text-align: center;
+  font-size: 18px;
+  font-family: PingFangSC-Medium;
+  font-weight: 500;
+  color: #1b1b1b;
+}
+#pop-comment .comment .comment-txt {
+  padding: 12px 0 0 0;
+}
+#pop-comment .comment .comment-txt .textarea-box textarea {
+  width: 100%;
+  height: auto;
+  height: 65px;
+  font-size: 15px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: #1b1b1b;
+  line-height: 22px;
+  resize: none;
+  overflow: auto!important;
+  overflow-y: scroll;
+}
+#pop-comment .comment .comment-emoji {
+  text-align: right;
+  height: 53px;
+}
+#pop-comment .comment .comment-emoji .emoji-txt {
+  height: 21px;
+  font-size: 15px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: #9ab9ad;
+  line-height: 21px;
+  text-align: right;
+}

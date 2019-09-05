@@ -13,7 +13,7 @@
             </div>
             <div class="comment-txt container">
                 <div class="textarea-box">
-                    <textarea name="" id="" v-model="commentText" @input="change_num($event)" placeholder="评论点什么..." @focus="get_focus()" @blur='blur()'></textarea>
+                    <textarea name="" id="" v-model="commentText" @input="change_num($event)" :placeholder="placeholder" @focus="get_focus()" @blur='blur()'></textarea>
                 </div>
             </div>
             <div class="comment-emoji container">
@@ -36,12 +36,14 @@
         data(){
             return {
                 commentText: '',
-                commentLen: 0
+                commentLen: 0,
+                placeholder: '评论点什么...'
             }
         },
         methods: {
             // 打开发言框
-            show_input(){
+            show_input(txt){
+                if (txt) this.placeholder = '回复 '+txt;
                 $('#pop-comment-box').fadeIn(200);
                 $('#pop-comment .comment').slideDown(200);
             },
@@ -49,6 +51,8 @@
             close_comment(){
                 $('#pop-comment-box').fadeOut(200);
                 $('#pop-comment .comment').slideUp(200);
+                this.commentText = '';
+                this.commentLen = 0;
             },
             // 发送回复
             send_comment(){
@@ -62,6 +66,8 @@
                     } , 'post' ,'ios' ,'2.0.0', (data) => {
                         _this.close_comment();
                         _this.commentText = '';
+                        _this.commentLen = 0;
+                        common.show_weakTip('发送成功');
                         _this.$emit('refresh',data);
                     }, (err) => {
                         common.show_weakTip('服务器正忙，请稍后再试');

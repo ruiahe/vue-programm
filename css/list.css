@@ -1,0 +1,104 @@
+html {
+  background-color: #f7f7f7;
+}
+html #statement {
+  background-color: #f7f7f7;
+  overflow: hidden;
+}
+html #statement .statement-top {
+  background-color: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+html #statement .statement-top .statement-tip {
+  padding-top: 5px;
+  width: 100%;
+  padding-bottom: 25px;
+  font-size: 15px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: #9b9b9b;
+  line-height: 21px;
+  background-color: #fff;
+  text-align: center;
+}
+html #statement .statement-top .statement-tip .container {
+  width: 83%;
+}
+html #statement .statement-top .statement {
+  background: #F7F7F7;
+}
+html #statement .statement-top .statement .container {
+  height: 46px;
+  background-color: transparent;
+}
+html #statement .statement-top .statement .container .statement-num {
+  font-size: 13px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: #9b9b9b;
+}
+html #statement .statement-top .statement .container .statement-sort {
+  position: relative;
+  padding-right: 12px;
+  font-size: 13px;
+  font-family: PingFangSC-Semibold;
+  font-weight: 600;
+  color: #7e8591;
+}
+html #statement .statement-top .statement .container .statement-sort:before {
+  position: absolute;
+  right: 0;
+  top: 5px;
+  content: '';
+  width: 0;
+  height: 0;
+  border: 5px solid transparent;
+  border-top-color: #7E8591;
+}
+html #statement .mescroll {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 167px;
+  bottom: 70px!important;
+  height: auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+html #statement .input-box {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 77px;
+  background-color: #fff;
+}
+html #statement .input-box .input {
+  margin-top: 8px;
+  padding: 0 15px;
+  box-sizing: border-box;
+  height: 36px;
+  background: #f4f4f4;
+  border-radius: 19px;
+}
+html #statement .input-box .input img {
+  width: 16px;
+  height: 16px;
+}
+html #statement .input-box .input span {
+  margin-left: 3px;
+  flex: 1;
+  height: 21px;
+  font-size: 15px;
+  font-family: PingFangSC;
+  font-weight: 400;
+  color: #c1c1c1;
+  line-height: 21px;
+  background: #f4f4f4;
+}
+html #statement .input-placehold {
+  height: 77px;
+}

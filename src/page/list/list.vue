@@ -40,12 +40,11 @@
                             </div>
                         </div>
                         <div class="state-bottom container space-between">
-                            <div class="state-operate center-v">
+                            <div class="state-operate center-v" :class="{'animate': i.animate}">
                                 <img src="../../assets/statement/discuss.png" alt="" @click.stop='show_input(i, index)'>
                                 {{i.replyCount}}
-                                <span class='center-v' @click.stop='give_a_like(i, index)'>
-                                    <img class='up' src="../../assets/statement/upGray.png" alt="" v-if='!i.isUp'>
-                                    <img class='up' src="../../assets/statement/upGreen.png" alt="" v-if='i.isUp'>
+                                <span class='center-v' @click.stop='give_a_like(i, index, $event)'>
+                                    <i class="img" :class="{'isUp':i.isUp}"></i>
                                     <span :class='{"like": i.isUp}'>{{i.upCount}}</span>    
                                 </span>    
                             </div>
@@ -115,7 +114,7 @@
                 operaId: 0,
                 index: 0,                                                    //当前是第n条数据
                 subTitle: '',
-                imgsList:[]
+                imgsList:[],
             }
         },
         methods:{
@@ -201,15 +200,23 @@
                 this.$refs['popCommit'].show_input();
             },
             // 点赞
-            give_a_like(item,index){
+            give_a_like(item,index,e){
                 var _this = this;
                 new Request('app/forum/upReply',{
                     "titleId": item.id,
                     "isUp": !item.isUp,
                 } , 'post' ,false ,false, (data) => {
                     _this.$nextTick(()=>{
-                        _this.list[index]['isUp'] = !item.isUp;
                         _this.list[index]['upCount'] = data['data']['upCount'];
+                        if(!item.isUp){
+                            _this.list[index]['animate'] = true;
+                            setTimeout(function(){
+                                _this.list[index]['isUp'] = !item.isUp;
+                                _this.list[index]['animate'] = false;
+                            },1000)
+                        }else{
+                            _this.list[index]['isUp'] = !item.isUp;
+                        }
                     })
                 }, (err) => {
                     common.show_weakTip('服务器正忙，请稍后再试');

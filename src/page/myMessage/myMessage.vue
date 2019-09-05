@@ -41,12 +41,13 @@
                             </div>
                         </div>
                         <div class="state-bottom container space-between">
-                            <div class="state-operate center-v" @click.stop='give_a_like(relItem, relInd)'>
+                            <div class="state-operate center-v" @click.stop='give_a_like(relItem, relInd)' :class="{'animate': relItem['animate']}">
                                 <img src="../../assets/statement/discuss.png" alt="" @click.stop='show_input(relItem,relInd)'>
                                 {{relItem['replyCount']}}
-                                <img class='up' src="../../assets/statement/upGray.png" alt="" v-if='!relItem["isUp"]'>
-                                <img class='up' src="../../assets/statement/upGreen.png" alt="" v-if='relItem["isUp"]'>
-                                <span :class='{"like": relItem["isUp"]}'>{{relItem['upCount']}}</span>
+                                <span class="center-v">
+                                    <i :class="{'isUp': relItem['isUp']}"></i>
+                                    <span :class='{"like": relItem["isUp"]}'>{{relItem['upCount']}}</span>
+                                </span>
                             </div>
                             <div class="state-time">
                                 {{relItem['replyDatetime']}}
@@ -89,11 +90,10 @@
                             </div>
                         </div>
                         <div class="state-bottom container space-between">
-                            <div class="state-operate center-v">
+                            <div class="state-operate center-v" :class="{'animate': repItem['animate'], 'isUp': repItem['isUp']}">
                                 <span class="state-reply" @click.stop='show_input(repItem,repInd)'>回复</span>
-                                <span class="center-v" @click.stop='give_a_like(repItem, repInd)'>
-                                    <img class='up' src="../../assets/statement/upGray.png" alt="" v-if="!repItem['isUp']">
-                                    <img class='up' src="../../assets/statement/upGreen.png" alt="" v-if="repItem['isUp']">
+                                <span class="center-v" @click.stop='give_a_like(repItem, repInd)' :class="{'animate': repItem['animate']}">
+                                    <i :class="{'isUp': repItem['isUp']}"></i>
                                     <span :class='{"like": repItem["isUp"]}'>{{repItem['upCount']}}</span>
                                 </span>
                             </div>
@@ -148,7 +148,7 @@
         <!-- 阴影加弹框 （举报&删除&排序） -->
         <pop :clickKind='clickKind' :chosenItem = 'choseItem' :deleteUrl='deleteUrl' @delete_current='delete_current'></pop>
         <!-- 阴影加弹框  （评论弹框） -->
-        <popCommit :operaId='operaId' :commitUrl='commitUrl' @refresh='commit_current'></popCommit>
+        <popCommit ref='popCommit' :operaId='operaId' :commitUrl='commitUrl' @refresh='commit_current'></popCommit>
         <!-- 弱提示 -->
         <span class="weakTip"></span>
         <!-- 图片轮播 -->
@@ -301,7 +301,7 @@
         show_input(item,index){
             this.operaId = item.id;
             this.index = index;
-            popCommit.methods.show_input();
+            this.$refs['popCommit'].show_input(item.nickname?item.nickname:false);
         },
         // 发送评论后刷新
         delete_current(){
@@ -328,14 +328,30 @@
                 switch(_this.chosen_tab.id) {
                     case 0:
                         _this.$nextTick(()=>{
-                            _this.releaseList[index]['isUp'] = !item.isUp;
                             _this.releaseList[index]['upCount'] = data['data']['upCount'];
+                            if(!item.isUp) {
+                                _this.releaseList[index]['animate'] = true;
+                                setTimeout(function(){
+                                    _this.releaseList[index]['isUp'] = !item.isUp;
+                                    _this.releaseList[index]['animate'] = false;
+                                },1000)
+                            }else{
+                                _this.releaseList[index]['isUp'] = !item.isUp;
+                            }
                         });
                         break;
                     case 1: 
                         _this.$nextTick(()=>{
-                            _this.replymeList[index]['isUp'] = !item.isUp;
                             _this.replymeList[index]['upCount'] = data['data']['upCount'];
+                            if(!item.isUp){
+                                _this.replymeList[index]['animate'] = true;
+                                setTimeout(function(){
+                                    _this.replymeList[index]['isUp'] = !item.isUp;
+                                    _this.replymeList[index]['animate'] = false;
+                                },1000)
+                            } else {
+                                _this.replymeList[index]['isUp'] = !item.isUp;
+                            }
                         });
                         break;
                 }

@@ -139,12 +139,41 @@ html,body{
                         color:rgba(126,133,145,1);
                         img{
                             width:16px;
+                            margin-right:2px;
+                        }
+                        i{
+                            position: relative;
+                            margin-right:4px;
+                            margin-left:19px;
+                            font-style: normal;
+                            width:20px;
+                            height:20px;
+                        }
+                        i::before{
+                            position: absolute;
+                            bottom:0;
+                            content: '';
+                            width:20px;
+                            height:60px;
+                            background-image:url('../../assets/statement/upGray.png');
+                            background-repeat:  no-repeat;
+                            background-size:100%;
+                            background-position-y: bottom;
+                        }
+                        .isUp::before{
+                            background-image:url('../../assets/statement/upGreen.png');
                         }
                         .up{
                             margin-left:19px;
                         }
                         .like{
                             color:#709E91;
+                        }
+                    }
+                    .animate{
+                        i::before{
+                            background-image:url('../../assets/statement/giveUp01.png');
+                            animation: test-gif 1s steps(25,start) 0ms;
                         }
                     }
                 }
@@ -215,6 +244,7 @@ html,body{
                 }
             }
             .bottom-up{
+                position: relative;
                 display:flex;
                 align-items: center;
                 justify-content: flex-end;
@@ -223,10 +253,122 @@ html,body{
                 font-weight:bold;
                 color:rgba(126,133,145,1);
                 img{
-                    margin-right:5px;
+                    // margin-right:5px;
+                    // width:20px;
+                }
+                i{
                     width:20px;
+                    height:20px;
+                    margin-right:4px;
+                }
+                i::before{
+                    position: absolute;
+                    bottom:0;
+                    content: '';
+                    width:20px;
+                    height:60px;
+                    background-image:url('../../assets/statement/upGray.png');
+                    background-repeat:  no-repeat;
+                    background-size:100%;
+                    background-position-y: bottom;
+                }
+            }
+            .isUp{
+                i::before{
+                    background-image:url('../../assets/statement/upGreen.png');
+                }
+                .bottom-up-txt{
+                    color:#709E91;
+                }
+            }
+            .animate{
+                color:#709E91;
+                i::before{
+                    background-image:url('../../assets/statement/giveUp01.png');
+                    animation: test-gif 1s steps(25,start) 0ms;
                 }
             }
         }
+    }
+}
+// 点赞动效
+@keyframes test-gif{
+    0% {
+        background-image:url('../../assets/statement/giveUp01.png');
+    }
+    4% {
+        background-image:url('../../assets/statement/giveUp02.png');
+    }
+    8% {
+        background-image:url('../../assets/statement/giveUp03.png');
+    }
+    12% {
+        background-image:url('../../assets/statement/giveUp04.png');
+    }
+    16% {
+        background-image:url('../../assets/statement/giveUp05.png');
+    }
+    20% {
+        background-image:url('../../assets/statement/giveUp06.png');
+    }
+    24% {
+        background-image:url('../../assets/statement/giveUp07.png');
+    }
+    28% {
+        background-image:url('../../assets/statement/giveUp08.png');
+    }
+    32% {
+        background-image:url('../../assets/statement/giveUp09.png');
+    }
+    36% {
+        background-image:url('../../assets/statement/giveUp10.png');
+    }
+    40% {
+        background-image:url('../../assets/statement/giveUp11.png');
+    }
+    44% {
+        background-image:url('../../assets/statement/giveUp12.png');
+    }
+    48% {
+        background-image:url('../../assets/statement/giveUp13.png');
+    }
+    52% {
+        background-image:url('../../assets/statement/giveUp14.png');
+    }
+    56% {
+        background-image:url('../../assets/statement/giveUp15.png');
+    }
+    60% {
+        background-image:url('../../assets/statement/giveUp16.png');
+    }
+    64% {
+        background-image:url('../../assets/statement/giveUp17.png');
+    }
+    68% {
+        background-image:url('../../assets/statement/giveUp18.png') ;
+    }
+    72% {
+        background-image:url('../../assets/statement/giveUp19.png');
+    }
+    76% {
+        background-image:url('../../assets/statement/giveUp20.png');
+    }
+    80% {
+        background-image:url('../../assets/statement/giveUp21.png');
+    }
+    84% {
+        background-image:url('../../assets/statement/giveUp22.png');
+    }
+    88% {
+        background-image:url('../../assets/statement/giveUp23.png');
+    }
+    92% {
+        background-image:url('../../assets/statement/giveUp24.png');
+    }
+    96% {
+        background-image:url('../../assets/statement/giveUp25.png');
+    }
+    to {
+        background-image:url('../../assets/statement/giveUp25.png');
     }
 }
