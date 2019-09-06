@@ -42,10 +42,9 @@
                         <div class="state-bottom container space-between">
                             <div class="state-operate center-v" :class="{'animate': i.animate}">
                                 <img src="../../assets/statement/discuss.png" alt="" @click.stop='show_input(i, index)'>
-                                {{i.replyCount}}
-                                <span class='center-v' @click.stop='give_a_like(i, index, $event)'>
+                                {{i.replyCount>0?i.replyCount:''}}                                <span class='center-v' @click.stop='give_a_like(i, index, $event)'>
                                     <i class="img" :class="{'isUp':i.isUp}"></i>
-                                    <span :class='{"like": i.isUp}'>{{i.upCount}}</span>    
+                                    <span :class='{"like": i.isUp}'>{{i.upCount>0?i.upCount:''}}</span>    
                                 </span>    
                             </div>
                             <div class="state-time">

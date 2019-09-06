@@ -43,10 +43,10 @@
                         <div class="state-bottom container space-between">
                             <div class="state-operate center-v" @click.stop='give_a_like(relItem, relInd)' :class="{'animate': relItem['animate']}">
                                 <img src="../../assets/statement/discuss.png" alt="" @click.stop='show_input(relItem,relInd)'>
-                                {{relItem['replyCount']}}
+                                {{relItem['replyCount']>0?relItem['replyCount']:''}}
                                 <span class="center-v">
                                     <i :class="{'isUp': relItem['isUp']}"></i>
-                                    <span :class='{"like": relItem["isUp"]}'>{{relItem['upCount']}}</span>
+                                    <span :class='{"like": relItem["isUp"]}'>{{relItem['upCount']>0?relItem['upCount']:''}}</span>
                                 </span>
                             </div>
                             <div class="state-time">
@@ -94,7 +94,7 @@
                                 <span class="state-reply" @click.stop='show_input(repItem,repInd)'>回复</span>
                                 <span class="center-v" @click.stop='give_a_like(repItem, repInd)' :class="{'animate': repItem['animate']}">
                                     <i :class="{'isUp': repItem['isUp']}"></i>
-                                    <span :class='{"like": repItem["isUp"]}'>{{repItem['upCount']}}</span>
+                                    <span :class='{"like": repItem["isUp"]}'>{{repItem['upCount']>0?repItem['upCount']:''}}</span>
                                 </span>
                             </div>
                             <div class="state-time">
@@ -383,9 +383,6 @@
             var _this = this;
             this.$nextTick(()=>{
                 if(_this.chosen_tab.id == 0){
-                    console.log()
-                    console.log(_this.releaseList)
-                    console.log(_this.releaseList[_this.index])
                     _this.releaseList[_this.index]['replyCount'] = data['data']['replyCount'];
                 }
             });

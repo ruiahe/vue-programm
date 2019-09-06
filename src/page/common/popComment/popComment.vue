@@ -37,7 +37,8 @@
             return {
                 commentText: '',
                 commentLen: 0,
-                placeholder: '评论点什么...'
+                placeholder: '评论点什么...',
+                clicktag: 0
             }
         },
         methods: {
@@ -56,22 +57,28 @@
             },
             // 发送回复
             send_comment(){
-                var _this = this;
-                this.commentText = this.commentText.replace(/(^\s*)|(\s*$)/g, "");
-                if(this.commentText.length > 0){
-                    new Request(_this.commitUrl,{
-                        "titleId": _this.operaId,
-                        "replyContent":_this.commentText,
-                        "isOne":false,
-                    } , 'post' ,'ios' ,'2.0.0', (data) => {
-                        _this.close_comment();
-                        _this.commentText = '';
-                        _this.commentLen = 0;
-                        common.show_weakTip('发送成功');
-                        _this.$emit('refresh',data);
-                    }, (err) => {
-                        common.show_weakTip('服务器正忙，请稍后再试');
-                    });
+                if(this.clicktag == 0){
+                    var _this = this;
+                    this.clicktag = 1;
+                    setTimeout(function(){ _this.clicktag = 0 },3000);
+                    this.commentText = this.commentText.replace(/(^\s*)|(\s*$)/g, "");
+                    if(this.commentText.length > 0){
+                        new Request(_this.commitUrl,{
+                            "titleId": _this.operaId,
+                            "replyContent":_this.commentText,
+                            "isOne":false,
+                        } , 'post' ,'ios' ,'2.0.0', (data) => {
+                            _this.close_comment();
+                            _this.commentText = '';
+                            _this.commentLen = 0;
+                            common.show_weakTip('发送成功');
+                            _this.$emit('refresh',data);
+                        }, (err) => {
+                            common.show_weakTip('服务器正忙，请稍后再试');
+                        });
+                    }
+                } else {
+                    common.show_weakTip('请勿频繁操作');
                 }
             },
             // 计算输入的字数

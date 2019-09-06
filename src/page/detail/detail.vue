@@ -39,10 +39,10 @@
                         </div>
                         <div class="item-info-right  center-vh" :class="{'animate': item.animate}">
                             <img class='' src="../../assets/statement/discuss.png" alt="" @click.stop="show_input(item, false)">
-                            {{item.replyCount}}
+                            {{item.replyCount>0?item.replyCount:''}}
                             <span class='center-v' @click.stop='give_up(index,item)'>
                                 <i class="img" :class="{'isUp':item.isUp}"></i>
-                                <span :class='{"like": item.isUp}'>{{item.upCount}}</span>
+                                <span :class='{"like": item.isUp}'>{{item.upCount>0?item.upCount:''}}</span>
                             </span>
                         </div>
                     </div>
@@ -59,15 +59,12 @@
             <div class="bottom-box">
                 <div class="container space-between">
                     <span class="bottom-input space-between">
-                        <img src="../../assets/statement/phone.png" alt="">
+                        <img src="../../assets/takeComment.png" alt="">
                         <input type="text" placeholder="评论点什么" readonly @click.stop='show_input(detailId, true)'>
                     </span>
                     <span class='bottom-up' :class="{'animate': makeStatement['animate'], 'isUp': makeStatement['isUp']}" @click.stop='give_up("bottom",makeStatement["id"], makeStatement["isUp"], true)'>
-                        <i>
-                            <!-- <img src="../../assets/statement/upGray.png" alt="" v-if='!makeStatement["isUp"]'>
-                            <img src="../../assets/statement/upGreen.png" alt="" v-if='makeStatement["isUp"]'> -->
-                        </i>
-                        <span class="bottom-up-txt">{{makeStatement['upCount']}}</span>
+                        <i></i>
+                        <span class="bottom-up-txt">{{makeStatement['upCount']>0?makeStatement['upCount']:''}}</span>
                     </span>
                 </div>
             </div>
