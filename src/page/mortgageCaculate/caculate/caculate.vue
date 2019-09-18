@@ -56,7 +56,7 @@
                 </div>
             </li>
             <li class="btn">
-                <div>计算</div>
+                <div @click="nav_to_result()">计算</div>
             </li>
         </ul>
         <ul class="content providentFundLoan" v-if="showContent == 'providentFundLoan'">
@@ -164,11 +164,14 @@
             },
             get_select(obj){
                 console.log(obj);
+            },
+            nav_to_result(){
+                this.$router.push({path: '/mortgageCaculate/result'});
             }
         },
-        // beforeCreate(){
-        //     document.querySelector('body').style='background: rgba(249,249,249,1);';
-        // }
+        beforeCreate(){
+            document.querySelector('body').style='background: #fff;';
+        }
     }
 </script>
 <style lang="less" scoped>
