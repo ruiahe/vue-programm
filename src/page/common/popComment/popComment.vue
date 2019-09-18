@@ -1,6 +1,6 @@
 <template>
     <!-- 阴影加弹框  （评论弹框） -->
-    <div id="pop-comment">
+    <div id="pop-comment" @touchmove.prevent>
         <div class="comment">
             <div class="comment-top">
                 <div class="container space-between">
@@ -11,16 +11,17 @@
                     <span class="comment-btn center-vh" @click.stop="send_comment()">发送</span>
                 </div>
             </div>
+            
             <div class="comment-txt container">
                 <div class="textarea-box">
-                    <textarea name="" id="" v-model="commentText" @input="change_num($event)" :placeholder="placeholder" @focus="get_focus()" @blur='blur()'></textarea>
+                    <textarea name="" id="" v-model="commentText" @input="change_num($event)" :placeholder="placeholder" @focus="get_focus()" @blur="blur()"></textarea>
                 </div>
             </div>
             <div class="comment-emoji container">
                 <span class='emoji-txt'>{{commentLen}}/200</span>
             </div>
         </div>
-        <div id="pop-comment-box" @touchmove.prevent></div>
+        <div id="pop-comment-box"></div>
     </div>
 </template>
 <script>
@@ -38,22 +39,36 @@
                 commentText: '',
                 commentLen: 0,
                 placeholder: '评论点什么...',
-                clicktag: 0
+                clicktag: 0,
+                scrollTop: 0,
+                focusState: false,
+                scrollTopAnd: 0,
             }
         },
         methods: {
             // 打开发言框
             show_input(txt){
+                this.scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
                 if (txt) this.placeholder = '回复 '+txt;
+                $('#pop-comment').fadeIn(200);
                 $('#pop-comment-box').fadeIn(200);
                 $('#pop-comment .comment').slideDown(200);
+                setTimeout(()=>{
+                    $('#pop-comment .comment-txt textarea').focus();
+                },400)
             },
             // 关闭评论弹框
             close_comment(){
+                var _this = this ;
+                $('#pop-comment').fadeOut(200);
                 $('#pop-comment-box').fadeOut(200);
                 $('#pop-comment .comment').slideUp(200);
                 this.commentText = '';
                 this.commentLen = 0;
+                setTimeout(()=>{
+                   $("html,body").animate({"scrollTop": _this.scrollTop},0);
+                    $("html,body").scrollTop(_this.scrollTop);
+                },100)
             },
             // 发送回复
             send_comment(){
@@ -95,23 +110,23 @@
             },
             // 获取焦点后
             get_focus(){
-                var u = navigator.userAgent;
-                var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
-                if(isAndroid){
-                    $('body').height( $('body').height()+200)
-                    $('body').scrollTop(200)
+                if(common.isAndroid()){//安卓键盘适配问题
+                    $('body').css('height', ($('body').height()+260) + 'px');
+                    $("html,body").animate({"scrollTop":10000},0);
+                    $("html,body").scrollTop(10000);
+                } else {//为了适配ios不同的输入法带来的键盘问题
+                    setTimeout(()=>{
+                        $("html,body").animate({"scrollTop":10000},0);
+                        $("html,body").scrollTop(10000);
+                    },200)
                 }
             },
-            // 失去焦点后
             blur(){
-                var u = navigator.userAgent;
-                var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
-                if(isAndroid){
-                    $('body').height( $('body').height()-200)
-                    $('body').scrollTop(0)
+                if(common.isAndroid()){//安卓键盘适配问题
+                    $('body').css('height', '100%');
                 }
             }
-        }
+        },
     }
 </script>
 <style lang="less" scoped>

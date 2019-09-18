@@ -261,16 +261,18 @@
         },
         // 下拉刷新
         downCallback() {
-            var _this = this;
-            this.getData(1, 10, (data)=>{
-                var curPageData = data['data']['dataList'];
-                _this.totalNum = data['data']['totalNum'];
-                _this.list = curPageData;
-                _this.$nextTick(() => {
-                    _this.get_message_num();
-                    _this.mescrollObj.endSuccess();// 结束下拉刷新,无参
-                })
-            });
+            switch(this.chosen_tab.id){
+                case 0:
+                    this.releaseList = [];
+                    break;
+                case 1:
+                    _his.replymeList = [];
+                    break;
+                case 2:
+                    this.getUpList = [];
+                    break;
+            }
+            this.mescrollObj.resetUpScroll();
         },
         //上拉回调
         upCallback(page) {
@@ -283,12 +285,15 @@
                 switch(_this.chosen_tab.id){
                     case 0:
                         _this.releaseList = _this.releaseList.concat(curPageData);
+                        _this.releaseList.length>0 && $('.mescroll-empty') ? $('.mescroll-empty').remove() : '';
                         break;
                     case 1:
                         _this.replymeList = _this.replymeList.concat(curPageData);
+                        _this.replymeList.length>0 && $('.mescroll-empty') ? $('.mescroll-empty').remove() : '';
                         break;
                     case 2:
                         _this.getUpList = _this.getUpList.concat(curPageData);
+                        _this.getUpList.length>0 && $('.mescroll-empty') ? $('.mescroll-empty').remove() : '';
                         break;
                 }
                 _this.$nextTick(() => {

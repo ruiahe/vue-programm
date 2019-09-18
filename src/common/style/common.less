@@ -46,6 +46,20 @@ img{
     justify-content: flex-start;
 }
 /*
+    内容从底部开始
+*/
+.flex-bottom{
+    display: flex;
+    flex-direction: column-reverse;
+}
+/*
+    内容从底部开始
+*/
+.flex-top{
+    display: flex;
+    flex-direction: column-reverse;
+}
+/*
     宽度为百分之89.333且居中
 */
 .container{
@@ -77,12 +91,4 @@ img{
     text-align: center;
     transition: all 500ms;
     white-space: nowrap;
-}
-@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio:2) {
-    #header .header-box{
-        padding-top:34px!important;
-    }
-    #header .header-placeholder{
-        height:93px!important;
-    }
 }

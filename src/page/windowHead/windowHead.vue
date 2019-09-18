@@ -56,9 +56,6 @@
           emit_parent(e){
               this.$emit('emitClick',e);
           }
-        },
-        beforeCreate(){
-            // common.getInfo();
         }
     }
 </script>

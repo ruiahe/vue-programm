@@ -29,6 +29,7 @@
     import MeScroll from 'mescroll.js'
     import 'mescroll.js/mescroll.min.css'
     import { common } from '@/common/js/common';
+    import $ from 'jquery'
     export default {
         name: 'Feed',
         data () {
@@ -73,15 +74,8 @@
             },
             // 下拉刷新
             downCallback() {
-                var _this = this;
-                this.getData(1, 10, (data)=>{
-                    var curPageData = data['data']['dataList'];
-                    var totalSize = data['data']['totalNum'];
-                    _this.list = curPageData;
-                    _this.$nextTick(() => {
-                        _this.mescrollObj.endSuccess()// 结束下拉刷新,无参
-                    })
-                });
+                this.list = [];
+                this.mescrollObj.resetUpScroll();
             },
             // 获取数据
             getData(pageNum, pageSize, callbackSuc, callbackErr){
@@ -100,6 +94,7 @@
             document.querySelector('body').style = 'background:#F7F7F7';
         },
         mounted() {
+            var n = Math.random()*10;
             var _this = this;
             // 实例化上拉刷新对象
             this.mescrollObj = new MeScroll("mescroll", { //第一个参数"mescroll"对应上面布局结构div的id (1.3.5版本支持传入dom对象)
@@ -128,7 +123,7 @@
             }, function(err){
                 common.show_weakTip('服务器正忙，请稍后再试');
             });
-        }
+        },
     }
 </script>
 <style lang="less" scoped>

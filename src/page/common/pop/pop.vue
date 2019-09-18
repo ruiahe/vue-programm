@@ -1,7 +1,7 @@
 <template>
     <!-- 阴影加弹框 （举报&删除&排序） -->
     <div id="pop" @touchmove.prevent @click.prevent='close_pop()'>
-        <div class="pop-content list-tip list-tip-complaint" v-on:click='complaint_item()' :class='{"unshow": clickKind != "list-tip-complaint"}'>
+        <div class="pop-content list-tip list-tip-complaint" @click='complaint_item()' :class='{"unshow": clickKind != "list-tip-complaint"}'>
             <div class="center-vh">
                 <span><img src="../../../assets/complaint.png" alt=""></span>举报
             </div>
@@ -14,6 +14,22 @@
         <ul class="pop-content list-sort" :class='{"unshow": clickKind != "list-sort"}'>
             <li class='center-vh' v-for='(i,index) in sortList' :key = 'index' :class="{'chosen': i.chosen}" v-on:click='chose_sort(i)'>{{i.title}}</li>
         </ul>
+        <div class="pop-reason">
+            <div class="reason-title space-between">
+                <div class="reason-close"></div>
+                <div class="reason-titile-title">举报原因</div>
+                <div class="reason-place"></div>
+            </div>
+            <ul class="reason-list">
+                <li class="space-between" @click.prevent='chose_reason(1)'><span>违规信息</span><i></i></li>
+                <li class="space-between" @click.prevent='chose_reason(2)'><span>违规信息</span><i></i></li>
+                <li class="space-between" @click.prevent='chose_reason(3)'><span>违规信息</span><i></i></li>
+                <li class="space-between" @click.prevent='chose_reason(4)'><span>违规信息</span><i></i></li>
+                <li class="space-between" @click.prevent='chose_reason(5)'><span>违规信息</span><i></i></li>
+            </ul>
+            <div class="reason-btn">确定</div>
+        </div>
+        <div class="pop-box"></div>
     </div>
 </template>
 
@@ -41,9 +57,11 @@
         methods: {
             // 选中举报
             complaint_item(){
-                this.commit_data(this.compaintUrl, (data)=>{
-                    common.show_weakTip('举报成功');
-                });
+                alert(1)
+                $('.pop-reason').slideUp(200);
+                // this.commit_data(this.compaintUrl, (data)=>{
+                //     common.show_weakTip('举报成功');
+                // });
             },
             // 选中删除
             delete_item(){
@@ -87,6 +105,9 @@
                 $('#pop .pop-content').slideUp(200);
                 $('#pop').fadeOut(200);
             },
+            chose_reason(i){
+
+            }
         }
     }
 </script>

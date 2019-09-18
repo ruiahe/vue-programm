@@ -1,24 +1,23 @@
 <template>
     <div id="statement">
-        <div class="statement-top">
-            <wHead :titleJson='titleJson'></wHead>
+        <wHead :titleJson='titleJson'></wHead>
+        <!-- 滚动区域 -->
+        <div ref='mescroll' class="mescroll" id='mescrollList'>
             <div class="statement-tip" @touchmove.prevent>
                 <div class="container">
                     {{subTitle}}
                 </div>
             </div>
-            <div class="statement" @touchmove.prevent>
+            <div class="statement" @touchmove.prevent :class="{'sticky': sticky, 'sticky-ios': stickyIos}">
                 <div class="container space-between">
                     <span class='statement-num'>共{{totalNum}}条发言</span>
                     <span class='statement-sort' @click="show_sort($event)">{{sortChosenItem.title}}</span>
                 </div>
             </div>
-        </div>
-        <!-- 滚动区域 -->
-        <div ref='mescroll' class="mescroll" id='mescrollList'>
-            <div>
-                <div class="list-box" id="list-box" @touchmove.stop>
-                    <div class="state" v-on:click='statement_details(i.id)' v-for='(i, index) in list' :key="index">
+            <div class="statement-placeholder" v-if="sticky"></div>
+            <div id='upscrollWarp'>
+                <div class="list-box" id="list-box">
+                    <div class="state" v-on:click='statement_details(i.id,index)' v-for='(i, index) in list' :key="index">
                         <div class="state-top container space-between">
                             <div class="state-tx" :imgurl="i.uimg" style="background-image: url('../../assets/load.jpg');"></div>
                             <div class="state-inf center-v">
@@ -61,7 +60,6 @@
                 <span>我要发言...</span>
             </div>
         </div>
-        <div class="input-placehold"></div>
         <!-- 阴影加弹框 （举报&删除&排序） -->
         <pop :sortChosenItem='sortChosenItem' :clickKind='clickKind' :chosenItem = 'choseItem' :deleteUrl='deleteUrl' :compaintUrl='compaintUrl' @delete_current='delete_current' @change_sort='change_sort'></pop>
         <!-- 阴影加弹框  （评论弹框） -->
@@ -82,6 +80,7 @@
     import pop from '@/page/common/pop/pop'
     import popCommit from '@/page/common/popComment/popComment'
     import swiper from '@/page/common/swiper/swiper'
+    import {mapActions} from 'vuex'
     export default {
         name: 'statement',
         components:{
@@ -114,6 +113,11 @@
                 index: 0,                                                    //当前是第n条数据
                 subTitle: '',
                 imgsList:[],
+                subNavToTop: 0,
+                sticky: false,
+                listScroll: 0,
+                headHeight:0,
+                stickyIos: false
             }
         },
         methods:{
@@ -139,10 +143,10 @@
                 pop.methods.pop_position(x, y, '#pop .list-sort',false);
             },
             // 跳转至详情页
-            statement_details(id){
+            statement_details(id,index){
                 this.$router.push({
                     path: '/detail', 
-                    query:{id: id}
+                    query:{id: id,index: index}
                 });
             },
             // 跳转到app的评论页
@@ -167,18 +171,49 @@
                         this.mescrollObj.endSuccess(curPageData.length)
                     })
                 });
+                // _this.getList({
+                //     'titleId': _this.discussId,
+                //     'pageSize': pageSize,
+                //     'pageNum': pageNum,
+                //     'orderBy': _this.orderBy,
+                //     'function': ()=>{
+                //         _this.$nextTick(() => {
+                //             var curPageData = _this.$store.state.list.list;
+                //             _this.totalNum = _this.$store.state.list.totalNum;
+                //             _this.list = _this.list.concat(curPageData);
+                //             _this.mescrollObj.endBySize(curPageData.length, _this.totalNum);
+                //             _this.mescrollObj.endSuccess(curPageData.length)
+                //         })
+                //     }
+                // });
             },
             // 下拉刷新
             downCallback() {
-                var _this = this;
-                this.getData(1, 10, (data)=>{
-                    var curPageData = data['data']['dataList'];
-                    _this.totalNum = data['data']['totalNum'];
-                    _this.list = curPageData;
-                    _this.$nextTick(() => {
-                        _this.mescrollObj.endSuccess();// 结束下拉刷新,无参
-                    })
-                });
+                this.list = [];
+                this.mescrollObj.resetUpScroll();
+                // var _this = this;
+                // this.getData(1, 10, (data)=>{
+                //     var curPageData = data['data']['dataList'];
+                //     _this.totalNum = data['data']['totalNum'];
+                //     _this.list = curPageData;
+                //     _this.$nextTick(() => {
+                //         _this.mescrollObj.endSuccess();// 结束下拉刷新,无参
+                //     })
+                // });
+                // // _this.getList({
+                // //     'titleId': _this.discussId,
+                // //     'pageSize': 10,
+                // //     'pageNum': 1,
+                // //     'orderBy': _this.orderBy,
+                // //     'function': ()=>{
+                // //         _this.$nextTick(() => {
+                // //             var curPageData = _this.$store.state.list.list;
+                // //             _this.totalNum = _this.$store.state.list.totalNum;
+                // //             _this.list = _this.list.concat(curPageData);
+                // //             _this.mescrollObj.endSuccess();// 结束下拉刷新,无参
+                // //         })
+                // //     }
+                // // });
             },
             // 获取数据
             getData(pageNum, pageSize, callbackSuc, callbackErr, obj){
@@ -244,46 +279,94 @@
             show_big_img(imgs, index){
                 this.imgsList = imgs;
                 this.$refs['swiperImgs'].show(index);
+            },
+            // 初始化列表数据
+            init(){
+                this.titleJson['title'] = this.$route.query.title;
+                this.subTitle = this.$route.query.subtitle;
+                this.discussId = this.$route.query.id;
+                this.orderBy = this.$route.query.sort ? this.$route.query.sort : 1;
             }
         },
         mounted () {
+            var _this = this;
             window['reload'] = (sort) => {
                 this.orderBy = sort;
                 this.list = [];
                 this.mescrollObj.resetUpScroll(true);
             }
-            var _this = this;
-            this.titleJson['title'] = this.$route.query.title;
-            this.subTitle = this.$route.query.subtitle;
-            this.discussId = this.$route.query.id;
-            this.orderBy = this.$route.query.sort ? this.$route.query.sort : 1;
             //创建MeScroll对象
             this.mescrollObj = new MeScroll(this.$refs.mescroll, { //在mounted初始化mescroll,确保此处配置的ref有值
                 down:{
                     auto: false, // 是否在初始化完毕之后自动执行下拉回调callback; 默认true
-                    callback: _this.downCallback
+                    callback: _this.downCallback,
                 },
                 up: {
                     callback: _this.upCallback,
                     htmlNodata: '<p class="upwarp-nodata">-- END --</p>',
                     noMoreSize: 0, //如果列表已无数据,可设置列表的总数量要大于5才显示无更多数据;避免列表数据过少(比如只有一条数据),显示无更多数据会不好看
+                    // warpId: 'upscrollWarp', //让上拉进度装到upscrollWarp里面
                     empty: {
                         //列表第一页无任何数据时,显示的空提示布局; 需配置warpId才显示
                         tip: "暂无数据~" //提示
                     },
                     lazyLoad: {
                         use: true, // 是否开启懒加载,默认false
+                    },
+                    onScroll: function(mescroll, y, isUp){
+                        _this.listScroll = y;
+                        if(y >= _this.subNavToTop){
+                            if(common.isIos()){
+                                _this.stickyIos = true;
+                            } else {
+                                $('.statement.sticky').css('top', _this.headHeight+'px');
+                                _this.sticky = true;
+                            }
+                        } else {
+                            common.isIos()? _this.stickyIos = false : _this.sticky = false;
+                        }
                     }
                 },
-                isBounce: false
-            })
-        },
-        updated(){
-            var height = $('.statement').offset().top + 46;
-            $('#mescrollList').css('top', height + 'px');
+            });
+            this.init();
         },
         beforeCreate(){
             document.querySelector('body').style='background: linear-gradient(#F7F7F7 95%, #fff 100%);';
+        },
+        updated(){
+            this.subNavToTop = $('.statement-tip').outerHeight(true);
+            this.headHeight = $('#header').outerHeight(true);
+        },
+        activated(){
+            if(this.$route.meta.isUseCache){
+                var listScroll = Number(window.localStorage.getItem('listScroll'));
+                var changeItem = JSON.parse(window.localStorage.getItem('listInfo'));
+                if(listScroll && listScroll > 0){
+                    this.mescrollObj.scrollTo( Number(listScroll), 0 );
+                }
+                if(this.list && this.list.length>0 && changeItem){
+                    this.$nextTick(()=>{
+                        changeItem['replyCount']?this.list[changeItem['index']]['replyCount'] = changeItem['replyCount']:'';
+                        changeItem['upCount']?this.list[changeItem['index']]['upCount'] = changeItem['upCount'] : '';
+                        changeItem['isUp']&&changeItem['isUp'][0]?this.list[changeItem['index']]['isUp'] = changeItem['isUp'][1] : '';
+                    });
+                }
+            } else {
+                this.list = [];
+                this.sticky = false;
+                this.init();
+                this.downCallback();
+            }
+        },
+        beforeRouteLeave(to, from, next){
+            if(to.path.indexOf('/detail')>-1){
+                from.meta.isUseCache = true;
+                window.localStorage.setItem('listScroll', this.listScroll);
+            } else {
+                from.meta.isUseCache = false;
+                window.localStorage.setItem('listScroll', false);
+            }
+            next();
         }
     }
 </script>

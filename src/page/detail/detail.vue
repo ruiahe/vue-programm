@@ -46,7 +46,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="item-content">
+                    <div class="item-content" @touchstart="touch_start(item,$event)" @touchmove="touch_move()" @touchend="touch_end()">
                         {{item.replyContent}}
                     </div>
                     <div class="item-gray" v-if="item.replyModelDataList.length > 0">
@@ -71,9 +71,9 @@
             <!-- <div class="placeholder"></div> -->
         </div>
         <!-- 阴影加弹框  （评论弹框） -->
-        <popCommit ref='popCommit' :operaId='operaId' :commitUrl='commitUrl' @refresh='getData'></popCommit>
+        <popCommit ref='popCommit' :operaId='operaId' :commitUrl='commitUrl' @refresh='commit_update'></popCommit>
         <!-- 强提示弹框 -->
-        <strongTip :showStronTip = 'showStrongTip' :deleteUrl='deleteUrl' :chosenItem = 'chosenItem' @delete_suc='getData'></strongTip>
+        <strongTip ref='strongTip' :showStronTip = 'showStrongTip' :deleteUrl='deleteUrl' :chosenItem = 'chosenItem' @delete_suc='getData'></strongTip>
         <!-- 阴影加弹框 （举报&删除&排序） -->
         <pop :clickKind = 'clickKind' :chosenItem = 'chosenItem' :deleteUrl='deleteUrl' :compaintUrl='compaintUrl' @delete_current='delete_current'></pop>
         <!-- 弱提示 -->
@@ -122,17 +122,22 @@
                 commitUrl: 'app/forum/userReplyForumInfo',
                 x: 0,                                                   //当前操作项div的水平位置
                 y: 0,                                                   //当前操作项div的垂直位置
-                imgsList: []
+                imgsList: [],
+                timeout: 0,
+                isSpeak: false,
+                saveJson: {}
             }
         },
         mounted () {
             this.detailId = this.$route.query.id;
+            this.saveJson['index'] = this.$route.query.index;
             this.getData();
         },
         methods:{
             // 打开发言框
             show_input(item, bol){
                 // if(!item.isSelf){
+                    this.isSpeak = bol;
                     this.operaId = bol ? item : item.id;
                     this.$refs['popCommit'].show_input(item.nickname?item.nickname:(item.replyer?item.replyer:false));
                 // } else {
@@ -159,12 +164,12 @@
                 if(!item.isSelf){
                     this.show_input(item, bol);
                 } else {
-                    this.show_opera();
+                    this.show_opera(false);
                 }
             },
             // 展示删除强提示框
-            show_opera(){
-                strongTip['methods'].show_opera();
+            show_opera(txt){
+                this.$refs['strongTip'].show_opera(txt?txt:false);
             },
             // 点赞和取消点赞
             give_up(index,item, isUp, bol){
@@ -189,6 +194,8 @@
                             }
                         } else {
                             _this.makeStatement['upCount'] = data['data']['upCount'];
+                            _this.saveJson['isUp'] = [true,!up];
+                            _this.saveJson['upCount'] = data['data']['upCount'];
                             if(!up){
                                 _this.makeStatement['animate'] = true;
                                 setTimeout(function(){
@@ -225,10 +232,49 @@
             show_big_img(list, index){
                 this.imgsList = list;
                 this.$refs['swiperImgs'].show(index);
+            },
+            // 长按 -- 触发
+            touch_start(item, e){
+                if(item.isSelf) {
+                    e.preventDefault();
+                    var _this = this;
+                    this.timeout = 0;
+                    this.timeout = setTimeout(function(){
+                        _this.chosenItem = item;
+                        _this.show_opera('是否删除您的评论');
+                    },600)
+                }
+            },
+            // 长按 -- 移动
+            touch_move(){
+                clearTimeout(this.timeout);
+                this.timeout = 0;
+            },
+            // 长按 -- 结束
+            touch_end(){
+                var _this = this;
+                clearTimeout(_this.timeout);
+            },
+            // 判断是回复还是评论，如果是评论则保存评论数据提供给list使用并更新数据，如果是回复则仅更新数据
+            commit_update(data){
+                if(this.isSpeak){
+                    this.saveJson['replyCount'] = data['data']['replyCount'];
+                } else {
+                    this.saveJson['replyCount'] = false;
+                }
+                this.getData();
             }
         },
         beforeCreate(){
             document.querySelector('body').style='background: linear-gradient(#F7F7F7 95%, #fff 100%);';
+        },
+        beforeRouteLeave(to, from, next){
+            if(to.path.indexOf('/list')>-1){
+                window.localStorage.setItem('listInfo', JSON.stringify(this.saveJson));
+            } else {
+                window.localStorage.setItem('listInfo', false);
+            }
+            next();
         }
     }
 </script>

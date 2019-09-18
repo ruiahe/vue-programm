@@ -9,6 +9,16 @@ html{
             top:0;
             left:0;
             width:100%;
+        }
+        .mescroll{
+            position: fixed;
+            left:0;
+            right:0;
+            top:75px;
+            bottom:70px!important;
+            height:auto;
+            width:100%;
+            box-sizing: border-box;
             .statement-tip{
                 padding-top:5px;
                 width:100%;
@@ -55,16 +65,23 @@ html{
                     }
                 }
             }
-        }
-        .mescroll{
-            position: fixed;
-            left:0;
-            right:0;
-            top:167px;
-            bottom:70px!important;
-            height:auto;
-            width:100%;
-            box-sizing: border-box;
+            .statement.sticky{
+                position: fixed;
+                top:0;
+                left:0;
+                z-index:10000;
+                width:100%;
+            }
+			.statement.sticky-ios{
+				z-index: 9999;/*需设置zIndex,避免在悬停时,可能会被列表数据遮住*/
+				position: -webkit-sticky;
+				position: sticky;
+                top: 0;/*相对mescroll的div悬停的位置*/
+			}
+            .statement-placeholder{
+                height:46px;
+                width:100%;
+            }
         }
         .input-box{
             position: fixed;
@@ -100,5 +117,10 @@ html{
         .input-placehold{
             height:77px;
         }
+    }
+}
+@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio:2) {
+    html #statement .mescroll{
+        top:85px!important;
     }
 }

@@ -1,6 +1,9 @@
 <template>
     <div id="app">
-        <router-view/>
+      <keep-alive> 
+        <router-view v-if="$route.meta.keepAlive"></router-view> 
+      </keep-alive> 
+      <router-view v-if="!$route.meta.keepAlive"></router-view>
     </div>
 </template>
 <script>
@@ -14,7 +17,7 @@ export default {
   beforeCreate(){
     common.getInfo();
     window['getJson'] = (json) => {
-        window.localStorage.setItem('token', JSON.stringify(json));
+      window.localStorage.setItem('token', JSON.stringify(json));
     }
   }
 }

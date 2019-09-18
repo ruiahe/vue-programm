@@ -3,7 +3,7 @@
     <div id="strong-tip" @touchmove.prevent>
         <div class="strong-con">
             <div class="strong-top center-vh">
-                <span>是否删除您的回复</span>
+                <span>{{text}}</span>
             </div>
             <div class="strong-btn space-between">
                 <span class='center-vh' @click.stop='cancel()'>取消</span>
@@ -19,16 +19,18 @@
     export default {
         name: 'strongTip',
         props:{
-            deleteUrl:'',                        //删除接口
-            chosenItem: null                     //需要删除的对象
+            deleteUrl:'',                         //删除接口
+            chosenItem: null,                     //需要删除的对象
         },
         data(){
             return {
+                text: '是否删除您的回复'
             }
         },
         methods: {
             // 展示删除强提示框
-            show_opera(){
+            show_opera(txt){
+                this.text = txt ? txt : '是否删除您的回复';
                 $('#strong-tip').fadeIn(200);
                 $('#strong-tip .strong-con').addClass('show');
             },

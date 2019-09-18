@@ -2,6 +2,15 @@
     评论 & 回复弹框
 */
 #pop-comment{
+    display: none;
+    position: absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    width:100%;
+    height:auto;
+    z-index:10000;
+    box-sizing: border-box;
     #pop-comment-box{
         display:none;
         position: fixed;
@@ -13,15 +22,24 @@
         background-color:rgba(26, 16, 16,0.6);
         z-index:1000;
     }
+    #pop-comment-box.test{
+        display:flex;
+        flex-direction: column-reverse;
+        // justify-content:flex-end;
+        // align-items:flex-end;
+        // align-content:flex-end;
+    }
     .comment{
         display:none;
-        position: fixed;
+        position: absolute;
         bottom:0;
         left:0;
+        height:200px;
         width:100%;
         background:#fff;
         border-radius:16px 16px 0px 0px;
         z-index:1001;
+        box-sizing: border-box;
         .comment-top{
             border-bottom:1px solid #eee;
             .container{
