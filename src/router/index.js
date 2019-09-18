@@ -6,7 +6,9 @@ import Detail from '@/page/detail/detail'
 import MyMessage from '@/page/myMessage/myMessage'
 import todayInHistoryList from '@/page/todayInHistory/list/list'
 import todayInHistoryDetail from '@/page/todayInHistory/detail/detail'
-import scrollDate from '@/page/common/scrollDate/scrollDate'
+import mortgageCaculateCaculate from '@/page/mortgageCaculate/caculate/caculate'
+import mortgageCaculateRateTable from '@/page/mortgageCaculate/rateTable/rateTable'
+import mortgageCaculateResult from '@/page/mortgageCaculate/result/result'
 
 Vue.use(Router)
 
@@ -76,11 +78,29 @@ export default new Router({
         keepAlive: false
       }
     },
-    // 历史上的今天 -- 测试
+    // 房贷计算器 -- 计算器
     {
-      path: '/common/scrollDate',
-      name: 'scrollDate',
-      component: scrollDate,
+      path: '/mortgageCaculate/caculate',
+      name: 'mortgageCaculateCaculate',
+      component: mortgageCaculateCaculate,
+      meta: {
+        keepAlive: false
+      }
+    },
+    // 房贷计算器 -- 利率表
+    {
+      path: '/mortgageCaculate/rateTable',
+      name: 'mortgageCaculateRateTable',
+      component: mortgageCaculateRateTable,
+      meta: {
+        keepAlive: false
+      }
+    },
+    // 房贷计算器 -- 结果
+    {
+      path: '/mortgageCaculate/result',
+      name: 'mortgageCaculateResult',
+      component: mortgageCaculateResult,
       meta: {
         keepAlive: false
       }

@@ -53,7 +53,7 @@
                 currentMonth: 0,
                 currentDate: 0,
                 swiperOptionYear: {
-                    slidesPerView: 7,//每页显示的side个数
+                    slidesPerView: 5,//每页显示的side个数
                     paginationClickable: true,//是否支持点击
                     spaceBetween: 0,//每个side的距离
                     direction: 'vertical',//是否ֱ垂直居中
@@ -65,7 +65,7 @@
                     },
                 },
                 swiperOptionMonth: {
-                    slidesPerView: 7,//每页显示的side个数
+                    slidesPerView: 5,//每页显示的side个数
                     paginationClickable: true,//是否支持点击
                     spaceBetween: 0,//每个side的距离
                     direction: 'vertical',//是否ֱ垂直居中
@@ -77,7 +77,7 @@
                     },
                 },
                 swiperOptionDay: {
-                    slidesPerView: 7,//每页显示的side个数
+                    slidesPerView: 5,//每页显示的side个数
                     paginationClickable: true,//是否支持点击
                     spaceBetween: 0,//每个side的距离
                     direction: 'vertical',//是否ֱ垂直居中
@@ -134,25 +134,15 @@
             resetClass(index, className, type){
                 const _this = this;
                 var prev20 = index - 2; 
-                var prev30 = index - 3; 
                 var prev02 = index + 2; 
-                var prev03 = index + 3; 
                 var len = $('.'+className+' .swiper-slide').length;
-                $('.'+className+' .swiper-slide').removeClass('swiper-slide-prev-prev-prev');
                 $('.'+className+' .swiper-slide').removeClass('swiper-slide-prev-prev');
-                $('.'+className+' .swiper-slide').removeClass('swiper-slide-next-next-next');
                 $('.'+className+' .swiper-slide').removeClass('swiper-slide-next-next');
-                if(prev30 > 0 || prev30 == 0){
-                    $($('.'+className+' .swiper-slide')[prev30]).addClass('swiper-slide-prev-prev-prev');
-                    if(prev20 > 0 || prev20 == 0){
-                        $($('.'+className+' .swiper-slide')[prev20]).addClass('swiper-slide-prev-prev');
-                    }
+                if(prev20 > 0 || prev20 == 0){
+                    $($('.'+className+' .swiper-slide')[prev20]).addClass('swiper-slide-prev-prev');
                 }
-                if(prev03 + 1 < len || prev03 + 1 == len){
-                    $($('.'+className+' .swiper-slide')[prev03]).addClass('swiper-slide-next-next-next');
-                    if(prev02 + 1 < len || prev02 + 1 == len){
-                        $($('.'+className+' .swiper-slide')[prev02]).addClass('swiper-slide-next-next');
-                    }
+                if(prev02 + 1 < len || prev02 + 1 == len){
+                    $($('.'+className+' .swiper-slide')[prev02]).addClass('swiper-slide-next-next');
                 }
                 if(_this.scrollSetTimeOut == 1){
                     _this.return_day_num();

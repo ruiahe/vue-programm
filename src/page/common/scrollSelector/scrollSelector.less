@@ -1,5 +1,5 @@
 *{touch-action: none;}
-#date{
+#selector{
     display: none;
     position: fixed;
     top:0;
@@ -23,38 +23,44 @@
         overflow: hidden;
         .date-title{
             width:100%;
-            height:75px;
-            background-color:rgba(249,249,249,1);
+            height:57px;
+            background-color:#fff;
+            border-bottom:1px solid #EBEBEB;
             i{
                 width:77px;
-                height:100%;
-                background:url('../../../assets/close.png') no-repeat;
-                background-position: 20px center;
-                background-size: 11px;
+                font-size:14px;
+                font-family:PingFangSC;
+                font-weight:400;
+                color:rgba(183,194,201,1);
+                font-style: normal;
+                text-align:center;
             }
             span{
                 font-size:17px;
-                font-family:PingFang-SC;
-                font-weight:bold;
+                font-family:PingFangSC;
+                font-weight:600;
                 color:rgba(0,0,0,1);
+                line-height:24px;
             }
             strong{
                 width:77px;
                 text-align:center;
-                font-size:17px;
-                font-family:PingFang-SC;
-                font-weight:bold;
-                color:rgba(31,99,112,1);
+                font-size:14px;
+                font-family:PingFangSC;
+                font-weight:400;
+                color:rgba(104,196,161,1);
+                line-height:20px;
             }
         }
         .date-swiper-box{
             position: relative;
             .date-selector{
-                width:70%;
+                width:100%;
                 height:196px;
                 margin:0 auto;
                 padding:23px 0;
                 .date-selector-con{
+                    width:100%;
                     height:196px;
                     color:#333;
                     .swiper-container{
@@ -117,6 +123,15 @@
                 }
             }
         }
+        .date-swiper-box.type2{
+            .date-selector{
+                height:88px;
+                padding:29px 0 41px;
+                .date-selector-con{
+                    height:88px;
+                }
+            }
+        }
         .date-swiper-box::before{
             position: absolute;
             top:50%;
@@ -130,6 +145,9 @@
             border-top:1px solid #d5d5d5;
             border-bottom:1px solid #d5d5d5;
             background-color: transparent; 
+        }
+        .date-swiper-box.type2::before{
+            transform: translateY(-49px);
         }
     }
 }

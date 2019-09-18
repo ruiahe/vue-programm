@@ -10,13 +10,13 @@
   <div id="header" @touchmove.prevent>
       <div class="header-box">
         <div class="space-between">
-          <div class="arrow center-vl" @touchstart='back_to()'>
-              <img src="../../assets/header/arrow.png" alt="">
-          </div>
+          <div class="arrow center-vl" @touchstart='back_to()' :class="{'close': titleJson['close']}"></div>
           <div class="title">{{titleJson['title']}}</div>
-          <span class="tool center-vh" :class="{'hasRed': titleJson['hasRed']}">
-            <span v-if='titleJson["toolBol"] && titleJson["toolTitle"]!="···"' v-on:click='link_to(titleJson["url"])'>{{titleJson['toolTitle']}}</span>
-            <span v-if='titleJson["toolBol"] && titleJson["toolTitle"]=="···"' class='center-vh' @click.stop="emit_parent($event)">
+          <span v-if='titleJson["toolBol"] && titleJson["toolTitle"]!="···"' class="tool center-h" :class="{'hasRed': titleJson['hasRed']}" :style="'color:'+titleJson['color']+'!important;'">
+            <span v-on:click='link_to(titleJson["url"])'>{{titleJson['toolTitle']}}</span>
+          </span>
+          <span v-if='titleJson["toolBol"] && titleJson["toolTitle"]=="···"' class="tool center-vh" :class="{'hasRed': titleJson['hasRed']}">
+            <span class='center-vh' @click.stop="emit_parent($event)">
               <img src="../../assets/statement/ellipsis.png" alt="">
             </span>
           </span>
@@ -37,6 +37,8 @@
                 toolTitle: '',
                 hasRed: false,
                 url: '',
+                close: false,
+                color: 'rgba(155,155,155,1)'
             }
         },
         data(){

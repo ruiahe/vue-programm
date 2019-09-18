@@ -1,0 +1,111 @@
+#caculate{
+    .top{
+        position: fixed;
+        top:0;
+        left:0;
+        width:100%;
+        .nav{
+            position: relative;
+            height:48px;
+            li{
+                font-size:15px;
+                font-family:PingFangSC;
+                font-weight:400;
+                color:rgba(212,214,221,1);
+            }
+            .active{
+                font-size:17px;
+                font-weight:500;
+                color:rgba(104,196,161,1);
+            }
+        }
+        .nav:before{
+            content:'';
+            position: absolute;
+            left:19px;
+            bottom:0;
+            width:30px;
+            height:2px;
+            border:none;
+            background-color: #68C4A1;
+    
+            transition: all 500ms;
+            -webkit-transition: all 500ms;
+            -o-transition: all 500ms;
+            -ms-transition: all 500ms;
+        }
+        .nav.left1:before{
+            left:19px;
+        }
+        .nav.left2:before{
+            left:116px;
+        }
+        .nav.left3:before{
+            left:205px;
+        }
+        .nav.left4:before{
+            left:295px;
+        }
+    }
+    .place-holder{
+        height:123px;
+    }
+    .content{
+        li{
+            border-bottom:1px solid #EEEEEE;
+            .container{
+                height:55px;
+                span{
+                    font-size:15px;
+                    font-family:PingFangSC;
+                    font-weight:400;
+                    color:rgba(117,122,137,1);
+                }
+                strong{
+                    font-size:14px;
+                    font-family:PingFangSC;
+                    font-weight:400;
+                    color:rgba(212,214,221,1);
+                }
+                i{
+                    font-size:14px;
+                    font-family:PingFangSC;
+                    font-weight:400;
+                    font-style:normal;
+                    color:rgba(117,122,137,1);
+                    padding-right:21px;
+                    background-image: url('../../../assets/caculate/arrowRight.png');
+                    background-repeat: no-repeat;
+                    background-size: auto 12px;
+                    background-position: right center;
+                }
+                input{
+                    flex:1;
+                    text-align: right;
+                    margin-right:9px;
+                }
+            }
+        }
+        .btn{
+            border:none;
+            div{
+                width:195px;
+                height:42px;
+                background:rgba(104,196,161,1);
+                border-radius:21px;
+                font-size:18px;
+                font-family:PingFangSC;
+                font-weight:500;
+                color:rgba(255,255,255,1);
+                line-height:42px;
+                text-align:center;
+                margin:60px auto 0;
+            }
+        }
+    }
+}
+@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio:2) {
+    #caculate .place-holder{
+        height:137px!important;
+    }
+}

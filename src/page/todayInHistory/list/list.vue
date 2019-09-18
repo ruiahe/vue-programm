@@ -49,7 +49,7 @@
         name: 'todayInHistoryList',
         components:{
             wHead,
-            scrollDate
+            scrollDate,
         },
         data() {
             return {
@@ -57,8 +57,9 @@
                     title: '历史的今天',
                     toolBol: false,
                     toolTitle: '',
-                    hasRed: false
-                }
+                    hasRed: false,
+                },
+                arrList: [ '7.5折3.68%', '7.5折3.68%', '7.5折3.68%', '8折(3.68%)', '7.5折3.68%', '7.5折3.68%', '7.5折3.68%', '8折(3.68%)' ]
             }
         },
         methods:{
@@ -67,6 +68,12 @@
             },
             get_date(obj){
                 console.log(obj);
+            },
+            get_select(txt){
+                console.log(txt);
+            },
+            getData(){
+                this.$refs['scrollSelector'].open(3);
             }
         },
         beforeCreate(){
