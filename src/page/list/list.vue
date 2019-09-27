@@ -41,9 +41,10 @@
                         <div class="state-bottom container space-between">
                             <div class="state-operate center-v" :class="{'animate': i.animate}">
                                 <img src="../../assets/statement/discuss.png" alt="" @click.stop='show_input(i, index)'>
-                                {{i.replyCount>0?i.replyCount:''}}                                <span class='center-v' @click.stop='give_a_like(i, index, $event)'>
+                                <strong>{{i.replyCount>0?i.replyCount:''}}</strong>                             
+                                <span class='center-v' @click.stop='give_a_like(i, index, $event)'>
                                     <i class="img" :class="{'isUp':i.isUp}"></i>
-                                    <span :class='{"like": i.isUp}'>{{i.upCount>0?i.upCount:''}}</span>    
+                                    <span class="giveLike" :class='{"like": i.isUp}'>{{i.upCount>0?i.upCount:''}}</span>    
                                 </span>    
                             </div>
                             <div class="state-time">
@@ -56,14 +57,14 @@
         </div>
         <div class="input-box" @touchmove.prevent>
             <div class="input container space-between" @click="link_to_app()">
-                <img src="../../assets/statement/phone.png" alt="">
+                <img src="../../assets/ico_fayan@3x.png" alt="">
                 <span>我要发言...</span>
             </div>
         </div>
         <!-- 阴影加弹框 （举报&删除&排序） -->
-        <pop :sortChosenItem='sortChosenItem' :clickKind='clickKind' :chosenItem = 'choseItem' :deleteUrl='deleteUrl' :compaintUrl='compaintUrl' @delete_current='delete_current' @change_sort='change_sort'></pop>
+        <pop :sortChosenItem='sortChosenItem' :clickKind='clickKind' :chosenItem = 'choseItem' @delete_current='delete_current' @change_sort='change_sort'></pop>
         <!-- 阴影加弹框  （评论弹框） -->
-        <popCommit ref='popCommit' :operaId='operaId' :commitUrl='commitUrl' @refresh='commit_current'></popCommit>
+        <popCommit ref='popCommit' :operaId='operaId' @refresh='commit_current'></popCommit>
         <!-- 弱提示 -->
         <span class="weakTip"></span>
         <!-- 图片轮播 -->
@@ -75,12 +76,12 @@
     import 'mescroll.js/mescroll.min.css'
     import wHead from '../windowHead/windowHead'
     import $ from 'jquery'
-    import {Request} from '@/common/js/api.js'
     import {common} from '@/common/js/common.js'
     import pop from '@/page/common/pop/pop'
     import popCommit from '@/page/common/popComment/popComment'
     import swiper from '@/page/common/swiper/swiper'
     import {mapActions} from 'vuex'
+    import { queryForumReplyList, upReply } from '@/common/js/myApi'
     export default {
         name: 'statement',
         components:{
@@ -106,9 +107,6 @@
                 sortChosenItem: {id: 1, title: '最热发言'},              //当前选中的排序
                 orderBy: 1,                                             //排序
                 discussId: 0,                                           //当前发言id
-                deleteUrl: 'app/forum/deleteForumReplyInfo',            //删除链接 
-                compaintUrl: 'app/forum/reportForumReplyInfo',          //举报链接
-                commitUrl: 'app/forum/userReplyForumInfo',              // 
                 operaId: 0,
                 index: 0,                                                    //当前是第n条数据
                 subTitle: '',
@@ -151,6 +149,9 @@
             },
             // 跳转到app的评论页
             link_to_app(){
+                // this.$router.push({
+                //     path: '/todayInHistory/list', 
+                // });
                 common.link_to_app({
                     "titleId": this.discussId,
                     "sortNum": this.orderBy,
@@ -171,61 +172,15 @@
                         this.mescrollObj.endSuccess(curPageData.length)
                     })
                 });
-                // _this.getList({
-                //     'titleId': _this.discussId,
-                //     'pageSize': pageSize,
-                //     'pageNum': pageNum,
-                //     'orderBy': _this.orderBy,
-                //     'function': ()=>{
-                //         _this.$nextTick(() => {
-                //             var curPageData = _this.$store.state.list.list;
-                //             _this.totalNum = _this.$store.state.list.totalNum;
-                //             _this.list = _this.list.concat(curPageData);
-                //             _this.mescrollObj.endBySize(curPageData.length, _this.totalNum);
-                //             _this.mescrollObj.endSuccess(curPageData.length)
-                //         })
-                //     }
-                // });
             },
             // 下拉刷新
             downCallback() {
                 this.list = [];
                 this.mescrollObj.resetUpScroll();
-                // var _this = this;
-                // this.getData(1, 10, (data)=>{
-                //     var curPageData = data['data']['dataList'];
-                //     _this.totalNum = data['data']['totalNum'];
-                //     _this.list = curPageData;
-                //     _this.$nextTick(() => {
-                //         _this.mescrollObj.endSuccess();// 结束下拉刷新,无参
-                //     })
-                // });
-                // // _this.getList({
-                // //     'titleId': _this.discussId,
-                // //     'pageSize': 10,
-                // //     'pageNum': 1,
-                // //     'orderBy': _this.orderBy,
-                // //     'function': ()=>{
-                // //         _this.$nextTick(() => {
-                // //             var curPageData = _this.$store.state.list.list;
-                // //             _this.totalNum = _this.$store.state.list.totalNum;
-                // //             _this.list = _this.list.concat(curPageData);
-                // //             _this.mescrollObj.endSuccess();// 结束下拉刷新,无参
-                // //         })
-                // //     }
-                // // });
             },
             // 获取数据
             getData(pageNum, pageSize, callbackSuc, callbackErr, obj){
-                var _this = this;
-                new Request('app/forum/queryForumReplyList',{
-                    "titleId": _this.discussId,
-                    "pageSize":pageSize,
-                    "pageNum":pageNum,
-                    "orderBy": _this.orderBy
-                } , 'post' ,false,false, callbackSuc, function(err){
-                    common.show_weakTip('服务器正忙，请稍后再试');
-                });
+                queryForumReplyList({ "titleId": this.discussId, "pageSize":pageSize, "pageNum":pageNum, "orderBy": this.orderBy }, callbackSuc);
             },
             // 打开发言框
             show_input(item, index){
@@ -236,10 +191,7 @@
             // 点赞
             give_a_like(item,index,e){
                 var _this = this;
-                new Request('app/forum/upReply',{
-                    "titleId": item.id,
-                    "isUp": !item.isUp,
-                } , 'post' ,false ,false, (data) => {
+                upReply({ "titleId": item.id, "isUp": !item.isUp }, (data)=>{
                     _this.$nextTick(()=>{
                         _this.list[index]['upCount'] = data['data']['upCount'];
                         if(!item.isUp){
@@ -252,9 +204,7 @@
                             _this.list[index]['isUp'] = !item.isUp;
                         }
                     })
-                }, (err) => {
-                    common.show_weakTip('服务器正忙，请稍后再试');
-                });
+                })
             },
             // 删除数据后
             delete_current(){

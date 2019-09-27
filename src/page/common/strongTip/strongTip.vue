@@ -15,7 +15,7 @@
 
 <script>
     import $ from 'jquery'
-    import {Request} from '@/common/js/api.js'
+    import { deleteForumReplyInfo } from '@/common/js/myApi'
     export default {
         name: 'strongTip',
         props:{
@@ -42,15 +42,10 @@
             // 删除回复
             confirm_delete(){
                 var _this = this;
-                new Request(_this.deleteUrl,{
-                    "titleId":_this.chosenItem.id,
-                }, 'post' ,false,false, (data) => {
-                    _this.$emit('delete_suc','这里瞎写');
+                deleteForumReplyInfo({ "titleId":_this.chosenItem.id }, ()=>{
+                    _this.$emit('delete_suc','删除成功');
                     _this.cancel();
-                }, function(err){
-                    console.log('这里是错误回调');
-                    console.log(err);
-                });
+                })
             }
         }
     }

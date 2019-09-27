@@ -66,7 +66,7 @@ export default new Router({
       name: 'todayInHistoryList',
       component: todayInHistoryList,
       meta: {
-        keepAlive: false
+        keepAlive: true
       }
     },
     // 历史上的今天 -- 详情
@@ -84,7 +84,7 @@ export default new Router({
       name: 'mortgageCaculateCaculate',
       component: mortgageCaculateCaculate,
       meta: {
-        keepAlive: false
+        keepAlive: true
       }
     },
     // 房贷计算器 -- 利率表

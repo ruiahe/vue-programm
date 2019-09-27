@@ -1,5 +1,5 @@
 <template>
-    <div id="date" class='flex-bottom'>
+    <div id="date" class='flex-bottom' @touchmove.prevent>
         <div class="date-box">
             <div class="date-title space-between">
                 <i @click="close()"></i>
@@ -11,7 +11,7 @@
                     <div class="date-selector-con date-year">
                         <swiper :options="swiperOptionYear" ref="mySwiperYear">
                             <swiper-slide v-for="i in 200" :key='i'>
-                                <div class="slide-txt center-vh">{{i+1899}}年</div>
+                                <div class="slide-txt center-vh">{{i+1969}}年</div>
                             </swiper-slide>
                         </swiper>
                     </div>
@@ -39,11 +39,12 @@
     import 'swiper/dist/css/swiper.css'
     import { swiper, swiperSlide } from 'vue-awesome-swiper'
     import $ from 'jquery'
+import { common } from '../../../common/js/common';
     export default {
         name: 'headerTool',
         components:{
             swiper,
-            swiperSlide
+            swiperSlide,
         },
         data(){
             const _this = this;
@@ -89,12 +90,18 @@
                     },
                 },
                 scrollSetTimeOut: 1,
-                returnDayNum: 30
+                returnDayNum: 30,
+                returnName: 'first_repayment_time'
             }
         },
         methods: {
-            open(indexYear, indexMonth, indexDay){
+            open(time, txt){
                 var _this = this;
+                const obj = common.change_to_date(time);
+                const indexYear = common.change_to_date(time).year - 1970;
+                const indexMonth = common.change_to_date(time).month - 1;
+                const indexDay = common.change_to_date(time).day - 1;
+                this.returnName = txt;
                 $('#date').fadeIn(150)
                 setTimeout(()=>{
                     $('.date-box').slideDown(150)
@@ -108,7 +115,7 @@
             },
             return_day_num(index, type){
                 var _this = this;
-                if(this.$refs['mySwiperYear']) var currentYear = this.$refs['mySwiperYear'].swiper.activeIndex + 1900;
+                if(this.$refs['mySwiperYear']) var currentYear = this.$refs['mySwiperYear'].swiper.activeIndex + 1970;
                 if(this.$refs['mySwiperMonth']) var currentMonth = this.$refs['mySwiperMonth'].swiper.activeIndex + 1;
                 if(this.$refs['mySwiperDay']) var currentDay = this.$refs['mySwiperDay'].swiper.activeIndex + 1;
                 setTimeout(()=>{
@@ -156,10 +163,11 @@
             },
             confirm(){
                 const obj = {};
-                obj['year'] = this.$refs['mySwiperYear'].swiper.activeIndex + 1900;
+                obj['year'] = this.$refs['mySwiperYear'].swiper.activeIndex + 1970;
                 obj['month'] = this.$refs['mySwiperMonth'].swiper.activeIndex + 1;
                 obj['day'] = this.$refs['mySwiperDay'].swiper.activeIndex + 1;
-                this.$emit('date',obj);
+                const time = (new Date(obj['year']+'/'+obj['month']+'/'+obj['day'])).getTime();
+                this.$emit('date',{ 'name': this.returnName, 'result': time });
                 this.close();
             },
             update_swiper(){

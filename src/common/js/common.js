@@ -1,15 +1,7 @@
-import config from '../json/config.json'
 import $ from 'jquery'
-const token1 = 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIzMjQiLCJpYXQiOjE1NjU2NjQ2MTEsInN1YiI6IjMyNCIsImlzcyI6InRhbmtlIiwiZXhwIjoxNTY4MjU2NjExfQ.kAfzIp_SnJpo-J2GJOxrcJ-Dtjf9fcAXbzRhm6iLcdw';
-const token2 = 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIzMjgiLCJpYXQiOjE1NjU3NzY4ODksInN1YiI6IjMyOCIsImlzcyI6InRhbmtlIiwiZXhwIjoxNTY4MzY4ODg5fQ.Y-IECwhbDb97INsVYYPxG1J-bw5VAE75c8LlQG51Boo0';
-const token3 = 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIzMjgiLCJpYXQiOjE1NjU3NzY4ODksInN1YiI6IjMyOCIsImlzcyI6InRhbmtlIiwiZXhwIjoxNTY4MzY4ODg5fQ.Y-IECwhbDb97INsVYYPxG1J-bw5VAE75c8LlQG51Boo00';
-const device = 'ios';
-const version = '1.0.0';
-// const token2 = 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI0NzUiLCJpYXQiOjE1NjU3OTMzMTQsInN1YiI6IjQ3NSIsImlzcyI6InRhbmtlIiwiZXhwIjoxNTY4Mzg1MzE0fQ.oTNKmwlMFfd3zHAKzj4qBNMHgvXczmtVfvV_xALKPfI'
 // 设置info信息
 export const common = {
-    token: token1,
-    domain: getDomain(),
+    // 返回上一页
     back: function(bol){
         if (bol) {
             common.link_to_app({
@@ -19,10 +11,11 @@ export const common = {
             window.history.go(-1);
         }
     },
+    // 跳转到app
     link_to_app(obj){
-        if(isAndroid()){
+        if(common.isAndroid()){
             window.Android.linkTo(JSON.stringify(obj));
-        }else if(isIos()){
+        }else if(common.isIos()){
             window.webkit.messageHandlers.linkTo.postMessage(obj);
         }
     },
@@ -37,46 +30,48 @@ export const common = {
             $('.weakTip').fadeOut(1000);
         }, 2000)
     },
-    // app获取手机信息
-    getInfo(){
-        var info;
-        if(isAndroid()){
-            info = window.Android.getInfo();
-            window.localStorage.setItem('infJson', info);
-        } else if(isIos()){
-            window.webkit.messageHandlers.linkTo.postMessage({'methodName': 'getInfo'});
+    // 时间戳获取日期、时间
+    change_to_date(t){
+        var get_y = new Date(t).getFullYear();
+        var get_mon = new Date(t).getMonth() + 1;
+        var get_d = new Date(t).getDate();
+        var get_h = new Date(t).getHours();
+        var get_m = new Date(t).getMinutes();
+        var get_s = new Date(t).getSeconds();
+        var y = get_y > 9 ? get_y : '0' + get_y; 
+        var mon = get_mon > 9 ? get_mon : '0' + get_mon; 
+        var d = get_d > 9 ? get_d : '0' + get_d; 
+        var h = get_h > 9 ? get_h : '0' + get_h; 
+        var m = get_m > 9 ? get_m : '0'+ get_m; 
+        var s = get_s > 9 ? get_s : '0'+ get_s; 
+        var obj = {
+            'year': y,
+            'month': mon,
+            'day': d,
+            'hour': h,
+            'minutes': m,
+            'seconds': s
         }
+        return obj;
+    },
+    // 判断是否是安卓
+    isAndroid(){
+        var u = navigator.userAgent;
+        if (u.indexOf("Android") > -1 || u.indexOf("Linux") > -1) {
+            return true;
+        }
+        return false;
+    },
+    // 判断是否是ios
+    isIos(){
+        var u = navigator.userAgent;
+        if (u.indexOf("iPhone") > -1 || u.indexOf("iOS") > -1) {
+            return true;
+        }
+        return false;
+    },
+    // 格式化数据（保留2位小数，若为整数则添加2个0)
+    format_number(num){
+        return (Math.round(num*100)/100).toFixed(2);
     }
-}
-// domain: fomal => 正式; beta => 测试; local => 本地; 
-function getDomain(){
-    var domain;
-    switch(config.domain) {
-        case 'formal':
-            domain = 'http://www.36jiapp.com:8080/core/';
-            break;
-        case 'beta':
-            domain = 'http://test.36jiapp.com:8080/';
-            break;
-        case 'local':
-            domain = 'http://192.168.0.148:8080/';
-            break;
-    }
-    return domain;
-}
-// 判断安卓
-function isAndroid(){
-    var u = navigator.userAgent;
-    if (u.indexOf("Android") > -1 || u.indexOf("Linux") > -1) {
-        return true;
-    }
-    return false;
-}
-// 判断设备为 ios
-function isIos(){
-    var u = navigator.userAgent;
-    if (u.indexOf("iPhone") > -1 || u.indexOf("iOS") > -1) {
-        return true;
-    }
-    return false;
 }

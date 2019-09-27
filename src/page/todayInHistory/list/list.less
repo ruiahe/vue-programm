@@ -4,6 +4,8 @@
         top:0;
         left:0;
         width:100%;
+        background-color:#fff;
+        z-index:1;
         .subtitle{
             background-color:#fff;
             padding:15px 0;
@@ -100,6 +102,13 @@
                             font-weight:500;
                             color:rgba(37,37,37,1);
                             line-height:20px;
+                            text-overflow: -o-ellipsis-lastline;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            display: -webkit-box;
+                            -webkit-line-clamp: 3;
+                            line-clamp: 3;
+                            -webkit-box-orient: vertical;
                         }
                     }
                 }

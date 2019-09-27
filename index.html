@@ -12,19 +12,4 @@
   <body>
     <div id="app"></div>
   </body>
-  <script>
-    function getJson(json){
-        window.localStorage.setItem('infJson', JSON.stringify(json));
-    }
-    function getback(){
-        var bol = window.location.href.indexOf('feed') > -1;
-        if(!bol){
-          window.history.go(-1);
-        } else {
-          window.Android.linkTo(JSON.stringify({
-                "methodName": "back"
-          }));
-        }
-    }
-  </script>
 </html>

@@ -26,13 +26,12 @@
 </template>
 <script>
     import $ from 'jquery'
-    import {Request} from '@/common/js/api.js'
     import { common } from '@/common/js/common';
+    import { userReplyForumInfo } from '@/common/js/myApi'
     export default {
         name: 'strongTip',
         props:{
            operaId: 0,
-           commitUrl: '',
         },
         data(){
             return {
@@ -53,9 +52,6 @@
                 $('#pop-comment').fadeIn(200);
                 $('#pop-comment-box').fadeIn(200);
                 $('#pop-comment .comment').slideDown(200);
-                setTimeout(()=>{
-                    $('#pop-comment .comment-txt textarea').focus();
-                },400)
             },
             // 关闭评论弹框
             close_comment(){
@@ -78,19 +74,13 @@
                     setTimeout(function(){ _this.clicktag = 0 },3000);
                     this.commentText = this.commentText.replace(/(^\s*)|(\s*$)/g, "");
                     if(this.commentText.length > 0){
-                        new Request(_this.commitUrl,{
-                            "titleId": _this.operaId,
-                            "replyContent":_this.commentText,
-                            "isOne":false,
-                        } , 'post' ,'ios' ,'2.0.0', (data) => {
+                        userReplyForumInfo({ "titleId": _this.operaId, "replyContent":_this.commentText, "isOne":false }, (data)=>{
                             _this.close_comment();
                             _this.commentText = '';
                             _this.commentLen = 0;
                             common.show_weakTip('发送成功');
                             _this.$emit('refresh',data);
-                        }, (err) => {
-                            common.show_weakTip('服务器正忙，请稍后再试');
-                        });
+                        })
                     }
                 } else {
                     common.show_weakTip('请勿频繁操作');

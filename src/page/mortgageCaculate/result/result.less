@@ -1,5 +1,9 @@
 #cacultResult{
     head{
+        position: fixed;
+        top:0;
+        left:0;
+        width:100%;
         background-color:#fff;
         padding-top:20px;
         height:60px;
@@ -52,6 +56,9 @@
             right:0;
         }
     }
+    .placeholder{
+        height:60px;
+    }
     .show1-container{
         padding-top:3px;
         background-color:#fff;
@@ -60,6 +67,7 @@
                 padding:17px 0;
                 width:33.3333333%;
                 .show1-box{
+                    white-space: nowrap;
                     width:60px;
                     font-size:15px;
                     font-family:PingFangSC;
@@ -83,17 +91,37 @@
             }
         }
     }
+    .show2-container{
+        .show1{
+            li{
+                width:25%;
+            }
+        }
+    }
     table{
         width:100%;
         tr{
+            height:50px;
             td{
+                margin:0;
+                padding:0;
                 height:50px;
                 font-size:12px;
                 font-family:PingFangSC;
                 font-weight:400;
                 color:rgba(117,122,137,1);
-                line-height:50px;
                 text-align:center;
+                div{
+                    height:100%;
+                }
+                .top{
+                    height:50%;
+                    line-height: 25px;
+                }
+                .bottom{
+                    height:50%;
+                    line-height: 25px;
+                }
             }
             td:first-child{
                 width:68px;
@@ -102,21 +130,42 @@
                 width:102px;
             }
         }
-        tr:first-child{
-            td{
-                font-size:14px;
-                font-family:PingFangSC;
-                font-weight:400;
+        tr:nth-child(odd){
+            background-color:#fff;
+        }
+    }
+    .stickyPlacehold{
+        position: relative;
+        height:50px;
+        .special{
+            position: absolute;
+            top:0;
+            left:0;
+            width:100%;
+            tr{
+                background-color:rgba(245,245,245,1)!important;
                 color:rgba(60,60,60,1);
+                td{
+                    font-size:14px;
+                    font-family:PingFangSC;
+                    font-weight:400;
+                    color:rgba(60,60,60,1);
+                }
             }
         }
-        tr:nth-child(even){
-            background-color:#fff;
+        .special.sticky{
+            position: fixed;
+            top:60px;
+            width:100%;
         }
     }
 }
 @media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio:2) {
-    #cacultResult .head{
+    #cacultResult head,
+    #cacultResult .placeholder{
         padding-top:34px!important;
+    }
+    #cacultResult .stickyPlacehold .special.sticky{
+        top:94px;
     }
 }

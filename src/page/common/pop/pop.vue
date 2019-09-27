@@ -1,7 +1,8 @@
 <template>
     <!-- 阴影加弹框 （举报&删除&排序） -->
-    <div id="pop" @touchmove.prevent @click.prevent='close_pop()'>
-        <div class="pop-content list-tip list-tip-complaint" @click='complaint_item()' :class='{"unshow": clickKind != "list-tip-complaint"}'>
+    <!-- <div id="pop" @touchmove.prevent @click.prevent='close_pop()'> -->
+    <div id="pop" @touchmove.prevent>
+        <div class="pop-content list-tip list-tip-complaint" @click.passive='complaint_item()' :class='{"unshow": clickKind != "list-tip-complaint"}'>
             <div class="center-vh">
                 <span><img src="../../../assets/complaint.png" alt=""></span>举报
             </div>
@@ -16,37 +17,37 @@
         </ul>
         <div class="pop-reason">
             <div class="reason-title space-between">
-                <div class="reason-close"></div>
+                <div class="reason-close" @click="close_pop(true)"></div>
                 <div class="reason-titile-title">举报原因</div>
                 <div class="reason-place"></div>
             </div>
             <ul class="reason-list">
-                <li class="space-between" @click.prevent='chose_reason(1)'><span>违规信息</span><i></i></li>
-                <li class="space-between" @click.prevent='chose_reason(2)'><span>违规信息</span><i></i></li>
-                <li class="space-between" @click.prevent='chose_reason(3)'><span>违规信息</span><i></i></li>
-                <li class="space-between" @click.prevent='chose_reason(4)'><span>违规信息</span><i></i></li>
-                <li class="space-between" @click.prevent='chose_reason(5)'><span>违规信息</span><i></i></li>
+                <li class="space-between" @click.prevent='chose_reason(1,$event)'><span>广告或垃圾信息</span><i></i></li>
+                <li class="space-between" @click.prevent='chose_reason(2,$event)'><span>低俗或色情</span><i></i></li>
+                <li class="space-between" @click.prevent='chose_reason(3,$event)'><span>违反相关法律法规</span><i></i></li>
+                <li class="space-between" @click.prevent='chose_reason(4,$event)'><span>其他原因</span><i></i></li>
             </ul>
-            <div class="reason-btn">确定</div>
+            <div class="reason-btn" @click="confirm_complaint()">确定</div>
         </div>
-        <div class="pop-box"></div>
+        <div class="pop-box" @click.prevent='close_pop()'></div>
     </div>
 </template>
 
 <script>
     import $ from 'jquery'
-    import {Request} from '@/common/js/api.js'
     import { common } from '@/common/js/common';
+    import { deleteForumReplyInfo, reportForumReplyInfo } from '@/common/js/myApi'
     export default {
         name: 'strongTip',
         props:{
             clickKind: '',
             chosenItem: null,
             compaintUrl: '',
-            deleteUrl: '',
         },
         data(){
             return {
+                complaintReason: false,
+                tipType: 'weak',
                 sortList:[
                     {title: '最热发言', id: 1, chosen: true},
                     {title: '最新发言', id: 2, chosen: false},
@@ -55,17 +56,15 @@
             }
         },
         methods: {
-            // 选中举报
+            // 选中举报&展开举报原因提供选择
             complaint_item(){
-                alert(1)
-                $('.pop-reason').slideUp(200);
-                // this.commit_data(this.compaintUrl, (data)=>{
-                //     common.show_weakTip('举报成功');
-                // });
+                this.tipType = 'strong';
+                $('.pop-content').fadeOut(200);
+                $('.pop-reason').slideDown(200);
             },
             // 选中删除
             delete_item(){
-                this.commit_data(this.deleteUrl, (data)=>{
+                this.commit_data(()=>{
                     this.$emit('delete_current');
                     common.show_weakTip('删除成功');
                 });
@@ -80,21 +79,21 @@
                 $(cName).slideDown(200);
             },
             // 关闭弹框
-            close_pop(){
-                $('#pop .pop-content').slideUp(200);
-                $('#pop').fadeOut(200);
+            close_pop(bol){
+                if(this.tipType == 'weak' || bol){
+                    $('.pop-reason').slideUp(200);
+                    $('#pop .pop-content').slideUp(200);
+                    $('#pop').fadeOut(200);
+                    this.tipType = 'weak';
+                }
             },
-            // 提交信息
-            commit_data(url, calSuc){
+            // 提交信息（删除）
+            commit_data(calSuc){
                 var _this = this;
-                new Request(url, {
-                    "titleId":_this.chosenItem.id,
-                }, 'post' ,false,false, (data) => {
+                deleteForumReplyInfo({ "titleId":_this.chosenItem.id }, (data) => {
                     calSuc(data);
                     _this.close_pop();
-                }, function(err){
-                    common.show_weakTip('服务器正忙，请稍后再试');
-                });
+                })
             },
             // 选中排序方式
             chose_sort(i){
@@ -105,8 +104,25 @@
                 $('#pop .pop-content').slideUp(200);
                 $('#pop').fadeOut(200);
             },
-            chose_reason(i){
+            // 选择具体的举报原因
+            chose_reason(i,e){
+                this.complaintReason = i;
+                $('.reason-list li').removeClass('active');
+                if(e.target.tagName == 'LI'){
+                    $(e.target).addClass('active');
+                } else {
+                    $(e.target).parents('li').addClass('active');
+                }
 
+            },
+            // 发送举报原因
+            confirm_complaint(){
+                const _this = this;
+                reportForumReplyInfo({ titleId: _this.chosenItem.id, tipId: _this.complaintReason }, (res)=>{
+                    _this.close_pop(true);
+                    _this.complaintReason = false;
+                    common.show_weakTip('举报成功');
+                })
             }
         }
     }

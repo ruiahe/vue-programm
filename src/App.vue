@@ -8,17 +8,31 @@
 </template>
 <script>
 import {common} from './common/js/common.js'
+import { mapActions } from 'vuex'
+import { set_headers } from './common/js/axios'
 export default {
   name: 'App',
   components:{
   },
   methods:{
+    ...mapActions('appInfo',[ 
+        'getAppInfo'
+    ])
   },
   beforeCreate(){
-    common.getInfo();
-    window['getJson'] = (json) => {
-      window.localStorage.setItem('token', JSON.stringify(json));
-    }
+    const _this = this;
+    set_headers();
+    // window['getJson'] = (json) => {
+    //   _this.getAppInfo(json);
+    //   set_headers();
+    // }
+    // if(common.isAndroid()){
+    //     info = window.Android.getInfo();
+    //     _this.getAppInfo(JSON.parse(json));
+    //     set_headers();
+    // } else if(common.isIos()){
+    //     window.webkit.messageHandlers.linkTo.postMessage({'methodName': 'getInfo'});
+    // }
   }
 }
 </script>

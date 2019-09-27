@@ -1,56 +1,60 @@
 <template>
     <div id="detail" v-cloak>
         <wHead :titleJson='titleJson' @emitClick='complaint'></wHead>
-        <div class="detail">
-            <div class="detail-top space-between container">
-                <div class="detail-img">
-                    <img :src="makeStatement.uimg" alt="">
-                </div>
-                <div class="detail-inf">
-                    <div class="detail-name">{{makeStatement['nickname']}}</div>
-                    <div class="detail-time">{{makeStatement['replyDatetime']}}</div>
-                </div>
-                <div class="detail-version">
-                    <div class="detail-txt center-vr">
-                        <img src="../../assets/statement/phone.png" alt="">
-                        <span>{{makeStatement['deviceOsVersion']}} {{makeStatement['appVersion']}}</span>
+        <div class="fix">
+            <div class="detail">
+                <div class="detail-top space-between container">
+                    <div class="detail-img">
+                        <img :src="makeStatement.uimg" alt="">
                     </div>
-                    <div class="detail-blank"></div>
+                    <div class="detail-inf">
+                        <div class="detail-name">{{makeStatement['nickname']}}</div>
+                        <div class="detail-time">{{makeStatement['replyDatetime']}}</div>
+                    </div>
+                    <div class="detail-version">
+                        <div class="detail-txt center-vr">
+                            <img src="../../assets/statement/phone.png" alt="">
+                            <span>{{makeStatement['deviceOsVersion']}} {{makeStatement['appVersion']}}</span>
+                        </div>
+                        <div class="detail-blank"></div>
+                    </div>
+                </div>
+                <div class="detail-middle container">{{makeStatement['replyContent']}}</div>
+                <div class="detail-bottom" v-if="makeStatement['replyImg']">
+                    <div class="bottom-img" v-for="(img, ind) in makeStatement['replyImg']" :key='ind'  :style="{ 'background-image': 'url('+img.img+')'}" @click.stop="show_big_img(makeStatement['replyImg'], ind)"> 
+                        <!-- <img :src="img.img" alt="">  -->
+                    </div>
                 </div>
             </div>
-            <div class="detail-middle container">{{makeStatement['replyContent']}}</div>
-            <div class="detail-bottom" v-if="makeStatement['replyImg']">
-                <div class="bottom-img" v-for="(img, ind) in makeStatement['replyImg']" :key='ind'  :style="{ 'background-image': 'url('+img.img+')'}" @click.stop="show_big_img(makeStatement['replyImg'], ind)"> 
-                    <!-- <img :src="img.img" alt="">  -->
-                </div>
-            </div>
-        </div>
-        <div class="gray-box"></div>
-        <div class="list container" v-if="makeStatement['dataList']">
-            <div class="item between" v-for="(item, index) in makeStatement['dataList']" :key='index'>
-                <div class="item-tx">
-                    <img :src="item.uimg" alt="">
-                </div>
-                <div class="item-con">
-                    <div class="item-info space-between">
-                        <div class="item-info-left">
-                            <div class="item-name">{{item.nickname}}</div>
-                            <div class="item-time">{{item.replyDatetime}}</div>
+            <div class="gray-box"></div>
+            <div class="list" v-if="makeStatement['dataList']">
+                <div class="container">
+                    <div class="item between" v-for="(item, index) in makeStatement['dataList']" :key='index'>
+                        <div class="item-tx">
+                            <img :src="item.uimg" alt="">
                         </div>
-                        <div class="item-info-right  center-vh" :class="{'animate': item.animate}">
-                            <img class='' src="../../assets/statement/discuss.png" alt="" @click.stop="show_input(item, false)">
-                            {{item.replyCount>0?item.replyCount:''}}
-                            <span class='center-v' @click.stop='give_up(index,item)'>
-                                <i class="img" :class="{'isUp':item.isUp}"></i>
-                                <span :class='{"like": item.isUp}'>{{item.upCount>0?item.upCount:''}}</span>
-                            </span>
+                        <div class="item-con">
+                            <div class="item-info space-between">
+                                <div class="item-info-left">
+                                    <div class="item-name">{{item.nickname}}</div>
+                                    <div class="item-time">{{item.replyDatetime}}</div>
+                                </div>
+                                <div class="item-info-right  center-vh" :class="{'animate': item.animate}">
+                                    <img class='' src="../../assets/statement/discuss.png" alt="" @click.stop="show_input(item, false)">
+                                    <strong>{{item.replyCount>0?item.replyCount:''}}</strong>
+                                    <span class='center-v' @click.stop='give_up(index,item)'>
+                                        <i class="img" :class="{'isUp':item.isUp}"></i>
+                                        <span class="giveLike" :class='{"like": item.isUp}'>{{item.upCount>0?item.upCount:''}}</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="item-content" @touchstart="touch_start(item,$event)" @touchmove="touch_move()" @touchend="touch_end()">
+                                {{item.replyContent}}
+                            </div>
+                            <div class="item-gray" v-if="item.replyModelDataList.length > 0">
+                                <div class="gray-list" v-for="(it, ind) in item.replyModelDataList" :key='ind' @click.stop="is_self(it, false)"><span>{{it.replyer}}</span>回复<span>{{it.responser}}</span>：{{it.content}}</div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="item-content" @touchstart="touch_start(item,$event)" @touchmove="touch_move()" @touchend="touch_end()">
-                        {{item.replyContent}}
-                    </div>
-                    <div class="item-gray" v-if="item.replyModelDataList.length > 0">
-                        <div class="gray-list" v-for="(it, ind) in item.replyModelDataList" :key='ind' @click.stop="is_self(it, false)"><span>{{it.replyer}}</span>回复<span>{{it.responser}}</span>：{{it.content}}</div>
                     </div>
                 </div>
             </div>
@@ -68,14 +72,13 @@
                     </span>
                 </div>
             </div>
-            <!-- <div class="placeholder"></div> -->
         </div>
         <!-- 阴影加弹框  （评论弹框） -->
-        <popCommit ref='popCommit' :operaId='operaId' :commitUrl='commitUrl' @refresh='commit_update'></popCommit>
+        <popCommit ref='popCommit' :operaId='operaId' @refresh='commit_update'></popCommit>
         <!-- 强提示弹框 -->
-        <strongTip ref='strongTip' :showStronTip = 'showStrongTip' :deleteUrl='deleteUrl' :chosenItem = 'chosenItem' @delete_suc='getData'></strongTip>
+        <strongTip ref='strongTip' :showStronTip = 'showStrongTip' :chosenItem = 'chosenItem' @delete_suc='delete_suc'></strongTip>
         <!-- 阴影加弹框 （举报&删除&排序） -->
-        <pop :clickKind = 'clickKind' :chosenItem = 'chosenItem' :deleteUrl='deleteUrl' :compaintUrl='compaintUrl' @delete_current='delete_current'></pop>
+        <pop :clickKind = 'clickKind' :chosenItem = 'chosenItem' @delete_current='delete_current'></pop>
         <!-- 弱提示 -->
         <span class="weakTip"></span>
         <!-- 图片轮播 -->
@@ -84,13 +87,13 @@
 </template>
 <script>
     import $ from 'jquery';
-    import {Request} from '@/common/js/api.js';
     import wHead from '../windowHead/windowHead';
     import { common } from '../../common/js/common';
     import strongTip from '@/page/common/strongTip/strongTip';
     import pop from '@/page/common/pop/pop'
     import popCommit from '@/page/common/popComment/popComment'
     import swiper from '@/page/common/swiper/swiper'
+    import { queryForumReplyInfo, upReply } from '@/common/js/myApi'
     export default {
         name: 'detail',
         components:{
@@ -110,18 +113,10 @@
                     hasRed: false,
                 },
                 makeStatement: {},
-                commentText: '',                                        //评论内容
-                commentLen: 0,
                 clickKind: '',
-                isSelf: false,
                 operaId: {},
                 chosenItem: null,
                 showStrongTip: false,
-                deleteUrl: 'app/forum/deleteForumReplyInfo',
-                compaintUrl: 'app/forum/reportForumReplyInfo',
-                commitUrl: 'app/forum/userReplyForumInfo',
-                x: 0,                                                   //当前操作项div的水平位置
-                y: 0,                                                   //当前操作项div的垂直位置
                 imgsList: [],
                 timeout: 0,
                 isSpeak: false,
@@ -136,27 +131,24 @@
         methods:{
             // 打开发言框
             show_input(item, bol){
-                // if(!item.isSelf){
-                    this.isSpeak = bol;
-                    this.operaId = bol ? item : item.id;
-                    this.$refs['popCommit'].show_input(item.nickname?item.nickname:(item.replyer?item.replyer:false));
-                // } else {
-                //     common.show_weakTip('目前不支持回复自己');
-                // }
+                this.isSpeak = bol;
+                this.operaId = bol ? item : item.id;
+                this.$refs['popCommit'].show_input(item.nickname?item.nickname:(item.replyer?item.replyer:false));
             },
             // 获取数据
             getData(){
                 var _this = this;
-                new Request('app/forum/queryForumReplyInfo',{
-                    "titleId":_this.detailId,
-                }, 'post' ,false,false, (data) => {
+                queryForumReplyInfo({"titleId":_this.detailId},(data) => {
                     _this.$nextTick(()=>{
                         _this.makeStatement = data['data'];
-                        _this.isSelf = _this.makeStatement['isSelf'];
+                        _this.saveJson['replyCount'] = data['data']['replyCount'];
                     })
-                }, function(err){
-                    common.show_weakTip('服务器正忙，请稍后再试');
-                });
+                })
+            },
+            // 删除数据后弱提示
+            delete_suc(){
+                common.show_weakTip('删除成功');
+                this.getData();
             },
             // 判断是打开评论弹框还是删除并执行对应方法
             is_self(item,bol){
@@ -176,10 +168,7 @@
                 var _this = this;
                 var id = bol ? item : item.id;
                 var up = bol ? isUp : item.isUp;
-                new Request('app/forum/upReply',{
-                    "titleId": id,
-                    "isUp": !up,
-                } , 'post' ,false ,false, (data) => {
+                upReply({ "titleId": id, "isUp": !up }, (data) => {
                     _this.$nextTick(function(){
                         if(index != 'bottom'){
                             _this.makeStatement['dataList'][index]['upCount'] = data['data']['upCount'];
@@ -207,21 +196,19 @@
                             }
                         }
                     });
-                }, (err) => {
-                    common.show_weakTip('服务器正忙，请稍后再试');
-                });
+                })
             },
             // 打开举报遮罩（有可能是举报有可能是删除）
             complaint(e){
                 this.chosenItem = {'id': this.detailId};
-                this.x = e.target.getBoundingClientRect().left - 79;
-                this.y = e.target.getBoundingClientRect().top + 24;
-                if (this.isSelf) {
+                const x = e.target.getBoundingClientRect().left - 79;
+                const y = e.target.getBoundingClientRect().top + 24;
+                if (this.makeStatement['isSelf']) {
                     this.clickKind = 'list-tip-del';
-                    pop.methods.pop_position(this.x, this.y, '#pop .list-tip-del',true);
+                    pop.methods.pop_position(x, y, '#pop .list-tip-del',true);
                 } else {
                     this.clickKind = 'list-tip-complaint';
-                    pop.methods.pop_position(this.x, this.y, '#pop .list-tip-complaint',true);
+                    pop.methods.pop_position(x, y, '#pop .list-tip-complaint',true);
                 }
             },
             // 删除当前数据

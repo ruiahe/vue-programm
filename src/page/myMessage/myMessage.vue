@@ -146,9 +146,9 @@
             </div>
         </div>
         <!-- 阴影加弹框 （举报&删除&排序） -->
-        <pop :clickKind='clickKind' :chosenItem = 'choseItem' :deleteUrl='deleteUrl' @delete_current='delete_current'></pop>
+        <pop :clickKind='clickKind' :chosenItem = 'choseItem'  @delete_current='delete_current'></pop>
         <!-- 阴影加弹框  （评论弹框） -->
-        <popCommit ref='popCommit' :operaId='operaId' :commitUrl='commitUrl' @refresh='commit_current'></popCommit>
+        <popCommit ref='popCommit' :operaId='operaId' @refresh='commit_current'></popCommit>
         <!-- 弱提示 -->
         <span class="weakTip"></span>
         <!-- 图片轮播 -->
@@ -160,11 +160,11 @@
     import $ from 'jquery'
     import MeScroll from 'mescroll.js'
     import 'mescroll.js/mescroll.min.css'
-    import {Request} from '@/common/js/api.js'
     import popCommit from '@/page/common/popComment/popComment'
     import pop from '@/page/common/pop/pop'
     import { common } from '../../common/js/common'
     import swiper from '@/page/common/swiper/swiper'
+    import { varibal, upReply, statisticsReplyInfo } from '@/common/js/myApi'
     export default {
     name: 'message',
     components:{
@@ -176,9 +176,9 @@
     data() {
         return {
             tabList:[
-                {title: '我发布的', chosen: true, num: 0, id: 0, url:'app/forum/queryMyIssuedList'},
-                {title: '回复我的', chosen: false, num: 0, id: 1, url:'app/forum/replyMyList'},
-                {title: '收到的赞', chosen: false, num: 0, id: 2, url:'app/forum/upMyList'}
+                {title: '我发布的', chosen: true, num: 0, id: 0, url:'/app/forum/queryMyIssuedList'},
+                {title: '回复我的', chosen: false, num: 0, id: 1, url:'/app/forum/replyMyList'},
+                {title: '收到的赞', chosen: false, num: 0, id: 2, url:'/app/forum/upMyList'}
             ],
             titleJson:{
                 title: '消息',
@@ -186,15 +186,13 @@
                 toolTitle: '',
                 hasRed: false
             },
-            chosen_tab : {id: 0, url: 'app/forum/queryMyIssuedList'},
+            chosen_tab : {id: 0, url: '/app/forum/queryMyIssuedList'},
             mescrollObj: null,
             releaseList: [],
             replymeList: [],
             getUpList: [],
             operaId: 0,
-            deleteUrl: 'app/forum/deleteForumReplyInfo',
-            compaintUrl: 'app/forum/reportForumReplyInfo',
-            commitUrl: 'app/forum/userReplyForumInfo',
+            compaintUrl: '/app/forum/reportForumReplyInfo',
             choseItem: null,
             clickKind: 'list-tip-del',
             index: 0,
@@ -252,12 +250,7 @@
         // 获取数据
         getData(num, size, sucCal){
             var url = this.chosen_tab['url'];
-            new Request(url, {
-                'pageSize': size,
-                'pageNum': num
-            }, 'post' ,false,false, sucCal, (err) => {
-                common.show_weakTip('服务器正忙，请稍后再试');
-            });
+            varibal({ 'pageSize': size, 'pageNum': num }, url, sucCal);
         },
         // 下拉刷新
         downCallback() {
@@ -326,10 +319,7 @@
         // 点赞
         give_a_like(item, index){
             var _this = this;
-            new Request('app/forum/upReply',{
-                "titleId": item.id,
-                "isUp": !item.isUp,
-            } , 'post' ,false ,false, (data) => {
+            upReply({ "titleId": item.id, "isUp": !item.isUp }, (data) => {
                 switch(_this.chosen_tab.id) {
                     case 0:
                         _this.$nextTick(()=>{
@@ -360,10 +350,7 @@
                         });
                         break;
                 }
-
-            }, (err) => {
-                common.show_weakTip('服务器正忙，请稍后再试');
-            });
+            })
         },
         // 打开举报遮罩（有可能是举报有可能是删除）
         complaint(e,id,i){
@@ -375,14 +362,12 @@
         // 获取消息的数量
         get_message_num(){
             var _this = this;
-            new Request('app/forum/statisticsReplyInfo',{} , 'post' ,false,false, (data) => {
+            statisticsReplyInfo((data) => {
                 _this.$nextTick(()=> {
                     _this.tabList[1]['num'] = data['data']['replyCount'];
                     _this.tabList[2]['num'] = data['data']['upCount'];
                 })
-            }, (err) => {
-                common.show_weakTip('服务器正忙，请稍后再试');
-            });
+            })
         },
         commit_current(data){
             var _this = this;

@@ -25,11 +25,11 @@
 </template>
 <script>
     import wHead from '../windowHead/windowHead'
-    import {Request} from '@/common/js/api.js';
     import MeScroll from 'mescroll.js'
     import 'mescroll.js/mescroll.min.css'
     import { common } from '@/common/js/common';
     import $ from 'jquery'
+    import { feedList, statisticsReplyInfo } from '@/common/js/myApi'
     export default {
         name: 'Feed',
         data () {
@@ -79,14 +79,7 @@
             },
             // 获取数据
             getData(pageNum, pageSize, callbackSuc, callbackErr){
-                var _this = this;
-                new Request('app/forum/queryForumFeedbackModulesList',{
-                    "pageSize":pageSize,
-                    "pageNum":pageNum
-                }, 'post' ,false,false, callbackSuc, function(err){
-                    console.log('这里是错误回调');
-                    console.log(err);
-                });
+               feedList({ "pageSize":pageSize, "pageNum":pageNum }, callbackSuc);
             }
         },
         beforeCreate(){
@@ -114,14 +107,12 @@
 				}
             });
             // 获取消息小红点相关
-            new Request('app/forum/statisticsReplyInfo',{}, 'post' ,false,false, function(data){
+            statisticsReplyInfo(()=>{
                 if(data['data']['replyCount'] + data['data']['upCount'] > 0) {
                     _this.$nextTick(()=>{
                         _this.titleJson['hasRed'] = true;
                     })
                 }
-            }, function(err){
-                common.show_weakTip('服务器正忙，请稍后再试');
             });
         },
     }

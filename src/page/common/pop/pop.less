@@ -9,7 +9,7 @@
     height:auto;
     left:0;
     right:0;
-    background-color:rgba(0,0,0,0.6);
+    // background-color:rgba(0,0,0,0.6);
     z-index:100;
     .list-tip{
         display: none;
@@ -78,6 +78,7 @@
         background-color:#fff;
         border-top-left-radius: 16px;
         border-top-right-radius: 16px;
+        z-index:10;
         .reason-title{
             height:61px;
             font-size:18px;
@@ -114,7 +115,12 @@
                     position: relative;
                     width:16px;
                     height:16px;
-                    border:1px solid red;
+                    border-radius: 100%;
+                    background-color:#E3E3E3;
+                    background-image: url(../../../assets/icon_right.png);
+                    background-repeat: no-repeat;
+                    background-size: 13px;
+                    background-position: center center;
                 }
                 ::before{
                     content:'';
@@ -123,6 +129,11 @@
                     left:0;
                     width:100%;
                     // background-image: url('../')
+                }
+            }
+            .active{
+                i{
+                    background-color:#7BC3A1;
                 }
             }
         }
@@ -144,7 +155,7 @@
         left:0;
         right:0;
         background-color:rgba(0,0,0,0.6);
-        z-index:100;
+        z-index:1;
     }
 }
 #pop.show{

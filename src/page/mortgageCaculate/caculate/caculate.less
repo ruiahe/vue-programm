@@ -52,6 +52,10 @@
     }
     .content{
         li{
+            height:auto;
+            overflow: hidden;
+            width:100%;
+            box-sizing: border-box;
             border-bottom:1px solid #EEEEEE;
             .container{
                 height:55px;
@@ -80,11 +84,15 @@
                     background-position: right center;
                 }
                 input{
-                    flex:1;
+                    font-size:14px;
+                    flex:1!important;
                     text-align: right;
                     margin-right:9px;
                 }
             }
+        }
+        .unshow{
+            height:0;
         }
         .btn{
             border:none;

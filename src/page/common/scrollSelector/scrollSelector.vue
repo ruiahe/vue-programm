@@ -11,7 +11,7 @@
                     <div class="date-selector-con date-selector5">
                         <swiper :options="selector5" ref="mySwiperSelector1">
                             <swiper-slide v-for="(i,index) in contentJson['arr']" :key='index'>
-                                <div class="slide-txt center-vh">{{i}}</div>
+                                <div class="slide-txt center-vh">{{i.name}}</div>
                             </swiper-slide>
                         </swiper>
                     </div>
@@ -19,10 +19,10 @@
             </div>
             <div class="date-swiper-box type2" v-show='contentJson["type"] == 2'>
                 <div class="date-selector space-between">
-                    <div class="date-selector-con">
+                    <div class="date-selector-con date-selector2">
                         <swiper :options="selector2" ref="mySwiperSelector2">
                             <swiper-slide v-for="(i,index) in contentJson['arr']" :key='index'>
-                                <div class="slide-txt center-vh">{{i}}</div>
+                                <div class="slide-txt center-vh">{{i.name}}</div>
                             </swiper-slide>
                         </swiper>
                     </div>
@@ -65,6 +65,11 @@
                     paginationClickable: true,//是否支持点击
                     spaceBetween: 0,//每个side的距离
                     direction: 'vertical',//是否ֱ垂直居中
+                    on: {
+                        slideChangeTransitionStart: function(){
+                            _this.resetClass(this.activeIndex, 'date-selector2');
+                        },
+                    },
                 },
             }
         },
@@ -76,15 +81,9 @@
                 setTimeout(()=>{
                     $('.date-box').slideDown(150)
                     setTimeout(()=>{
-                        _this.update_swiper();
-                        switch (setObj['type']) {
-                            case 5:
-                                _this.$refs['mySwiperSelector1'].swiper.slideTo(index,0);
-                                break;
-                            default:
-                                _this.$refs['mySwiperSelector2'].swiper.slideTo(index,0);
-                                break;
-                        }
+                        _this.update_swiper(()=>{
+                            _this.$refs[_this.match_swiper(this.contentJson['type'])].swiper.slideTo(index,0);
+                        });
                     },200)
                 }, 150)
             },
@@ -107,24 +106,33 @@
                 setTimeout(()=>{$('#selector').fadeOut(150)},50)
             },
             confirm(){
+                const obj = {};
                 const index = this.contentJson['type'] == 5 ? this.$refs['mySwiperSelector1'].swiper.activeIndex : this.$refs['mySwiperSelector2'].swiper.activeIndex;
-                this.$emit('date', index);
+                obj['index'] = index;
+                obj['arr'] = this.contentJson['arr'];
+                obj['name'] = this.contentJson['name'];
+                this.$emit('confirm_selector', obj);
                 this.close();
             },
-            update_swiper(){
+            update_swiper(calsucc){
                 const _this = this;
+                const name = _this.match_swiper(this.contentJson['type']);
+                _this.$refs[name].swiper.update();
+                _this.$refs[name].swiper.updateSize();
+                _this.$refs[name].swiper.updateSlides();
+                calsucc();
+            },
+            match_swiper(type){
+                let name = '';
                 switch (this.contentJson['type']) {
                     case 5:
-                        _this.$refs['mySwiperSelector1'].swiper.update();
-                        _this.$refs['mySwiperSelector1'].swiper.updateSize();
-                        _this.$refs['mySwiperSelector1'].swiper.updateSlides();
+                        name = 'mySwiperSelector1';
                         break;
                     default:
-                        _this.$refs['mySwiperSelector2'].swiper.update();
-                        _this.$refs['mySwiperSelector2'].swiper.updateSize();
-                        _this.$refs['mySwiperSelector2'].swiper.updateSlides();
+                        name = 'mySwiperSelector2';
                         break;
                 }
+                return name;
             }
         }
     }
