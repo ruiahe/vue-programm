@@ -16,21 +16,25 @@
         bottom:0;
         left:0;
         width:100%;
-        border-top-left-radius: 16px;
-        border-top-right-radius: 16px;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
         background:#fff;
         box-sizing: border-box;
         overflow: hidden;
         .date-title{
             width:100%;
-            height:75px;
-            background-color:rgba(249,249,249,1);
+            height:57px;
+            border-bottom:1px solid #EBEBEB;
             i{
-                width:77px;
+                width:55px!important;
+                line-height: 57px;
                 height:100%;
-                background:url('../../../assets/close.png') no-repeat;
-                background-position: 20px center;
-                background-size: 11px;
+                font-size:14px;
+                font-family:PingFangSC-Regular,PingFangSC;
+                font-weight:400;
+                color:rgba(183,194,201,1);
+                font-style: normal;
+                text-align:right;
             }
             span{
                 font-size:17px;
@@ -39,80 +43,86 @@
                 color:rgba(0,0,0,1);
             }
             strong{
-                width:77px;
-                text-align:center;
-                font-size:17px;
-                font-family:PingFang-SC;
-                font-weight:bold;
-                color:rgba(31,99,112,1);
+                width:55px;
+                text-align:left;
+                font-size:14px;
+                font-family:PingFangSC-Regular,PingFangSC;
+                font-weight:400;
+                color:rgba(104,196,161,1);
+                line-height:57px;
             }
         }
         .date-swiper-box{
             position: relative;
             .date-selector{
-                width:70%;
+                width:248px;
                 height:196px;
                 margin:0 auto;
                 padding:23px 0;
                 .date-selector-con{
-                    height:196px;
-                    color:#333;
-                    .swiper-container{
-                        height:100%;
-                    }
-                    .swiper-slide{
-                        transform-origin: 50%;
-                        text-align: center;
-                        font-size: 18px;
-                        /* Center slide text vertically */
-                        display: -webkit-box;
-                        display: -ms-flexbox;
-                        display: -webkit-flex;
-                        display: flex;
-                        -webkit-box-pack: center;
-                        -ms-flex-pack: center;
-                        -webkit-justify-content: center;
-                        justify-content: center;
-                        -webkit-box-align: center;
-                        -ms-flex-align: center;
-                        -webkit-align-items: center;
-                        align-items: center;
-                        font-size:rgba(0,0,0,0.3);
-                        color:rgba(0,0,0,0.3);
-                        .slide-txt{
-                            height:42px!important;
+                    width:53px;
+                    .date-selector-con-width{
+                        width:28px;
+                        height:196px;
+                        color:#333;
+                        .swiper-container{
                             height:100%;
-                            transform: scale3d(0.7,0.7,0.7)
                         }
-                    }
-                    .swiper-slide-active{
-                        opacity: 1;
-                        font-size:24px;
-                        color:rgba(0,0,0,1);
-                        .slide-txt{
-                            transform: scale3d(1.01,1.01,1.01);
+                        .swiper-slide{
+                            transform-origin: 50%;
+                            text-align: left;
+                            font-size: 18px;
+                            /* Center slide text vertically */
+                            display: -webkit-box;
+                            display: -ms-flexbox;
+                            display: -webkit-flex;
+                            display: flex;
+                            -webkit-box-pack: center;
+                            -ms-flex-pack: center;
+                            -webkit-justify-content: center;
+                            justify-content: center;
+                            -webkit-box-align: center;
+                            -ms-flex-align: center;
+                            -webkit-align-items: center;
+                            align-items: center;
+                            font-size:rgba(0,0,0,0.3);
+                            color:rgba(0,0,0,0.3);
+                            .slide-txt{
+                                height:42px!important;
+                                height:100%;
+                                transform: scale3d(0.7,0.7,0.7)
+                            }
                         }
-                    }
-                    .swiper-slide-next,
-                    .swiper-slide-prev{
-                        color:rgba(0,0,0,0.6);
-                        .slide-txt{
-                            transform: scale3d(0.84,0.84,0.84)
+                        .swiper-slide-active{
+                            opacity: 1;
+                            font-size:24px;
+                            color:rgba(0,0,0,1);
+                            .slide-txt{
+                                transform: scale3d(1.01,1.01,1.01);
+                            }
                         }
-                    }
-                    .swiper-slide-next-next,
-                    .swiper-slide-prev-prev{
-                        color:rgba(0,0,0,0.3);
-                        .slide-txt{
-                            transform: scale3d(0.7,0.7,0.7)
+                        .swiper-slide-next,
+                        .swiper-slide-prev{
+                            color:rgba(0,0,0,0.6);
+                            .slide-txt{
+                                transform: scale3d(0.84,0.84,0.84)
+                            }
+                        }
+                        .swiper-slide-next-next,
+                        .swiper-slide-prev-prev{
+                            color:rgba(0,0,0,0.3);
+                            .slide-txt{
+                                transform: scale3d(0.7,0.7,0.7)
+                            }
                         }
                     }
                 }
-                .date-month{
-                    min-width: 60px;
-                }
-                .date-day{
-                    min-width: 60px;
+                .date-month-text{
+                    width:32px;
+                    font-size:15px;
+                    font-family:PingFangSC-Medium,PingFangSC;
+                    font-weight:500;
+                    color:rgba(117,122,137,1);
                 }
             }
         }

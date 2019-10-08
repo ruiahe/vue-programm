@@ -1,27 +1,50 @@
 <template>
     <div id="todayInHistoryList">
         <div class="top">
-            <wHead :titleJson='titleJson'></wHead>
+            <wHead :titleJson='titleJson' @emitClick='changeTime'></wHead>
             <div class="subtitle center-vh">
-                <span @click='get_diff_date(-1)'>前一天</span>
+                <span class='center-vh' @click='get_diff_date(-1)'>
+                    <img src="../../../assets/gray-arrow.png" alt="">
+                    <span>前一天</span>
+                </span>
                 <div class='test center-vh' @click='changeTime()'>
                     <strong>{{change_to_date(currentDate)['month']+'月'+change_to_date(currentDate)['day']+'日'}}</strong>
-                    <img src="../../../assets/statement/phone.png" alt="" class='hasNoImg'>
                 </div>
-                <span @click='get_diff_date(1)'>后一天</span>
+                <span class='center-vh reverse' @click='get_diff_date(1)'>
+                    <span>后一天</span>
+                    <img src="../../../assets/gray-arrow.png" alt="">
+                </span>
             </div>
         </div>
         <div class="place-holder"></div>
         <div class="content">
             <ul>
-                <li class="between" v-for="(i,index) in historyList" :key="index">
-                    <div class="time">
-                        <div class="time-year">{{i.year}}</div>
-                        <div class="time-txt">年</div>
+                <li :class="{'liLeft': index%2==0, 'liRight': index%2!=0}" v-for="(i,index) in historyList" :key="index" class='space-between' @click.prevent='link_to("/todayInHistory/detail",i._id)'>
+                    <div class="liLeft liContent" v-if="index%2==0">
+                        <div class="time">
+                            <div class="time-content space-between">
+                                <div class="time-img">
+                                    <div class="time-img-bg" :style="{ 'background-image': 'url('+i.pic+')'}" v-if="i.pic&&i.pic.length>0"></div>
+                                </div>
+                                <div class="time-year">{{i.year}}年</div>
+                            </div>
+                        </div>
+                        <div class="text-and-img-box">
+                            <div class="text-text"> {{i.des}} </div>
+                        </div>
                     </div>
-                    <div class="text-and-img">
-                        <div class="text-and-img-box space-between" @click.prevent='link_to("/todayInHistory/detail",i._id)'>
-                            <div class="text-img" :style="{ 'background-image': 'url('+i.pic+')'}" v-if="i.pic&&i.pic.length>0"></div>
+                    <div class="liRight liContent" v-if="index%2==0"></div>
+                    <div class="liLeft liContent" v-if="index%2!=0"></div>
+                    <div class="liRight liContent" v-if="index%2!=0">
+                        <div class="time center-vr">
+                            <div class="time-content space-between">
+                                <div class="time-year">{{i.year}}年</div>
+                                <div class="time-img">
+                                    <div class="time-img-bg" :style="{ 'background-image': 'url('+i.pic+')'}" v-if="i.pic&&i.pic.length>0"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-and-img-box center-vr">
                             <div class="text-text"> {{i.des}} </div>
                         </div>
                     </div>
@@ -47,8 +70,8 @@
             return {
                 titleJson:{
                     title: '历史的今天',
-                    toolBol: false,
-                    toolTitle: '',
+                    toolBol: true,
+                    toolTitle: 'calendar',
                     hasRed: false,
                 },
                 historyList: [], // 列表数据
@@ -56,8 +79,11 @@
             }
         },
         mounted(){
-            this.currentDate = 1572592666000;
-            this.get_data(common.change_to_date(this.currentDate)['month'], common.change_to_date(this.currentDate)['day']);
+            const _this = this;
+            time((res)=>{
+                _this.currentDate = res['data']['BJTime'];
+                _this.get_data(common.change_to_date(_this.currentDate)['month'], common.change_to_date(_this.currentDate)['day']);
+            });
         },
         methods:{
             // 获取列表数据集
@@ -67,12 +93,9 @@
                     _this.historyList = res['result'];
                 })
             },
-            // 打开日期选择器
-            changeTime(){
-                this.$refs['scrollDate'].open(6,5,4);
-            },
             // 传入日期 - 获取数据
-            get_date(obj){
+            get_date(time){
+                const obj = common.change_to_date(time['result']);
                 this.currentDate = new Date(obj['year']+'/'+obj['month']+'/'+obj['day'] + ' '+ '00:00:00').getTime();
                 this.get_data(obj['month'], obj['day']);
             },
@@ -81,10 +104,12 @@
                 switch (type) {
                     case -1:
                         var yestoday = common.change_to_date(this.currentDate - 24 * 60 * 60 * 1000);
+                        this.currentDate = this.currentDate - 24 * 60 * 60 * 1000;
                         this.get_data(yestoday['month'], yestoday['day']);
                         break;
                     default:
                         var tomorrow = common.change_to_date(this.currentDate + 24 * 60 * 60 * 1000);
+                        this.currentDate = this.currentDate + 24 * 60 * 60 * 1000;
                         this.get_data(tomorrow['month'], tomorrow['day']);
                         break;
                 }
@@ -99,10 +124,14 @@
             // 获取日期
             change_to_date(t){
                 return common.change_to_date(t);
-            } 
+            },
+            // 打开日期选择器
+            changeTime(){
+                this.$refs['scrollDate'].open(this.currentDate,'currentTime');
+            }
         },
-        beforeCreate(){
-            document.querySelector('body').style='background: rgba(249,249,249,1);';
+        activated(){
+            document.querySelector('body').style='background: rgba(255,255,255,1);';
         }
     }
 </script>

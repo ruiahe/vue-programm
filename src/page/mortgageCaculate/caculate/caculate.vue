@@ -357,7 +357,7 @@
                 chosenObj:{
                     commercial_loan: 2,
                     total_house_price: '',
-                    repayment_method: 0,
+                    repayment_method: 1,
                     yearsOf_mortgage: 19,
                     base_interest_rate: 6,
                     first_repayment_time: 0,
@@ -427,8 +427,8 @@
                 ],
                 // 还款方式选择列表
                 repaymentMethod:[
-                    { name: '等额本息', id: 0, result: 0 },
                     { name: '等额本金', id: 1, result: 1 },
+                    { name: '等额本息', id: 0, result: 0 },
                     {}
                 ],
                 // 按揭年数选择列表
@@ -499,7 +499,7 @@
         mounted(){
             const time = new Date().getTime();
             this.baseRnterestRate = this.baseRnterestRateArr3;
-            this.baseRnterestRate0 = this.baseRnterestRateArr4;
+            this.baseRnterestRate0 = this.baseRnterestRateArr5;
             this.chosenObj['first_repayment_time'] = time;
             this.chosenObj2['first_repayment_time'] = time;
             this.chosenObj3['first_repayment_time'] = time;
@@ -541,7 +541,7 @@
                 }
                 // 重置利率选择器
                 if(obj['name'] == 'yearsOf_mortgage'){
-                    if(obj['index'] > 0 && obj['index'] < 6){
+                    if(obj['index'] == 0 || (obj['index'] > 0 && obj['index'] < 6)){
                         this.baseRnterestRate0 = this.baseRnterestRateArr4;
                     } else {
                         this.baseRnterestRate0 = this.baseRnterestRateArr5;

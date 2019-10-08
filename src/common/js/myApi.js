@@ -1,7 +1,7 @@
 import { post } from './axios'
 import status from '@/common/json/config.json'
 import QS from 'qs'
-const key = 'f8a9a802c1a1446d50cacf25b9a5efc9'; 
+const key = 'ff5181333f7100930cbaf117276119e7'; 
 const host = (()=>{
     var url = '';
     switch (status.domain){
@@ -17,9 +17,9 @@ const host = (()=>{
 // 历史上的今天 -- 列表
 export const toh = (p, suc) => post('/api/a/toh', QS.stringify({...p,key: key}), suc, true);
 // 历史上的今天 -- 详情
-export const tohdet = (p) => post('/api/a/tohdet', QS.stringify({...p,key: key}));
+export const tohdet = (p, suc) => post('/api/a/tohdet', QS.stringify({...p,key: key}), suc, true);
 // 获取北京时间
-export const time = () => post(host + '/date/getBJTime', {}, suc);
+export const time = (suc) => post(host + '/app/date/getBJTime', {}, suc);
 // 论坛  --  反馈论坛
 export const feedList = (p, suc) => post(host + '/app/forum/queryForumFeedbackModulesList', JSON.stringify(p), suc);
 // 论坛  --  消息（获取红点展示信息）

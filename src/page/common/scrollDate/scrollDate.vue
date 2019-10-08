@@ -2,33 +2,32 @@
     <div id="date" class='flex-bottom' @touchmove.prevent>
         <div class="date-box">
             <div class="date-title space-between">
-                <i @click="close()"></i>
+                <i @click="close()">取消</i>
                 <span>选择时间</span>
                 <strong @click='confirm()'>确定</strong>
             </div>
             <div class="date-swiper-box">
                 <div class="date-selector space-between">
-                    <div class="date-selector-con date-year">
-                        <swiper :options="swiperOptionYear" ref="mySwiperYear">
-                            <swiper-slide v-for="i in 200" :key='i'>
-                                <div class="slide-txt center-vh">{{i+1969}}年</div>
-                            </swiper-slide>
-                        </swiper>
+                    <div class="date-month-text">月份</div>
+                    <div class="date-selector-con date-month center-vl">
+                        <div class="date-selector-con-width">
+                            <swiper :options="swiperOptionMonth" ref="mySwiperMonth">
+                                <swiper-slide v-for="i in 12" :key='i'>
+                                    <div class="slide-txt center-v">{{i}}</div>
+                                </swiper-slide>
+                            </swiper>
+                        </div>
                     </div>
-                    <div class="date-selector-con date-month">
-                        <swiper :options="swiperOptionMonth" ref="mySwiperMonth">
-                            <swiper-slide v-for="i in 12" :key='i'>
-                                <div class="slide-txt center-vh">{{i}}月</div>
-                            </swiper-slide>
-                        </swiper>
+                    <div class="date-selector-con date-day center-vr">
+                        <div class="date-selector-con-width">
+                            <swiper :options="swiperOptionDay" ref="mySwiperDay">
+                                <swiper-slide v-for="i in 31" :key='i'>
+                                    <div class="slide-txt center-vr">{{i}}</div>
+                                </swiper-slide>
+                            </swiper>
+                        </div>
                     </div>
-                    <div class="date-selector-con date-day">
-                        <swiper :options="swiperOptionDay" ref="mySwiperDay">
-                            <swiper-slide v-for="i in 31" :key='i'>
-                                <div class="slide-txt center-vh">{{i}}日</div>
-                            </swiper-slide>
-                        </swiper>
-                    </div>
+                    <div class="date-month-text">日期</div>
                 </div>
             </div>
         </div>
@@ -39,7 +38,7 @@
     import 'swiper/dist/css/swiper.css'
     import { swiper, swiperSlide } from 'vue-awesome-swiper'
     import $ from 'jquery'
-import { common } from '../../../common/js/common';
+    import { common } from '../../../common/js/common';
     export default {
         name: 'headerTool',
         components:{
@@ -53,18 +52,6 @@ import { common } from '../../../common/js/common';
                 currentYear: 0,
                 currentMonth: 0,
                 currentDate: 0,
-                swiperOptionYear: {
-                    slidesPerView: 5,//每页显示的side个数
-                    paginationClickable: true,//是否支持点击
-                    spaceBetween: 0,//每个side的距离
-                    direction: 'vertical',//是否ֱ垂直居中
-                    centeredSlides: true,
-                    on: {
-                        slideChangeTransitionStart: function(){
-                            _this.resetClass(this.activeIndex, 'date-year', 1);
-                        },
-                    },
-                },
                 swiperOptionMonth: {
                     slidesPerView: 5,//每页显示的side个数
                     paginationClickable: true,//是否支持点击
@@ -98,7 +85,6 @@ import { common } from '../../../common/js/common';
             open(time, txt){
                 var _this = this;
                 const obj = common.change_to_date(time);
-                const indexYear = common.change_to_date(time).year - 1970;
                 const indexMonth = common.change_to_date(time).month - 1;
                 const indexDay = common.change_to_date(time).day - 1;
                 this.returnName = txt;
@@ -107,7 +93,6 @@ import { common } from '../../../common/js/common';
                     $('.date-box').slideDown(150)
                     _this.update_swiper();
                     setTimeout(()=>{
-                        _this.$refs['mySwiperYear'].swiper.slideTo(indexYear,0);
                         _this.$refs['mySwiperMonth'].swiper.slideTo(indexMonth,0);
                         _this.$refs['mySwiperDay'].swiper.slideTo(indexDay,0);
                     },200)
@@ -115,16 +100,14 @@ import { common } from '../../../common/js/common';
             },
             return_day_num(index, type){
                 var _this = this;
-                if(this.$refs['mySwiperYear']) var currentYear = this.$refs['mySwiperYear'].swiper.activeIndex + 1970;
                 if(this.$refs['mySwiperMonth']) var currentMonth = this.$refs['mySwiperMonth'].swiper.activeIndex + 1;
                 if(this.$refs['mySwiperDay']) var currentDay = this.$refs['mySwiperDay'].swiper.activeIndex + 1;
                 setTimeout(()=>{
                     switch (currentMonth) {
                         case 2:
-                            if(currentDay > 29 && currentYear%4 == 0){
+                            if(currentDay == 30 || currentDay == 31){
+                                console.log('这里进入了')
                                 _this.$refs['mySwiperDay'].swiper.slideTo(28,0);
-                            } else if(currentDay >28 && currentYear%4 != 0){
-                                _this.$refs['mySwiperDay'].swiper.slideTo(27,0);
                             }
                             break;
                         case 4:
@@ -132,7 +115,7 @@ import { common } from '../../../common/js/common';
                         case 9:
                         case 11:
                             if(currentDay == 31){
-                                 _this.$refs['mySwiperDay'].swiper.slideTo(29,0);
+                                _this.$refs['mySwiperDay'].swiper.slideTo(29,0);
                             }
                             break;
                     }
@@ -163,7 +146,6 @@ import { common } from '../../../common/js/common';
             },
             confirm(){
                 const obj = {};
-                obj['year'] = this.$refs['mySwiperYear'].swiper.activeIndex + 1970;
                 obj['month'] = this.$refs['mySwiperMonth'].swiper.activeIndex + 1;
                 obj['day'] = this.$refs['mySwiperDay'].swiper.activeIndex + 1;
                 const time = (new Date(obj['year']+'/'+obj['month']+'/'+obj['day'])).getTime();
@@ -171,8 +153,6 @@ import { common } from '../../../common/js/common';
                 this.close();
             },
             update_swiper(){
-                    this.$refs['mySwiperYear'].swiper.updateSize();
-                    this.$refs['mySwiperYear'].swiper.updateSlides();
                     this.$refs['mySwiperMonth'].swiper.updateSize();
                     this.$refs['mySwiperMonth'].swiper.updateSlides();
                     this.$refs['mySwiperDay'].swiper.updateSize();

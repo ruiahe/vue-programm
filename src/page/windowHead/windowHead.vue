@@ -13,12 +13,17 @@
           <div class="arrow center-vl" @touchstart='back_to()' :class="{'close': titleJson['close']}"></div>
           <div class="title" @click='link_to("/mortgageCaculate/caculate")'>{{titleJson['title']}}</div>
           <span v-if='!titleJson["toolBol"]' class="tool center-h"></span>
-          <span v-if='titleJson["toolBol"] && titleJson["toolTitle"]!="···"' class="tool center-h" :class="{'hasRed': titleJson['hasRed']}" :style="'color:'+titleJson['color']+'!important;'">
+          <span v-if='titleJson["toolBol"] && titleJson["toolTitle"]!="···" && titleJson["toolTitle"]!="calendar"' class="tool center-h" :class="{'hasRed': titleJson['hasRed']}" :style="'color:'+titleJson['color']+'!important;'">
             <span v-on:click='link_to(titleJson["url"])'>{{titleJson['toolTitle']}}</span>
           </span>
           <span v-if='titleJson["toolBol"] && titleJson["toolTitle"]=="···"' class="tool center-vr" :class="{'hasRed': titleJson['hasRed']}">
             <span class='center-vr' @click.stop="emit_parent($event)">
               <img src="../../assets/statement/ellipsis.png" alt="">
+            </span>
+          </span>
+          <span v-if='titleJson["toolBol"] && titleJson["toolTitle"]=="calendar"' class="tool center-vr" :class="{'hasRed': titleJson['hasRed']}">
+            <span class='center-vr' @click.stop="emit_parent($event)">
+              <img src="../../assets/date-icon.png" alt="">
             </span>
           </span>
         </div>

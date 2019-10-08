@@ -50,7 +50,9 @@
                         type: 'fraction',
                     },
                     height: 300,
-                    zoom : true,
+                    zoom : {
+                        toggle: false
+                    },
                 }
             }
         },

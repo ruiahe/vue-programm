@@ -37,8 +37,7 @@
         methods: {
             // 获取详情页数据
             get_data(){
-                tohdet({ v: '1.0', id: this.detailId }).then(res=>{
-                    console.log(res);
+                tohdet({ v: '1.0', id: this.detailId }, (res)=>{
                     this.dataJson = res;
                 })
             },

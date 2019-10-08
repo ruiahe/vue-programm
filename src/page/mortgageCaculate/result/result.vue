@@ -71,9 +71,11 @@
         <table>
             <tr v-for="(i, index) in list" :key="index">
                 <td>
-                    <div class='center-vh'>
-                        <div class='top'>{{index+1}}</div>
-                        <div class='bottom'>{{i['date']['year']+'-'+(i['date']['month'] > 9 ? i['date']['month'] : '0'+i['date']['month'])}}</div>
+                    <div class="center-vh">
+                        <div>
+                            <div class='top'>{{index+1}}</div>
+                            <div class='bottom'>{{i['date']['year']+'-'+(i['date']['month'] > 9 ? i['date']['month'] : '0'+i['date']['month'])}}</div>
+                        </div>
                     </div>
                 </td>
                 <td><div class="center-vh">{{i['monthlyPayment2']}}</div></td>
@@ -82,6 +84,8 @@
                 <td><div class="center-vh">{{i['remainPrincipal2']}}</div></td>
             </tr>
         </table>
+        <div class="tablePlacehold"></div>
+        <div class="tablePlaceholdeFix"></div>
     </div>
 </template>
 <script>
@@ -139,7 +143,7 @@
                 this.list = this.info['list2'];
             }
             window.addEventListener('scroll',(a)=>{
-                const htmlHeight = $('body').scrollTop();
+                const htmlHeight = $('body').scrollTop() || $('html').scrollTop();
                 const toTop = $('.stickyPlacehold').offset().top - $('.placeholder').height();
                 if(htmlHeight > toTop || htmlHeight == toTop){
                     _this.sticky = true;
