@@ -31,7 +31,7 @@
                             </div>
                         </div>
                         <div class="state-middle">
-                            <div class="middle-txt container">
+                            <div class="middle-txt2 container">
                                 {{relItem['replyContent']}}
                             </div>
                             <div class="middle-img-list" v-if='relItem["replyImg"]'>
@@ -73,7 +73,7 @@
                             </div>
                         </div>
                         <div class="state-middle">
-                            <div class="middle-txt container" @click.stop='show_input(repItem,repInd)'>
+                            <div class="middle-txt2 container" @click.stop='show_input(repItem,repInd)'>
                                 回复<span>我</span>：{{repItem['replyContent']}}//<span>我</span> 回复 <span>{{repItem['commentWho']}}</span>
                             </div>
                             <div class="middle-reply container">
@@ -121,10 +121,10 @@
                             </div>
                         </div>
                         <div class="state-middle">
-                            <div class="middle-txt container" v-if="upItem['commentContent'] && upItem['commentContent'].length >0">
+                            <div class="middle-txt2 container" v-if="upItem['commentContent'] && upItem['commentContent'].length >0">
                                 赞了我的回复//<span>我</span> 回复 <span>{{upItem['commentWho']}}</span>：{{upItem['commentContent']}}
                             </div>
-                            <div class="middle-txt container" v-if="!upItem['commentContent'] || upItem['commentContent'].length ==0">
+                            <div class="middle-txt2 container" v-if="!upItem['commentContent'] || upItem['commentContent'].length ==0">
                                 赞了我的评论
                             </div>
                             <div class="middle-reply container">

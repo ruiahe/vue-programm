@@ -9,6 +9,11 @@ import todayInHistoryDetail from '@/page/todayInHistory/detail/detail'
 import mortgageCaculateCaculate from '@/page/mortgageCaculate/caculate/caculate'
 import mortgageCaculateRateTable from '@/page/mortgageCaculate/rateTable/rateTable'
 import mortgageCaculateResult from '@/page/mortgageCaculate/result/result'
+import personalIncomeTaxInput from '@/page/personalIncomeTax/input/input'
+import personalIncomeTaxChoseCity from '@/page/personalIncomeTax/choseCity/choseCity'
+import personalIncomeTaxSpecialAdditional from '@/page/personalIncomeTax/specialAdditional/specialAdditional'
+import personalIncomeTaxResult from '@/page/personalIncomeTax/result/result'
+import personalIncomeTaxIncomeDetail from '@/page/personalIncomeTax/incomeDetail/incomeDetail'
 
 Vue.use(Router)
 
@@ -101,6 +106,51 @@ export default new Router({
       path: '/mortgageCaculate/result',
       name: 'mortgageCaculateResult',
       component: mortgageCaculateResult,
+      meta: {
+        keepAlive: false
+      }
+    },
+    // 个税计算器 -- 输入页
+    {
+      path: '/personalIncomeTax/input',
+      name: 'personalIncomeTaxInput',
+      component: personalIncomeTaxInput,
+      meta: {
+        keepAlive: true
+      }
+    },
+    // 个税计算器 -- 选择城市
+    {
+      path: '/personalIncomeTax/choseCity',
+      name: 'personalIncomeTaxChoseCity',
+      component: personalIncomeTaxChoseCity,
+      meta: {
+        keepAlive: true
+      }
+    },
+    // 个税计算器 -- 专项附加扣除
+    {
+      path: '/personalIncomeTax/specialAdditional',
+      name: 'personalIncomeTaxSpecialAdditional',
+      component: personalIncomeTaxSpecialAdditional,
+      meta: {
+        keepAlive: true
+      }
+    },
+    // 个税计算器 -- 结算结果页
+    {
+      path: '/personalIncomeTax/result',
+      name: 'personalIncomeTaxResult',
+      component: personalIncomeTaxResult,
+      meta: {
+        keepAlive: false
+      }
+    },
+    // 个税计算器 -- 每月收入明细
+    {
+      path: '/personalIncomeTax/incomeDetail',
+      name: 'personalIncomeTaxIncomeDetail',
+      component: personalIncomeTaxIncomeDetail,
       meta: {
         keepAlive: false
       }

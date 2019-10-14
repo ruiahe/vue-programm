@@ -1,0 +1,284 @@
+#specialAdditional{
+    .top{
+        background-image: url(../../../assets/tax-bg2.png);
+        background-size: 100%;
+        background-repeat: no-repeat;
+        .top-head{
+            width:335px;
+            margin:0 auto;
+            padding-top:20px;
+            height:55px;
+            .arrow{
+                width:80px;
+                height:100%;
+                background-image: url('../../../assets/white-head-arrow.png');
+                background-size: 10px;
+                background-repeat: no-repeat;
+                background-position: left center;
+            }
+            span{
+                font-size:18px;
+                font-family:PingFangSC-Medium,PingFangSC;
+                font-weight:500;
+                color:rgba(255,255,255,1);
+            }
+            i{
+                width:80px;
+            }
+        }
+        .total-price{
+            margin-top:10px;
+            height:42px;
+            font-size:36px;
+            font-family:DINAlternate-Bold,DINAlternate;
+            font-weight:bold;
+            color:rgba(255,255,255,1);
+            line-height:42px;
+            text-shadow:0px 2px 4px rgba(32,96,109,1);
+            text-align: center;
+        }
+        .total-price-desc{
+            padding:6px 0 10px;
+            height:20px;
+            font-size:14px;
+            font-family:PingFang-SC-Medium,PingFang-SC;
+            font-weight:500;
+            color:rgba(255,255,255,0.7);
+            text-align: center;
+        }
+    }
+    .bottom{
+        margin-bottom:24px;
+        nav{
+            position: relative;
+            padding-left:26px;
+            padding-bottom:10px;
+            margin: 17px 0 0;
+            height:21px;
+            font-size:15px;
+            font-family:PingFang-SC-Bold,PingFang-SC;
+            font-weight:bold;
+            color:rgba(0,0,0,1);
+            line-height:21px;
+        }
+        nav::before{
+            position: absolute;
+            left:15px;
+            top:5px;
+            content: '';
+            width: 4px;
+            height:12px;
+            border:none;
+            background-color: #1F6370;
+        }
+        .section{
+            width:345px;
+            margin: 10px auto 0;
+            background:rgba(255,255,255,1);
+            box-shadow:0px 2px 10px 0px rgba(229,229,229,0.5);
+            border-radius:8px;
+            li{
+                .box{
+                    .box-left{
+                        width:37px;
+                        min-height:39px;
+                        i{
+                            margin:3px 0px 0px 15px;
+                            width:14px;
+                            height:14px;
+                            border-radius:3px;
+                            border:1px solid rgba(151,151,151,1);
+                            display:block;
+                        }
+                    }
+                    .box-right{
+                        flex:1;
+                        .content-right{
+                            position: relative;
+                            padding-right:42px;
+                        }
+                        .content-right::after{
+                            position: absolute;
+                            right:0;
+                            content:'';
+                            width:40px;
+                            height:20px;
+                            background-image: url(../../../assets/gray-arrow-to-bottom.png);
+                            background-position: 14px center;
+                            background-size:  12px;
+                            background-repeat: no-repeat;
+                            transition: all 500ms;
+                        }
+                    }
+                }
+                .box.chose{
+                    .box-left{
+                        i{
+                            border-color:#1F6370;
+                            background-color: #1F6370;
+                        }
+                    }
+                }
+            }
+            .li{
+                padding:17px 0 20px 0 ;
+                .box{
+                    .box-right{
+                        .content-left{
+                            .little-title{
+                                height:20px;
+                                font-size:14px;
+                                font-family:PingFang-SC-Bold,PingFang-SC;
+                                font-weight:bold;
+                                color:rgba(55,55,55,1);
+                                line-height:20px;
+                            }
+                            .sub-title{
+                                margin-top:2px;
+                                height:17px;
+                                font-size:12px;
+                                font-family:PingFang-SC-Medium,PingFang-SC;
+                                font-weight:500;
+                                color:rgba(124,124,124,1);
+                                line-height:17px;
+                            }
+                        }
+                        .content-right{
+                            position: relative;
+                            height:20px;
+                            font-size:16px;
+                            font-family:DINAlternate-Bold,DINAlternate;
+                            font-weight:bold;
+                            color:rgba(0,0,0,1);
+                            line-height:20px;
+                        }
+                    }
+                }
+            }
+            .more{
+                display:none;
+                padding-top:8px;
+                .li2{
+                    .box{
+                        .box-left{
+                            min-height:44px;
+                            i{
+                                margin-top:16px;
+                            }
+                        }
+                        .box-right{
+                            padding:13px 0;
+                            border-bottom:1px solid #E1E1E1;
+                            .content-left{
+                                width:195px;
+                                font-size:13px;
+                                font-family:PingFang-SC-Medium,PingFang-SC;
+                                font-weight:500;
+                                color:rgba(55,55,55,1);
+                                line-height:18px;
+                            }
+                            .content-right{
+                                font-size:13px;
+                                font-family:PingFang-SC-Medium,PingFang-SC;
+                                font-weight:500;
+                                color:rgba(55,55,55,1);
+                            }
+                            .content-right::after{
+                                display:none;
+                            }
+                        }
+                    }
+                }
+                .li2:last-child{
+                    .box{
+                        .box-right{
+                            border-color:#fff;
+                        }
+                    }
+                }
+                .li3{
+                    .box{
+                        .box-left{
+                            width:37px;
+                        }
+                        .box-right{
+                            flex:1;
+                            height:62px;
+                            .content-left{
+                                font-size:13px;
+                                font-family:PingFang-SC-Medium,PingFang-SC;
+                                font-weight:500;
+                                color:rgba(55,55,55,1);
+                            }
+                            .content-right{
+                                .input{
+                                    width:78px;
+                                    height:29px;
+                                    background:rgba(244,244,244,1);
+                                    border-radius:2px;
+                                    input{
+                                        padding:0 0 0 5px;
+                                        width:40px;
+                                        height:100%;
+                                        background-color:transparent;
+                                        text-align:center;
+                                        font-size:13px;
+                                        font-family:PingFang-SC-Medium,PingFang-SC;
+                                        font-weight:500;
+                                        color:rgba(31,99,112,1);
+                                    }
+                                    span{
+                                        font-size:13px;
+                                        font-family:PingFang-SC-Medium,PingFang-SC;
+                                        font-weight:500;
+                                        color:rgba(31,99,112,1);
+                                    }
+                                }
+                            }
+                            .content-right::after{
+                                display:none;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .showMore{
+            li{
+                .box-right{
+                    .content-right::after{
+                        transform: rotate(180deg);
+                        transition: all 500ms;
+                    }
+                }
+            }
+            .li{
+                padding-bottom:5px;
+            }
+        }
+    }
+    .caculate{
+        display:block;
+        width:304px;
+        margin:0 auto 37px;
+        height:48px;
+        background:rgba(31,99,112,1);
+        border-radius:24px;
+        font-size:18px;
+        font-family:PingFangSC-Medium,PingFangSC;
+        font-weight:500;
+        color:rgba(255,255,255,1);
+        border:none;
+    }
+}
+
+@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio:2) {
+    #header .header-box{
+        padding-top:34px!important;
+    }
+}
+@media only screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio:3) {
+    #header .header-box{
+        padding-top:34px!important;
+    }
+}
