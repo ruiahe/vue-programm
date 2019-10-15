@@ -9,7 +9,7 @@ const obj = (()=>{
             obj['token'] = 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI0IiwiaWF0IjoxNTY5MjI3MDU2LCJzdWIiOiI0IiwiaXNzIjoidGFua2UiLCJleHAiOjE1NzE4MTkwNTZ9.VZ92w_G4bKXsaqGMEM6S1hdXEPKFJW-1VKwsIyZNEgI';
             break;
         case 'beta':
-            obj['token'] = 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIzIiwiaWF0IjoxNTY5NDgwNTgwLCJzdWIiOiIzIiwiaXNzIjoidGFua2UiLCJleHAiOjE1NzIwNzI1ODB9.eioTK6BsLayqeoYqbqXgMlGXJGjQguLRvs8w9k3tSwc';
+            obj['token'] = 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIzIiwiaWF0IjoxNTcwNTE5ODc1LCJzdWIiOiIzIiwiaXNzIjoidGFua2UiLCJleHAiOjE1NzMxMTE4NzV9.FAtjku2ms3q_KVsdePffZmd4tFIF8nsdNUgPauc0rQo';
             break;
     }
     obj['deviceName'] = 'iphone';

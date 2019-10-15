@@ -444,6 +444,39 @@
                 switch (id) {
                     case 0:
                         console.log('工资薪金')
+                        // 年终奖
+                        const val00 = _this.chosen[name];
+                        let tax0 = 0, obj0 = null, val01 = 0;
+                        if(val10 > 0) {
+                            if(subId == 0){
+                                // tax1 = Number(val10) * Number(_this.caculate1(val10)['tax']) - Number(_this.caculate1(val10)['speed']);
+                                // val11 = val10 - tax1;
+                                _this.transfer['txt'] = { txt1: '税后收入（元）', txt2: common.format_number(0) + '元' };
+                                _this.transfer['middle'] = [
+                                    {top: common.format_number(0), bottom: '应纳个税（元）'},
+                                    {top: common.format_number(0), bottom: '税前收入（元）'}
+                                ];
+                            } else {
+                                // obj1 = this.caculate2(val10);
+                                // val11 = (val10 - obj1['speed'])/(1 - obj1['tax']);
+                                // tax1 = val11 - val10;
+                                _this.transfer['txt'] = { txt1: '税前收入（元）', txt2: common.format_number(0) + '元' };
+                                _this.transfer['middle'] = [
+                                    {top: common.format_number(0), bottom: '应纳个税（元）'},
+                                    {top: common.format_number(0), bottom: '税后收入（元）'}
+                                ];
+                            }
+                            _this.transfer['type'] = 1;
+                            _this.transfer['title'] = '';
+                            _this.transfer['formulaArr'] = [
+                                {left: '应纳税额 ', right: '= 税前年终奖金额*适用税率-速算扣除数(年终奖/12获得税率和速算数）'},
+                                {title: '年终奖个人所得税表： ', table: _this.table1}
+                            ];
+                            _this.transfer['tableArr'] = [
+                                {title: '劳务报酬税率表： ', table: _this.table1}
+                            ]
+                            _this.transfer['tip'] = '';
+                        }
                         break;
                     case 1:
                         // 年终奖
@@ -613,15 +646,15 @@
                             if(type4 == 0){
                                 if(val40 > 0 && (val40 < 800 || val40 == 800)){
                                     val41 = val40;
-                                } else if (val40 > 800 && val40 < 3360) {
-                                    val41 = (val40 - 160) / 0.8;
-                                } else if (val40 > 3360 || val40 == 3360) {
-                                    val41 = val40 / 0.84;
+                                } else if (val40 > 800 && val40 < 3552) {
+                                    val41 = (val40 - 112) / 0.86;
+                                } else if (val40 > 3552 || val40 == 3552) {
+                                    val41 = val40 / 0.888;
                                 }
                                 _this.transfer['txt'] = { txt1: '税前收入（元）', txt2: common.format_number(val41) + '元' };
                             } else {
-                                obj2 = _this.caculate5(val40);
-                                val41 = (val40 - obj2['speed']) / (1 - 0.56 * obj2['tax']);
+                                obj4 = _this.caculate5(val40);
+                                val41 = (val40 - obj4['speed']) / (1 - 0.56 * obj4['tax']);
                                 _this.transfer['txt'] = { txt1: '税前收入（元）', txt2: common.format_number(val41) + '元' };
                             }
                             tax4 = val41 - val40;
@@ -648,109 +681,131 @@
                         // 利息股息分红
                         const val50 = _this.chosen[name]['arr'][0]['input'];
                         let tax5 = 0, val51 = 0;
-                        if(subId == 0){
-                            tax5 = val50 * 0.2;
-                            val51 = val50 - tax5;
-                            _this.transfer['txt'] = { txt1: '税后收入（元）', txt2: common.format_number(val51) + '元' };
-                            _this.transfer['middle'] = [
-                                {top: common.format_number(tax5), bottom: '应纳个税（元）'},
-                                {top: common.format_number(val50), bottom: '税前收入（元）'}
+                        if( val50 > 0 ) {
+                            if(subId == 0){
+                                tax5 = val50 * 0.2;
+                                val51 = val50 - tax5;
+                                _this.transfer['txt'] = { txt1: '税后收入（元）', txt2: common.format_number(val51) + '元' };
+                                _this.transfer['middle'] = [
+                                    {top: common.format_number(tax5), bottom: '应纳个税（元）'},
+                                    {top: common.format_number(val50), bottom: '税前收入（元）'}
+                                ];
+                            } else {
+                                val51 = val50 / 0.8;
+                                tax5 = val51 - val50;
+                                _this.transfer['txt'] = { txt1: '税前收入（元）', txt2: common.format_number(val51) + '元' };
+                                _this.transfer['middle'] = [
+                                    {top: common.format_number(tax5), bottom: '应纳个税（元）'},
+                                    {top: common.format_number(val50), bottom: '税后收入（元）'}
+                                ];
+                            }
+                            _this.transfer['type'] = 0;
+                            _this.transfer['title'] = '利息、股息红利所得税率计算公式：';
+                            _this.transfer['formulaArr'] = [
+                                {left: '应纳税额 ', right: '=税前收入 x 20%'},
                             ];
-                        } else {
-                            val51 = val50 / 0.8;
-                            tax5 = val51 - val50;
-                            _this.transfer['txt'] = { txt1: '税前收入（元）', txt2: common.format_number(val51) + '元' };
-                            _this.transfer['middle'] = [
-                                {top: common.format_number(tax5), bottom: '应纳个税（元）'},
-                                {top: common.format_number(val50), bottom: '税后收入（元）'}
-                            ];
+                            _this.transfer['tableArr'] = [];
+                            _this.transfer['tip'] = '';
                         }
-                        _this.transfer['type'] = 0;
-                        _this.transfer['title'] = '利息、股息红利所得税率计算公式：';
-                        _this.transfer['tip'] = '';
-                        _this.transfer['formulaArr'] = [
-                            {left: '应纳税额 ', right: '=税前收入 x 20%'},
-                        ];
                         break;
                     case 6:
                         // 财产租赁
                         const val60 = _this.chosen[name]['arr'][0]['input'];
                         let val61 = 0, tax6 = 0;
-                        if(subId == 0) {
-                            tax6 = val60 < 4000 ? (val60 - 800) * 0.2 : val60 * 0.8 * 0.2;
-                            val61 = val60 - tax6;
-                            _this.transfer['txt'] = { txt1: '税后收入（元）', txt2: common.format_number(val61) + '元' };
-                            _this.transfer['middle'] = [
-                                {top: common.format_number(tax6), bottom: '应纳个税（元）'},
-                                {top: common.format_number(val60), bottom: '税前收入（元）'}
-                            ];
-                        } else {
-                            if(val60 < 3360){
-                                val61 = (val60 - 160) / 0.8;
+                        if(val60 > 0) {
+                            if(subId == 0) {
+                                if ( val60 < 800 || val60 == 800) {
+                                    val61 = val60;
+                                } else if ( val60 < 4000 ) {
+                                    val61 = val60 - (val60 - 800) * 0.2;
+                                } else {
+                                    val61 = val60 - val60 * 0.8 * 0.2;
+                                }
+                                tax6 = val60 - val61;
+                                _this.transfer['txt'] = { txt1: '税后收入（元）', txt2: common.format_number(val61) + '元' };
+                                _this.transfer['middle'] = [
+                                    {top: common.format_number(tax6), bottom: '应纳个税（元）'},
+                                    {top: common.format_number(val60), bottom: '税前收入（元）'}
+                                ];
                             } else {
-                                val61 = val60 / 0.84;
+                                if ( val60 < 800 || val60 == 800 ) {
+                                    val61 = val60;
+                                } else if(val60 < 3360){
+                                    val61 = (val60 - 160) / 0.8;
+                                } else {
+                                    val61 = val60 / 0.84;
+                                }
+                                tax6 = val61 - val60;
+                                _this.transfer['txt'] = { txt1: '税前收入（元）', txt2: common.format_number(val61) + '元' };
+                                _this.transfer['middle'] = [
+                                    {top: common.format_number(tax6), bottom: '应纳个税（元）'},
+                                    {top: common.format_number(val60), bottom: '税后收入（元）'}
+                                ];
                             }
-                            tax6 = val61 - val60;
-                            _this.transfer['txt'] = { txt1: '税前收入（元）', txt2: common.format_number(val61) + '元' };
-                            _this.transfer['middle'] = [
-                                {top: common.format_number(tax6), bottom: '应纳个税（元）'},
-                                {top: common.format_number(val60), bottom: '税后收入（元）'}
+                            _this.transfer['type'] = 0;
+                            _this.transfer['title'] = '财产租赁个税计算公式：';
+                            _this.transfer['tip'] = '';
+                            _this.transfer['formulaArr'] = [
+                                {left: '应纳税所得额 ', right: '=财产租赁(不超过4000元) - 800元'},
+                                {left: '应纳税所得额 ', right: '=财产租赁(超过4000元) x (1-20%)'},
+                                {left: '应纳税额 ', right: '=应纳税所得额 x 20%'}
                             ];
+                            _this.transfer['tableArr'] = [];
                         }
-                        _this.transfer['type'] = 0;
-                        _this.transfer['title'] = '财产租赁个税计算公式：';
-                        _this.transfer['tip'] = '';
-                        _this.transfer['formulaArr'] = [
-                            {left: '应纳税所得额 ', right: '=财产租赁(不超过4000元) - 800元'},
-                            {left: '应纳税所得额 ', right: '=财产租赁(超过4000元) x (1-20%)'},
-                            {left: '应纳税额 ', right: '=应纳税所得额 x 20%'}
-                        ];
                         break;
                     case 7:
                         // 特许使用费
                         const val70 = _this.chosen[name]['input'];
                         const type70 = _this.chosen[name]['type'];
                         let tax7 = 0, val71 = 0, obj7 = null;
-                        if(subId == 0){
-                            if ( type70 == 0 ){
-                                tax7 = val70 < 4000 ? (val70 - 800)* 0.2 : val70 * 0.8 * 0.2;
+                        if( val70 > 0 ) {
+                            if(subId == 0){
+                                if ( type70 == 0 ){
+                                    if ( val70 < 800 || val70 == 800 ){
+                                        val71 = val70;
+                                    } else if ( val70 < 4000 ){
+                                        val71 = val70 - (val70 - 800) * 0.2;
+                                    } else {
+                                        val71 = val70 - val70 * 0.8 * 0.2;
+                                    }
+                                } else {
+                                    obj7 = _this.caculate1(val70 * 12);
+                                    val71 = val70 - val70 * 0.8 * obj7['tax'] + obj7['speed'];
+                                }
+                                tax7 = val70 - val71;
+                                _this.transfer['txt'] = { txt1: '税后收入（元）', txt2: common.format_number(val71) + '元' };
+                                _this.transfer['middle'] = [
+                                    {top: common.format_number(tax7), bottom: '应纳个税（元）'},
+                                    {top: common.format_number(val70), bottom: '税前收入（元）'}
+                                ];
                             } else {
-                                obj7 = _this.caculate5(val70);
-                                tax7 = val70 * 0.8 * obj7['tax'] - obj7['speed'];
+                                if ( type70 == 0 ){
+                                    val71 = val70 < 3360 ? ((val70 - 160) / 0.8) : (val70 / 0.84);
+                                    tax7 = val71 - val70;
+                                } else {
+                                    obj7 = _this.caculate4(val70);
+                                    val71 = (val70 - obj7['speed'])/(1 - 0.8 * obj7['tax']);
+                                    tax7 = val71 * 0.8 * obj7['tax'] - obj7['speed'];
+                                }
+                                _this.transfer['txt'] = { txt1: '税前收入（元）', txt2: common.format_number(val71) + '元' };
+                                _this.transfer['middle'] = [
+                                    {top: common.format_number(tax7), bottom: '应纳个税（元）'},
+                                    {top: common.format_number(val70), bottom: '税后收入（元）'}
+                                ];
                             }
-                            val71 = val70 - tax7;
-                            _this.transfer['txt'] = { txt1: '税后收入（元）', txt2: common.format_number(val71) + '元' };
-                            _this.transfer['middle'] = [
-                                {top: common.format_number(tax7), bottom: '应纳个税（元）'},
-                                {top: common.format_number(val70), bottom: '税前收入（元）'}
+                            _this.transfer['tableArr'] = type70 == 0 ? [] : [ {title: '特许使用费所得税率表： ', table: _this.table1} ];
+                            _this.transfer['formulaArr'] = type70 == 0 ? [
+                                {left: '应纳税所得额 ', right: '=特许使用费(不超过4000元) - 800元'},
+                                {left: '应纳税所得额 ', right: '=特许使用费(超过4000元) x (1-20%)'},
+                                {left: '应纳税额 ', right: '=应纳税所得额 x 20%'}
+                            ] : [
+                                {left: '应纳税所得额 ', right: '= 税前每次特许使用费用收入金额 * (1-20%)'},
+                                {left: '应纳税额 ', right: '=应纳税所得额 x 税率 - 速算扣除数'}
                             ];
-                        } else {
-                            if ( type70 == 0 ){
-                                val71 = val70 < 3360 ? ((val70 - 160) / 0.8) : (val70 / 0.84);
-                                tax7 = val71 - val70;
-                            } else {
-                                obj7 = _this.caculate4(val70);
-                                val71 = (val70 - obj7['speed'])/(1 - 0.8 * obj7['tax']);
-                                tax7 = val71 * 0.8 * obj7['tax'] - obj7['speed'];
-                            }
-                            _this.transfer['txt'] = { txt1: '税前收入（元）', txt2: common.format_number(val71) + '元' };
-                            _this.transfer['middle'] = [
-                                {top: common.format_number(tax7), bottom: '应纳个税（元）'},
-                                {top: common.format_number(val70), bottom: '税后收入（元）'}
-                            ];
+                            _this.transfer['type'] = 0;
+                            _this.transfer['title'] = '特许使用费个税计算公式：';
+                            _this.transfer['tip'] = '';
                         }
-                        _this.transfer['tableArr'] = type70 == 0 ? [] : [ {title: '特许使用费所得税率表： ', table: _this.table1} ];
-                        _this.transfer['formulaArr'] = type70 == 0 ? [
-                            {left: '应纳税所得额 ', right: '=特许使用费(不超过4000元) - 800元'},
-                            {left: '应纳税所得额 ', right: '=特许使用费(超过4000元) x (1-20%)'},
-                            {left: '应纳税额 ', right: '=应纳税所得额 x 20%'}
-                        ] : [
-                            {left: '应纳税所得额 ', right: '= 税前每次特许使用费用收入金额 * (1-20%)'},
-                            {left: '应纳税额 ', right: '=应纳税所得额 x 税率 - 速算扣除数'}
-                        ];
-                        _this.transfer['type'] = 0;
-                        _this.transfer['title'] = '特许使用费个税计算公式：';
-                        _this.transfer['tip'] = '';
                         break;
                     case 8:
                         // 财产转让所得
@@ -758,31 +813,33 @@
                         const val81 = Number(_this.chosen[name]['arr'][0]['input']);
                         const val82 = Number(_this.chosen[name]['arr'][1]['input']);
                         const val83 = Number(_this.chosen[name]['arr'][2]['input']);
-                        if( subId == 0 ) {
-                            val80 = val81 - (val81 - val82 - val83) * 0.2;
-                            tax8 = val81 - val80;
-                            _this.transfer['txt'] = { txt1: '税后收入（元）', txt2: common.format_number(val80) + '元' };
-                            _this.transfer['middle'] = [
-                                {top: common.format_number(tax8), bottom: '应纳个税（元）'},
-                                {top: common.format_number(val81), bottom: '税前收入（元）'}
+                        if ( val81 > 0 ){
+                            if( subId == 0 ) {
+                                val80 = val81 - (val81 - val82 - val83) * 0.2;
+                                tax8 = val81 - val80;
+                                _this.transfer['txt'] = { txt1: '税后收入（元）', txt2: common.format_number(val80) + '元' };
+                                _this.transfer['middle'] = [
+                                    {top: common.format_number(tax8), bottom: '应纳个税（元）'},
+                                    {top: common.format_number(val81), bottom: '税前收入（元）'}
+                                ];
+                            } else {
+                                val80 = (val81 - 0.2 * val82 - 0.2 * val83) / 0.8;
+                                tax8 = val80 - val81;
+                                _this.transfer['txt'] = { txt1: '税前收入（元）', txt2: common.format_number(val80) + '元' };
+                                _this.transfer['middle'] = [
+                                    {top: common.format_number(tax8), bottom: '应纳个税（元）'},
+                                    {top: common.format_number(val81), bottom: '税后收入（元）'}
+                                ];
+                            }
+                            _this.transfer['type'] = 0;
+                            _this.transfer['title'] = '财产转让所得税税计算公式：';
+                            _this.transfer['tableArr'] = [];
+                            _this.transfer['formulaArr'] = [
+                                {left: '应纳税所得额 ', right: '=财产转让收入金额 - 财产原值 - 合理费用'},
+                                {left: '应纳税额 ', right: '=应纳税所得额 x 税率（20%）'}
                             ];
-                        } else {
-                            val80 = (val81 - 0.2 * val82 - 0.2 * val83) / 0.8;
-                            tax8 = val80 - val81;
-                            _this.transfer['txt'] = { txt1: '税前收入（元）', txt2: common.format_number(val80) + '元' };
-                            _this.transfer['middle'] = [
-                                {top: common.format_number(tax8), bottom: '应纳个税（元）'},
-                                {top: common.format_number(val81), bottom: '税后收入（元）'}
-                            ];
+                            _this.transfer['tip'] = '';
                         }
-                        _this.transfer['type'] = 0;
-                        _this.transfer['title'] = '财产转让所得税税计算公式：';
-                        _this.transfer['tableArr'] = [];
-                        _this.transfer['formulaArr'] = [
-                            {left: '应纳税所得额 ', right: '=财产转让收入金额 - 财产原值 - 合理费用'},
-                            {left: '应纳税额 ', right: '=应纳税所得额 x 税率（20%）'}
-                        ];
-                        _this.transfer['tip'] = '';
                         break;
                     case 9:
                         // 经营所得
@@ -1057,10 +1114,11 @@
                     obj['speed'] = 65500;
                 }
                 return obj;
-            },
+            }
         },
         activated(){
             document.querySelector('body').style='background: rgba(247,247,247,1);';
+            console.log(this.$route.query.cityId);
             // console.log(this.$store.state.caculateTax['special']);
         }
     }
