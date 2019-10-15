@@ -447,25 +447,25 @@
                         break;
                     case 1:
                         // 年终奖
-                        const val1 = _this.chosen[name]['arr'][0]['input'];
-                        let tax1 = 0, obj1 = null, val2 = 0;
-                        if(val1 > 0) {
+                        const val10 = _this.chosen[name]['arr'][0]['input'];
+                        let tax1 = 0, obj1 = null, val11 = 0;
+                        if(val10 > 0) {
                             if(subId == 0){
-                                val2 = val1 - tax1;
-                                tax1 = Number(val1) * Number(_this.caculate1(val1)['tax']) - Number(_this.caculate1(val1)['speed']);
-                                _this.transfer['txt'] = { txt1: '税后收入（元）', txt2: common.format_number(val2) + '元' };
+                                tax1 = Number(val10) * Number(_this.caculate1(val10)['tax']) - Number(_this.caculate1(val10)['speed']);
+                                val11 = val10 - tax1;
+                                _this.transfer['txt'] = { txt1: '税后收入（元）', txt2: common.format_number(val11) + '元' };
                                 _this.transfer['middle'] = [
                                     {top: common.format_number(tax1), bottom: '应纳个税（元）'},
-                                    {top: common.format_number(val1), bottom: '税前收入（元）'}
+                                    {top: common.format_number(val10), bottom: '税前收入（元）'}
                                 ];
                             } else {
-                                obj1 = this.caculate2(val1);
-                                val2 = (val1 - obj1['speed'])/(1 - obj1['tax']);
-                                tax1 = val2 - val1;
-                                _this.transfer['txt'] = { txt1: '税前收入（元）', txt2: common.format_number(val2) + '元' };
+                                obj1 = this.caculate2(val10);
+                                val11 = (val10 - obj1['speed'])/(1 - obj1['tax']);
+                                tax1 = val11 - val10;
+                                _this.transfer['txt'] = { txt1: '税前收入（元）', txt2: common.format_number(val11) + '元' };
                                 _this.transfer['middle'] = [
                                     {top: common.format_number(tax1), bottom: '应纳个税（元）'},
-                                    {top: common.format_number(val1), bottom: '税后收入（元）'}
+                                    {top: common.format_number(val10), bottom: '税后收入（元）'}
                                 ];
                             }
                             _this.transfer['type'] = 0;
@@ -474,6 +474,9 @@
                                 {left: '应纳税额 ', right: '= 税前年终奖金额*适用税率-速算扣除数(年终奖/12获得税率和速算数）'},
                                 {title: '年终奖个人所得税表： ', table: _this.table1}
                             ];
+                            _this.transfer['tableArr'] = [
+                                {title: '劳务报酬税率表： ', table: _this.table1}
+                            ]
                             _this.transfer['tip'] = '年终奖所得，将年终奖金额除以12个月，以每月平均收入金额来确定税率和速算扣除数';
                         }
                         break;
@@ -493,10 +496,10 @@
                                     val21 = (val20 - val20 * 0.8 * obj2['tax'] + obj2['speed']);
                                 }
                             } else if (val20 > 0) {
-                                obj2 = _this.caculate1(val21);
+                                obj2 = _this.caculate1(val20 * 0.8 * 12);
                                 val21 = val20 - val20 * 0.8 * obj2['tax'] + obj2['speed'];
                             }
-                            tax2 = tax2 = val20 - val21;;
+                            tax2 = val20 - val21;;
                             _this.transfer['txt'] = { txt1: '税后收入（元）', txt2: common.format_number(val21) + '元' };
                             _this.transfer['middle'] = [
                                 {top: common.format_number(tax2), bottom: '应纳个税（元）'},
@@ -563,7 +566,7 @@
                             _this.transfer['txt'] = { txt1: '税后收入（元）', txt2: common.format_number(val31) + '元' };
                             _this.transfer['middle'] = [
                                 {top: common.format_number(tax3), bottom: '应纳个税（元）'},
-                                {top: common.format_number(val31), bottom: '税前收入（元）'}
+                                {top: common.format_number(val30), bottom: '税前收入（元）'}
                             ];
                         } else if(val30 > 0) {
                             tax3 = val30 * 0.25;
@@ -579,6 +582,8 @@
                         _this.transfer['formulaArr'] = [
                             {left: '应纳税额', right: '=税前收入 x 20%'}
                         ];
+                        _this.transfer['tableArr'] = [];
+                        _this.transfer['tip'] = '';
                         break;
                     case 4:
                         // 稿酬收入
@@ -605,7 +610,7 @@
                                 {top: common.format_number(val40), bottom: '税前收入（元）'}
                             ];
                         } else {
-                            if(type == 0){
+                            if(type4 == 0){
                                 if(val40 > 0 && (val40 < 800 || val40 == 800)){
                                     val41 = val40;
                                 } else if (val40 > 800 && val40 < 3360) {
