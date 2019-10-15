@@ -248,7 +248,7 @@
 </template>
 <script> 
     import scrollSelector from '@/page/common/scrollSelector/scrollSelector'
-    import scrollDate from '@/page/common/scrollDate/scrollDate'
+    import scrollDate from '@/page/common/scrollDateYear/scrollDateYear'
     import {common} from '@/common/js/common.js'
     import { mapActions } from 'vuex'
     import wHead from '@/page/windowHead/windowHead'
