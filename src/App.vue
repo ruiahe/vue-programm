@@ -21,18 +21,18 @@ export default {
   },
   beforeCreate(){
     const _this = this;
-    set_headers();
-    // window['getJson'] = (json) => {
-    //   _this.getAppInfo(json);
-    //   set_headers();
-    // }
-    // if(common.isAndroid()){
-    //     info = window.Android.getInfo();
-    //     _this.getAppInfo(JSON.parse(json));
-    //     set_headers();
-    // } else if(common.isIos()){
-    //     window.webkit.messageHandlers.linkTo.postMessage({'methodName': 'getInfo'});
-    // }
+    // set_headers();
+    window['getJson'] = (json) => {
+      _this.getAppInfo(json);
+      set_headers();
+    }
+    if(common.isAndroid()){
+        info = window.Android.getInfo();
+        _this.getAppInfo(JSON.parse(json));
+        set_headers();
+    } else if(common.isIos()){
+        window.webkit.messageHandlers.linkTo.postMessage({'methodName': 'getInfo'});
+    }
   }
 }
 </script>
