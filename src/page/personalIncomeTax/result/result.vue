@@ -1,11 +1,11 @@
 <template>
     <div id="taxResult">
-        <div class="top" v-if='transfer["type"] == 0'>
+        <div class="top" v-if='transfer["type"] == 0 || transfer["type"] == 1'>
             <div class="top-head" @click="back_to()"></div>
             <div class="txt1">计算结果</div>
             <div class="txt2">{{transfer['txt']['txt1']}}</div>
             <div class="txt3">{{transfer['txt']['txt2']}}</div>
-            <div class="top-content container">
+            <div class="top-content container" v-if='transfer["type"] == 0'>
                 <ul class="content-top space-between">
                     <li v-for='(i, index) in transfer["middle"]' :key='index'>
                         <div class="content-num center-vh">{{i.top}}</div>
@@ -13,40 +13,62 @@
                     </li>
                 </ul>
             </div>
-        </div>
-        <div class="top top2" v-if='transfer["type"] == 1'>
-            <div class="top-head" @click="back_to()"></div>
-            <div class="txt1">计算结果</div>
-            <div class="txt2">本年税后工资</div>
-            <div class="txt3">90853.37</div>
-            <div class='txt4-box'><span class="txt4 center-vh" @click="link_to('/personalIncomeTax/incomeDetail')">每月收入明细 ></span></div>
-            <div class="top-content container">
+            <div class="top-content top-content3 container" v-if='transfer["type"] == 1'>
                 <ul class="content-top space-between">
                     <li>
-                        <div class="content-num">10853.37</div>
-                        <div class="content-txt">应纳个税（元）</div>
+                        <div class="content-num">{{transfer["middle"][0]['top']}}</div>
+                        <div class="content-txt">{{transfer["middle"][0]['bottom']}}</div>
                     </li>
                     <li>
-                        <div class="content-num">10853.37</div>
-                        <div class="content-txt">税后收入（元）</div>
+                        <div class="content-num">{{transfer["middle"][1]['top']}}</div>
+                        <div class="content-txt">{{transfer["middle"][1]['bottom']}}</div>
                     </li>
                     <li @click="show_more($event)">
-                        <div class="content-num">10853.37</div>
+                        <div class="content-num">{{transfer["middle"][2]['top']}}</div>
                         <div class="content-txt special">
-                            <span>年度扣除总额</span>
+                            <span>{{transfer["middle"][2]['bottom']}}</span>
                             <img src="../../../assets/gray-arrow-to-bottom.png" alt="">
                         </div>
                     </li>
                 </ul>
                 <div class="content-middle"></div>
                 <ul class="content-bottom">
-                    <li class="space-between">
-                        <span>起征点（元）</span>
-                        <span>5000</span>
+                    <li class="space-between" v-for='(i, index) in transfer["middleMore"]' :key='index'>
+                        <span>{{i.left}}</span>
+                        <span>{{i.right}}</span>
                     </li>
-                    <li class="space-between">
-                        <span>五险一金（个人缴纳部分） </span>
-                        <span>1750.00</span>
+                </ul>
+            </div>
+        </div>
+        <div class="top top2" v-if='transfer["type"] == 2'>
+            <div class="top-head" @click="back_to()"></div>
+            <div class="txt1">计算结果</div>
+            <div class="txt2">{{transfer['txt']['txt1']}}</div>
+            <div class="txt3">{{transfer['txt']['txt2']}}</div>
+            <div class='txt4-box'><span class="txt4 center-vh" @click="link_to('/personalIncomeTax/incomeDetail')">每月收入明细 ></span></div>
+            <div class="top-content top-content3 container">
+                <ul class="content-top space-between">
+                    <li>
+                        <div class="content-num">{{transfer["middle"][0]['top']}}</div>
+                        <div class="content-txt">{{transfer["middle"][0]['bottom']}}</div>
+                    </li>
+                    <li>
+                        <div class="content-num">{{transfer["middle"][1]['top']}}</div>
+                        <div class="content-txt">{{transfer["middle"][1]['bottom']}}</div>
+                    </li>
+                    <li @click="show_more($event)">
+                        <div class="content-num">{{transfer["middle"][2]['top']}}</div>
+                        <div class="content-txt special">
+                            <span>{{transfer["middle"][2]['bottom']}}</span>
+                            <img src="../../../assets/gray-arrow-to-bottom.png" alt="">
+                        </div>
+                    </li>
+                </ul>
+                <div class="content-middle"></div>
+                <ul class="content-bottom">
+                    <li class="space-between" v-for='(i, index) in transfer["middleMore"]' :key='index'>
+                        <span>{{i.left}}</span>
+                        <span>{{i.right}}</span>
                     </li>
                 </ul>
             </div>

@@ -10,7 +10,7 @@
   <div id="header" @touchmove.prevent>
       <div class="header-box">
         <div class="space-between">
-          <div class="arrow center-vl" @touchstart='back_to()' :class="{'close': titleJson['close']}"></div>
+          <div class="arrow center-vl" @click.stop='back_to()' :class="{'close': titleJson['close']}"></div>
           <div class="title" @click='link_to("/mortgageCaculate/caculate")'>{{titleJson['title']}}</div>
           <span v-if='!titleJson["toolBol"]' class="tool center-h"></span>
           <span v-if='titleJson["toolBol"] && titleJson["toolTitle"]!="···" && titleJson["toolTitle"]!="calendar"' class="tool center-h" :class="{'hasRed': titleJson['hasRed']}" :style="'color:'+titleJson['color']+'!important;'">

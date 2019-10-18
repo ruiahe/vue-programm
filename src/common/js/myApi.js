@@ -11,6 +11,9 @@ const host = (()=>{
         case 'beta':
             url = 'http://test.36jiapp.com:8080';
             break;
+        case 'local':
+            url = 'http://ytrm9f.natappfree.cc';
+            break;
     }
     return url;
 })();
@@ -38,3 +41,7 @@ export const deleteForumReplyInfo = (p, suc) => post(host + '/app/forum/deleteFo
 export const userReplyForumInfo = (p, suc) => post(host + '/app/forum/userReplyForumInfo', JSON.stringify(p), suc);
 // 论坛  --  举报 
 export const reportForumReplyInfo = (p, suc) => post(host + '/app/forum/reportForumReplyInfo', JSON.stringify(p), suc);
+// 个税  --  城市列表
+export const queryCityList = (suc) => post(host + '/app/rate/queryCityList', JSON.stringify({}), suc);
+// 个税  --  根据城市名称获取城市税率信息
+export const getRateValueByCityName = (p, suc) => post(host + '/app/rate/getRateValueByCityName', JSON.stringify(p), suc);

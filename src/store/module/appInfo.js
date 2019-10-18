@@ -11,6 +11,9 @@ const obj = (()=>{
         case 'beta':
             obj['token'] = 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIzIiwiaWF0IjoxNTcwNTE5ODc1LCJzdWIiOiIzIiwiaXNzIjoidGFua2UiLCJleHAiOjE1NzMxMTE4NzV9.FAtjku2ms3q_KVsdePffZmd4tFIF8nsdNUgPauc0rQo';
             break;
+        case 'local':
+            obj['token'] = 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIzIiwiaWF0IjoxNTcwNTE5ODc1LCJzdWIiOiIzIiwiaXNzIjoidGFua2UiLCJleHAiOjE1NzMxMTE4NzV9.FAtjku2ms3q_KVsdePffZmd4tFIF8nsdNUgPauc0rQo';
+            break;
     }
     obj['deviceName'] = 'iphone';
     obj['appVersion'] = '1.0.0';
