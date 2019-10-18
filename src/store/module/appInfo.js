@@ -17,12 +17,12 @@ const obj = (()=>{
     return obj;
 })();
 const state = {
-    token: obj['token'],
-    deviceName: obj['deviceName'],
-    appVersion: obj['appVersion'],
-    // token: false,
-    // deviceName: false,
-    // appVersion: false,
+    // token: obj['token'],
+    // deviceName: obj['deviceName'],
+    // appVersion: obj['appVersion'],
+    token: false,
+    deviceName: false,
+    appVersion: false,
 };
 const mutations = {
     getAppInfo(state,param){
