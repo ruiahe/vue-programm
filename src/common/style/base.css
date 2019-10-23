@@ -1,3 +1,6 @@
+#app{
+    height:100%;
+}
 /* CSS Document */
 html, body, div, span, object, iframe,h1, h2, 
 h3, h4, h5, h6, p, blockquote, pre,abbr, address, cite, code,del, dfn, 
@@ -16,9 +19,22 @@ audio, video {
     list-style: none;
     outline-style:none;/*FF*/ 
 }
-
-body {
+body{
     line-height:1;
+}
+
+/* 页面不可复制 */
+*{
+    -webkit-touch-callout: none!important; /*系统默认菜单被禁用*/
+    -webkit-user-select: none!important; /*webkit浏览器*/
+    -khtml-user-select: none!important; /*早起浏览器*/
+    -moz-user-select: none!important; /*火狐浏览器*/
+    -ms-user-select: none!important; /*IE浏览器*/
+    user-select: none!important; /*用户是否能够选中文本*/
+}
+input,select {
+    -webkit-user-select:auto!important; /*webkit浏览器*/
+    user-select: auto!important; /*用户是否能够选中文本*/
 }
 
 a{

@@ -125,7 +125,7 @@ export default new Router({
       name: 'personalIncomeTaxChoseCity',
       component: personalIncomeTaxChoseCity,
       meta: {
-        keepAlive: true
+        keepAlive: false
       }
     },
     // 个税计算器 -- 专项附加扣除
@@ -134,7 +134,7 @@ export default new Router({
       name: 'personalIncomeTaxSpecialAdditional',
       component: personalIncomeTaxSpecialAdditional,
       meta: {
-        keepAlive: true
+        keepAlive: false
       }
     },
     // 个税计算器 -- 结算结果页

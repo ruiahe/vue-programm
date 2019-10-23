@@ -78,7 +78,7 @@ function net_result(url, params, calbackSuc, reset_headers){
 }
 // 不断延迟请求获取并设置头部
 function setTime(calback){
-    var time = setTimeout(()=>{
+    var time = setTimeout(()=>{a
         if(store.state.appInfo.token){
             calback();
             clearTimeout(time);

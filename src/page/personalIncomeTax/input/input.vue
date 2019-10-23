@@ -31,7 +31,7 @@
                             <input class='val' type="number" placeholder="请输入" v-model="chosen['chosen00']['income']">
                         </section>
                     </li>
-                    <li class="li space-between input" @click="link_to('/personalIncomeTax/choseCity')">
+                    <li class="li space-between input" @click="link_to('/personalIncomeTax/choseCity?id=0')">
                         <i class='i2'></i>
                         <section class="space-between">
                             <span>所在城市</span>
@@ -55,7 +55,7 @@
                             </li>
                             <li class="space-between">
                                 <span class='has-desc'>当地最低缴纳金额：{{chosen['chosen00']['socialDefault']}}元</span>
-                                <input type="button" class='please-input' value="使用" @click="use_val('chosen00', 'social', chosen['chosen00']['socialDefault'],100)">
+                                <span type="button" class='please-input' @click="use_val('chosen00', 'social', chosen['chosen00']['socialDefault'],100)">使用</span>
                             </li>
                         </ul>
                     </li>
@@ -76,15 +76,21 @@
                             </li>
                             <li class="space-between">
                                 <span class='has-desc'>缴纳基数</span>
-                                <input type="number" class='please-input' placeholder="请输入" v-model="chosen['chosen00']['fund']" @input="change_fund('chosen00')">
+                                <!-- <div class="input-box"> -->
+                                    <input type="number" class='please-input' placeholder="请输入" v-model="chosen['chosen00']['fund']" @input="change_fund('chosen00')">
+                                    <!-- <span>元</span>
+                                </div> -->
                             </li>
                             <li class="space-between">
                                 <span class='has-desc'>缴纳比例</span>
-                                <input type="number" class='please-input' placeholder="请输入" v-model="chosen['chosen00']['fundRate']" @input="change_fund('chosen00')">
+                                <!-- <div class="input-box"> -->
+                                    <input type="number" class='please-input' placeholder="请输入" v-model="chosen['chosen00']['fundRate']" @input="change_fund('chosen00')">
+                                    <!-- <span>%</span>
+                                </div> -->
                             </li>
                             <li class="space-between">
                                 <span class='has-desc'>当地最低缴纳基数：{{chosen['chosen00']['fundDefault']}}元</span>
-                                <input type="button" class='please-input' value="使用" @click="use_val('chosen00', 'fundRate', chosen['chosen00']['fundDefaultRate'],100),use_val('chosen00', 'fund', chosen['chosen00']['fundDefault'], 100),use_val('chosen00', 'fundInput', chosen['chosen00']['fundDefault'],chosen['chosen00']['fundDefaultRate'])">
+                                <span class='please-input' @click="use_val('chosen00', 'fundRate', chosen['chosen00']['fundDefaultRate'],100),use_val('chosen00', 'fund', chosen['chosen00']['fundDefault'], 100),use_val('chosen00', 'fundInput', chosen['chosen00']['fundDefault'],chosen['chosen00']['fundDefaultRate'])">使用</span>
                             </li>
                         </ul>
                     </li>
@@ -103,14 +109,14 @@
             <div class="salary" v-if='chosen["chosenTab"]["type"] == 0 && chosen["chosenSubTab"] == 1'>
                 <ul class='section'>
                     <li class="li space-between input">
-                        <i></i>
+                        <i class='i1'></i>
                         <section class="space-between">
                             <span>税前月平均工资（元）</span>
                             <input class='val' type="number" placeholder="请输入" v-model="chosen['chosen01']['income']">
                         </section>
                     </li>
-                    <li class="li space-between input" @click="link_to('/personalIncomeTax/choseCity')">
-                        <i></i>
+                    <li class="li space-between input" @click="link_to('/personalIncomeTax/choseCity?id=1')">
+                        <i class='i2'></i>
                         <section class="space-between">
                             <span>所在城市</span>
                             <span class='val'>{{chosen['chosen01']['city']}}</span>
@@ -119,7 +125,7 @@
                 </ul>
                 <ul class='section'>
                     <li class="li space-between choseArrow" @click='show_more($event)'>
-                        <i></i>
+                        <i class='i3'></i>
                         <section class="space-between">
                             <span>个人社保</span>
                             <strong></strong>
@@ -133,14 +139,14 @@
                             </li>
                             <li class="space-between">
                                 <span class='has-desc'>当地最低缴纳金额：{{chosen['chosen01']['socialDefault']}}元</span>
-                                <input type="button" class='please-input' value="使用" @click="use_val('chosen01', 'social', chosen['chosen01']['socialDefault'],100)">
+                                <span class='please-input' @click="use_val('chosen01', 'social', chosen['chosen01']['socialDefault'],100)">使用</span>
                             </li>
                         </ul>
                     </li>
                 </ul>
                 <ul class='section'>
                     <li class="li space-between choseArrow" @click='show_more($event)'>
-                        <i></i>
+                        <i class='i4'></i>
                         <section class="space-between">
                             <span>公积金</span>
                             <strong></strong>
@@ -162,14 +168,14 @@
                             </li>
                             <li class="space-between">
                                 <span class='has-desc'>当地最低缴纳基数：{{chosen['chosen01']['fundDefault']}}元</span>
-                                <input type="button" class='please-input' value="使用" @click="use_val('chosen01', 'fundRate', chosen['chosen01']['fundDefaultRate'],100),use_val('chosen01', 'fund', chosen['chosen01']['fundDefault'], 100),use_val('chosen01', 'fundInput', chosen['chosen01']['fundDefault'],chosen['chosen01']['fundDefaultRate'])">
+                                <span class='please-input' @click="use_val('chosen01', 'fundRate', chosen['chosen01']['fundDefaultRate'],100),use_val('chosen01', 'fund', chosen['chosen01']['fundDefault'], 100),use_val('chosen01', 'fundInput', chosen['chosen01']['fundDefault'],chosen['chosen01']['fundDefaultRate'])">使用</span>
                             </li>
                         </ul>
                     </li>
                 </ul>
                 <ul class='section'>
                     <li class="li space-between choseArrow" @click="link_to('/personalIncomeTax/specialAdditional')">
-                        <i></i>
+                        <i class='i5'></i>
                         <section class="space-between">
                             <span>专项附加扣除</span>
                             <strong></strong>
@@ -208,6 +214,8 @@
             </div>
         </div>
         <div id="map-container"></div>
+        <!-- 弱提示 -->
+        <span class="weakTip"></span>
     </div>
 </template>
 <script> 
@@ -216,7 +224,7 @@
     import { location } from '@/common/js/position.js'
     import $ from 'jquery'
     import { mapActions } from 'vuex'
-    import { getRateValueByCityName, queryCityList } from '@/common/js/myApi'
+    import { getRateValueByCityName, getRateValueByCityId } from '@/common/js/myApi'
     export default {
         name: 'taxInput',
         components:{
@@ -244,142 +252,142 @@
                     hasRed: false
                 }, 
                 chosen:{
-                    chosenTab: {id: 0, name: '工资薪金', type: 0},          // 选中的大tab标签
-                    chosenSubTab: 0,                                       // 选中的副tab标签
-                    chosen00:{                                             // 工资薪金 - 月度 - type1
+                    chosenTab: {id: 0, name: '工资薪金', type: 0},           // 选中的大tab标签
+                    chosenSubTab: 0,                                        // 选中的副tab标签
+                    chosen00:{                                              // 工资薪金 - 月度 - type1
                         income: '',                                         // 本月工资收入
                         city: '',                                           // 所在城市
-                        social: '',                                      // 社保缴纳金额
-                        socialDefault: '',                               // 最低社保缴纳金
-                        socialRate1: '',                                   // 五险-养老保险缴纳比例
-                        socialRate2: '',                                   // 五险-医疗保险比例
-                        socialRate3: '',                                   // 五险-失业险比例
-                        socialRate4: '',                                   // 五险-工伤险比例
-                        socialRate5: '',                                   // 五险-生育险比例
-                        fundInput: '',                                   // 公积金个人缴纳金额
-                        fundDefault: '',                                 // 最低公积金缴纳金
-                        fundRate: '',                                     // 公积金缴纳比例
-                        fundDefaultRate: '',                               // 公积金默认缴纳比例
-                        fund: '',                                        // 公积金缴纳基数
+                        social: '',                                         // 社保缴纳金额
+                        socialDefault: '',                                  // 最低社保缴纳金
+                        // socialRate1: '',                                 // 五险-养老保险缴纳比例
+                        // socialRate2: '',                                 // 五险-医疗保险比例
+                        // socialRate3: '',                                 // 五险-失业险比例
+                        // socialRate4: '',                                 // 五险-工伤险比例
+                        // socialRate5: '',                                 // 五险-生育险比例
+                        fundInput: '',                                      // 公积金个人缴纳金额
+                        fundDefault: '',                                    // 最低公积金缴纳金
+                        fundRate: '',                                       // 公积金缴纳比例
+                        fundDefaultRate: '',                                // 公积金默认缴纳比例
+                        fund: '',                                           // 公积金缴纳基数
                         special: 0                                          //  专项附加扣除
                     },
-                    chosen01:{                                             // 工资薪金 - 年度 - type1
+                    chosen01:{                                              // 工资薪金 - 年度 - type1
                         income: '',                                         // 本月工资收入
-                        city: '',                                   // 所在城市
-                        social: '',                                      // 社保缴纳金额
-                        socialDefault: '',                               // 最低社保缴纳金
-                        socialRate1: '',                                   // 五险-养老保险缴纳比例
-                        socialRate2: '',                                   // 五险-医疗保险比例
-                        socialRate3: '',                                   // 五险-失业险比例
-                        socialRate4: '',                                   // 五险-工伤险比例
-                        socialRate5: '',                                   // 五险-生育险比例
-                        fundInput: '',                                   // 公积金个人缴纳金额
-                        fundDefault: '',                                 // 最低公积金缴纳金
-                        fundRate: '',                                     // 公积金缴纳比例
-                        fundDefaultRate: '',                               // 公积金默认缴纳比例
-                        fund: '',                                        // 公积金缴纳基数
+                        city: '',                                           // 所在城市
+                        social: '',                                         // 社保缴纳金额
+                        socialDefault: '',                                  // 最低社保缴纳金
+                        // socialRate1: '',                                 // 五险-养老保险缴纳比例
+                        // socialRate2: '',                                 // 五险-医疗保险比例
+                        // socialRate3: '',                                 // 五险-失业险比例
+                        // socialRate4: '',                                 // 五险-工伤险比例
+                        // socialRate5: '',                                 // 五险-生育险比例
+                        fundInput: '',                                      // 公积金个人缴纳金额
+                        fundDefault: '',                                    // 最低公积金缴纳金
+                        fundRate: '',                                       // 公积金缴纳比例
+                        fundDefaultRate: '',                                // 公积金默认缴纳比例
+                        fund: '',                                           // 公积金缴纳基数
                         special: 0                                          //  专项附加扣除
                     },
-                    chosen10:{                                             // 年终奖 - 正算 - type2 (标题 & 提示 & 值)
+                    chosen10:{                                              // 年终奖 - 正算 - type2 (标题 & 提示 & 值)
                         arr: [
                             {title: '应发年终奖（元）',placeholder: '请输入应发年终奖', input: ''}
                         ]
                     },
-                    chosen11:{                                             // 年终奖 - 反向 - type2 (标题 & 提示 & 值)
+                    chosen11:{                                              // 年终奖 - 反向 - type2 (标题 & 提示 & 值)
                         arr: [
                             {title: '税后所得（元）',placeholder: '请输入税后所得', input: ''}
                         ]                                           // 年终奖 - 反向 - type2
                     },
-                    chosen20:{                                             // 劳务报酬 - 正算 - type3
+                    chosen20:{                                              // 劳务报酬 - 正算 - type3
                         title: '劳务报酬（元）',                            // 标题
                         placeholder: '请输入劳务报酬',                      // 提示
                         input: '',                                         // 输入值
                         type: 0                                             // 计算方式
                     },
-                    chosen21:{                                             // 劳务报酬 - 反向 - type3
+                    chosen21:{                                              // 劳务报酬 - 反向 - type3
                         title: '税后所得（元）',                            // 标题
                         placeholder: '请输入税后所得',                      // 提示
                         input: '',                                         // 输入值
                         type: 0                                             // 计算方式
                     },
-                    chosen30:{                                             // 偶然所得 - 正算 - type2 (标题 & 提示 & 值)
+                    chosen30:{                                              // 偶然所得 - 正算 - type2 (标题 & 提示 & 值)
                         arr: [
                                 {title: '偶然收入所得（元）',placeholder: '请输入偶然收入所得', input: ''}
                             ]
                     },
-                    chosen31:{                                             // 偶然所得 - 反向 - type2 (标题 & 提示 & 值)
+                    chosen31:{                                              // 偶然所得 - 反向 - type2 (标题 & 提示 & 值)
                         arr: [
-                                {title: '偶然收入所得（元）',placeholder: '请输入偶然收入所得', input: ''}
+                                {title: '税后所得（元）',placeholder: '请输入税后所得', input: ''}
                             ]
                     },
-                    chosen40:{                                             // 稿酬收入 - 正算 - type3
+                    chosen40:{                                              // 稿酬收入 - 正算 - type3
                         title: '稿酬收入所得（元）',                            // 标题
                         placeholder: '请输入稿酬所得',                      // 提示
                         input: '',                                         // 输入值
                         type: 0                                            // 计算方式
                     },
-                    chosen41:{                                             // 稿酬收入 - 反向 - type3
+                    chosen41:{                                              // 稿酬收入 - 反向 - type3
                         title: '税后所得（元）',                            // 标题
                         placeholder: '请输入税后所得',                      // 提示
                         input: '',                                         // 输入值
                         type: 0                                             // 计算方式
                     },
-                    chosen50:{                                             // 利息股息分红 - 正算 - type2 (标题 & 提示 & 值)
+                    chosen50:{                                              // 利息股息分红 - 正算 - type2 (标题 & 提示 & 值)
                         arr: [
                                 {title: '利息、股息红利所得（元）',placeholder: '请输入利息、股息红利所得', input: ''}
                             ]
                     },
-                    chosen51:{                                             // 利息股息分红 - 反 - type2
+                    chosen51:{                                              // 利息股息分红 - 反 - type2
                         arr: [
                                 {title: '税后所得（元）',placeholder: '请输入税后所得', input: ''}
                             ]
                     },
-                    chosen60:{                                             // 财产租赁 - 正算 - type2 (标题 & 提示 & 值)
+                    chosen60:{                                              // 财产租赁 - 正算 - type2 (标题 & 提示 & 值)
                         arr: [
                                 {title: '财产租赁所得（元）',placeholder: '请输入财产租赁所得', input: ''}
                             ]
                     },
-                    chosen61:{                                             // 财产租赁 - 反向 - type2 (标题 & 提示 & 值)
+                    chosen61:{                                              // 财产租赁 - 反向 - type2 (标题 & 提示 & 值)
                         arr: [
-                                {title: '财产租赁所得（元）',placeholder: '请输入财产租赁所得', input: ''}
+                                {title: '税后所得（元）',placeholder: '请输入税后所得', input: ''}
                             ]
                     },
-                    chosen70:{                                             // 特许使用费 - 正算 - type3
+                    chosen70:{                                              // 特许使用费 - 正算 - type3
                         title: '特许使用费所得（元）',                       // 标题
                         placeholder: '请输入稿酬所得',                      // 提示
                         input: '',                                        // 输入值
                         type: 0                                           // 计算方式
                     },
-                    chosen71:{                                             // 特许使用费 - 反向 - type3
-                        title: '特许使用费所得（元）',                       // 标题
-                        placeholder: '请输入稿酬所得',                      // 提示
+                    chosen71:{                                              // 特许使用费 - 反向 - type3
+                        title: '税后所得（元）',                       // 标题
+                        placeholder: '请输入税后所得',                      // 提示
                         input: '',                                        // 输入值
                         type: 0                                            // 计算方式
                     },
-                    chosen80:{                                             // 财产转让所得 - 正算 - type2 (标题 & 提示 & 值)
+                    chosen80:{                                              // 财产转让所得 - 正算 - type2 (标题 & 提示 & 值)
                         arr: [
                                 {title: '转让收入金额（元）',placeholder: '请输入转让收入金额', input: ''},
                                 {title: '财产原值（元）',placeholder: '请输入财产原值', input: ''},
                                 {title: '合理费用（元）',placeholder: '请输入合理费用', input: ''},
                             ]
                     },
-                    chosen81:{                                             // 财产转让所得 - 反向 - type2 (标题 & 提示 & 值)
+                    chosen81:{                                              // 财产转让所得 - 反向 - type2 (标题 & 提示 & 值)
                         arr: [
-                                {title: '转让收入金额（元）',placeholder: '请输入税后所得', input: ''},
+                                {title: '税后所得（元）',placeholder: '请输入税后所得', input: ''},
                                 {title: '财产原值（元）',placeholder: '请输入财产原值', input: ''},
                                 {title: '合理费用（元）',placeholder: '请输入合理费用', input: ''},
                             ]
                     },
-                    chosen90:{                                             // 经营所得 - 正算 - type2 (标题 & 提示 & 值)
+                    chosen90:{                                              // 经营所得 - 正算 - type2 (标题 & 提示 & 值)
                         arr: [
                                 {title: '经营收入（元）',placeholder: '请输入经营收入', input: ''},
                                 {title: '成本、费用及损失（元）',placeholder: '请输入成本、费用及损失', input: ''},
                             ],
                         tip: '按每一纳税年度计算纳税'
                     },
-                    chosen91:{                                             // 经营所得 - 反向 - type2 (标题 & 提示 & 值)
+                    chosen91:{                                              // 经营所得 - 反向 - type2 (标题 & 提示 & 值)
                         arr: [
-                                {title: '经营收入（元）',placeholder: '请输入经营收入', input: ''},
+                                {title: '税后所得（元）',placeholder: '请输入税后所得', input: ''},
                                 {title: '成本、费用及损失（元）',placeholder: '请输入成本、费用及损失', input: ''},
                             ],
                         tip: '按每一纳税年度计算纳税'
@@ -428,45 +436,56 @@
                     {grade: 5, taxTxt: '超过420000至660000的部分', rate: 30, speed: 52920 },
                     {grade: 5, taxTxt: '超过660000至960000的部分', rate: 35, speed: 85920 },
                     {grade: 5, taxTxt: '超过960000的部分', rate: 45, speed: 181920 },
-                ]
+                ],
+                special: 0
             }
-        },
-        mounted(){
-            this.getLocation(); // 调用获取地理位置
-            queryCityList((res) => {
-                // console.log(res)
-            })
         },
         methods:{
             ...mapActions('caculateTax',[ 
                 'getResult'
             ]),
             /**获取地图定位*/
-            getLocation() {
+            getLocation(type) {
                 let _this = this;
-                let geolocation = location("map-container", (r)=>{
-                    _this.chosen['chosen00']['city'] = r['address']['city'];
-                    _this.chosen['chosen01']['city'] = r['address']['city'];
-                    getRateValueByCityName({ 'cityName': _this.chosen['chosen00']['city'] }, (res) => {
-                        _this.chosen['chosen00']['socialRate1'] = res['data']['endowmentInsurance'];
-                        _this.chosen['chosen01']['socialRate1'] = res['data']['endowmentInsurance'];
-                        _this.chosen['chosen00']['socialRate2'] = res['data']['medicalInsurance'];
-                        _this.chosen['chosen01']['socialRate2'] = res['data']['medicalInsurance'];
-                        _this.chosen['chosen00']['socialRate3'] = res['data']['unemploymentInsurance'];
-                        _this.chosen['chosen01']['socialRate3'] = res['data']['unemploymentInsurance'];
-                        _this.chosen['chosen00']['socialRate4'] = res['data']['injuryInsurance'];
-                        _this.chosen['chosen01']['socialRate4'] = res['data']['injuryInsurance'];
-                        _this.chosen['chosen00']['socialRate5'] = res['data']['birthInsurance'];
-                        _this.chosen['chosen01']['socialRate5'] = res['data']['birthInsurance'];
-                        _this.chosen['chosen00']['socialDefault'] = res['data']['socialSecurity'];
-                        _this.chosen['chosen01']['socialDefault'] = res['data']['socialSecurity'];
-                        _this.chosen['chosen00']['fundDefault'] = res['data']['minPublicFunds'];
-                        _this.chosen['chosen01']['fundDefault'] = res['data']['minPublicFunds'];
-                        _this.chosen['chosen00']['fundDefaultRate'] = res['data']['publicFunds'] * 100;
-                        _this.chosen['chosen01']['fundDefaultRate'] = res['data']['publicFunds'] * 100;
-                        fundDefaultRate
-                    });
-                }); //定位
+                switch (type) {
+                    case 'all':
+                        let geolocation = location("map-container", (r)=>{
+                            _this.chosen['chosen00']['city'] = r['address']['city'];
+                            _this.chosen['chosen01']['city'] = r['address']['city'];
+                            getRateValueByCityName({ 'cityName': r['address']['city'] }, (res) => {
+                                if(res.data == null) {
+                                    _this.chosen['chosen00']['socialDefault'] = 0;
+                                    _this.chosen['chosen01']['socialDefault'] = 0;
+                                    _this.chosen['chosen00']['fundDefault'] = 0;
+                                    _this.chosen['chosen01']['fundDefault'] = 0;
+                                    _this.chosen['chosen00']['fundDefaultRate'] = 0;
+                                    _this.chosen['chosen01']['fundDefaultRate'] = 0;
+                                } else {
+                                    _this.chosen['chosen00']['socialDefault'] = res['data']['socialSecurity'];
+                                    _this.chosen['chosen01']['socialDefault'] = res['data']['socialSecurity'];
+                                    _this.chosen['chosen00']['fundDefault'] = res['data']['minPublicFunds'];
+                                    _this.chosen['chosen01']['fundDefault'] = res['data']['minPublicFunds'];
+                                    _this.chosen['chosen00']['fundDefaultRate'] = res['data']['publicFunds'] * 100;
+                                    _this.chosen['chosen01']['fundDefaultRate'] = res['data']['publicFunds'] * 100;
+                                }
+                                
+                            });
+                        }); //定位
+                        break;
+                    default:
+                        getRateValueByCityName({ 'cityName': _this.chosen['chosen00']['city'] }, (res) => {
+                            if(res.data == null) {
+                                _this.chosen['chosen0'+type]['socialDefault'] = 0;
+                                _this.chosen['chosen0'+type]['fundDefault'] = 0;
+                                _this.chosen['chosen0'+type]['fundDefaultRate'] = 0;
+                            }else{
+                                _this.chosen['chosen0'+type]['socialDefault'] = res['data']['socialSecurity'];
+                            _this.chosen['chosen0'+type]['fundDefault'] = res['data']['minPublicFunds'];
+                            _this.chosen['chosen0'+type]['fundDefaultRate'] = res['data']['publicFunds'] * 100;
+                            }
+                        });
+                        break;
+                }
             },
             // 计算最后值 & 组装结果页
             caculate(){
@@ -479,8 +498,7 @@
                     case 0:
                         // 工资薪金
                         const val00 = Number(_this.chosen[name]['income']);   // 薪资
-                        const val010 = _this.chosen[name]['social'];   // 社保缴纳金
-                        const val01 = _this.chosen[name]['fundInput'] + val010 * _this.chosen[name]['socialRate1'] + val010 * _this.chosen[name]['socialRate2'] + val010 * _this.chosen[name]['socialRate3'] + val010 * _this.chosen[name]['socialRate4'] + val010 * _this.chosen[name]['socialRate5'];
+                        const val01 = Number(_this.chosen[name]['fundInput']) + Number(_this.chosen[name]['social']);  // 公积金缴纳金 + 社保缴纳金
                         const val02 = _this.chosen[name]['special'];  // 专项缴纳金额
                         let val04 = 0;  // 应纳税所得额
                         let val05 = 0;  // 应纳税额
@@ -497,22 +515,37 @@
                                 {top: common.format_number(val00), bottom: '本月税前'},
                                 {top: common.format_number(5000 + val01), bottom: '本月扣除总额'}
                             ];
+                            _this.transfer['middleMore'] = [
+                                {left: '起征点（元）', right: 5000},
+                                {left: '五险一金（个人缴纳部分） ', right: common.format_number(val01)},
+                            ];
                         } else if ( val00 > 0){
-                            val04 = val00*12 - val01 * 12;
+                            val04 = (val00 - val01 - val02 -5000) * 12;
                             obj0 = _this.caculate8(val04);
                             val05 = val04 * obj0['tax'] - obj0['speed'];
-                            val06 = val00*12 - val01*12 - val05*12;
+                            val06 = (val00 - val01)*12 - val05;
                             _this.transfer['txt'] = { txt1: '本年税后工资', txt2: common.format_number(val06) + '元' };
                             _this.transfer['middle'] = [
-                                {top: common.format_number(val05*12), bottom: '年度个税'},
-                                {top: common.format_number(val00), bottom: '年度税前 '},
-                                {top: common.format_number(5000 + val01), bottom: '年度扣除总额'}
+                                {top: common.format_number(val05), bottom: '年度个税'},
+                                {top: common.format_number(val00*12), bottom: '年度税前 '},
+                                {top: common.format_number(5000*12 + val01*12 + val02*12), bottom: '年度扣除总额'}
                             ];
+                            _this.transfer['middleMore'] = [
+                                {left: '起征点（元）', right: 60000},
+                                {left: '五险一金（个人缴纳部分） ', right: common.format_number(val01*12)},
+                                {left: '专项附加扣除', right:val02*12 },
+                            ];
+                            _this.transfer['detail'] = [];
+                            for(let i = 0; i < 12; i++){
+                                let obj = {
+                                    fiveTax: common.format_number(val01),
+                                    before: common.format_number(val00),
+                                    tax: common.format_number(_this.caculate_detail(i, val00, val01, val02))
+                                }
+                                _this.transfer['detail'].push(obj); // 累计税额，累计期数-1，税前工资，五险一金，专项附加扣除
+                            }
+                            _this.special = 0;
                         }
-                        _this.transfer['middleMore'] = [
-                            {left: '起征点（元）', right: subId == 0 ? 5000 : 60000},
-                            {left: '五险一金（个人缴纳部分） ', right: common.format_number(val01)},
-                        ];
                         _this.transfer['type'] = subId + 1;
                         _this.transfer['title'] = subId == 0 ? '工资个税预扣预缴计算公式：' : '个人所得税表：';
                         _this.transfer['formulaArr'] = subId == 0 ? [
@@ -529,7 +562,7 @@
                         _this.transfer['tip'] = '';
                         break;
                     case 1:
-                        // 年终奖
+                        // 年终奖 
                         const val10 = _this.chosen[name]['arr'][0]['input'];
                         let tax1 = 0, obj1 = null, val11 = 0;
                         if(val10 > 0) {
@@ -565,7 +598,7 @@
                         }
                         break;
                     case 2:
-                        // 劳务报酬
+                        // 劳务报酬 （已检验）
                         const val20 = _this.chosen[name]['input'];
                         const type2 = _this.chosen[name]['type'];
                         let obj2 = null, val21 = 0, tax2 = 0;
@@ -643,7 +676,7 @@
                         _this.transfer['tip'] = '含税级适用于纳税人负担税款的劳务报酬所得；';
                         break;
                     case 3:
-                        // 偶然收入
+                        // 偶然收入  （已检验）
                         const val30 = _this.chosen[name]['arr'][0]['input'];
                         let tax3 = 0, val31 = 0;
                         if(subId == 0 && val30 > 0){
@@ -674,7 +707,7 @@
                         _this.transfer['tip'] = '';
                         break;
                     case 4:
-                        // 稿酬收入
+                        // 稿酬收入 （已检验）
                         const val40 = _this.chosen[name]['input'];
                         const type4 = _this.chosen[name]['type'];
                         let obj4 = null, tax4 = 0, val41 = 0;
@@ -735,7 +768,7 @@
                         ];
                         break;
                     case 5:
-                        // 利息股息分红
+                        // 利息股息分红 （已检验）
                         const val50 = _this.chosen[name]['arr'][0]['input'];
                         let tax5 = 0, val51 = 0;
                         if( val50 > 0 ) {
@@ -768,7 +801,7 @@
                         }
                         break;
                     case 6:
-                        // 财产租赁
+                        // 财产租赁 （已检验）
                         const val60 = _this.chosen[name]['arr'][0]['input'];
                         let val61 = 0, tax6 = 0;
                         if(val60 > 0) {
@@ -815,7 +848,7 @@
                         }
                         break;
                     case 7:
-                        // 特许使用费
+                        // 特许使用费 （已检验）
                         const val70 = _this.chosen[name]['input'];
                         const type70 = _this.chosen[name]['type'];
                         let tax7 = 0, val71 = 0, obj7 = null;
@@ -830,7 +863,7 @@
                                         val71 = val70 - val70 * 0.8 * 0.2;
                                     }
                                 } else {
-                                    obj7 = _this.caculate1(val70 * 12);
+                                    obj7 = _this.caculate1(val70 * 12 * 0.8);
                                     val71 = val70 - val70 * 0.8 * obj7['tax'] + obj7['speed'];
                                 }
                                 tax7 = val70 - val71;
@@ -841,8 +874,13 @@
                                 ];
                             } else {
                                 if ( type70 == 0 ){
-                                    val71 = val70 < 3360 ? ((val70 - 160) / 0.8) : (val70 / 0.84);
-                                    tax7 = val71 - val70;
+                                    if ( val70 < 800 || val70 == 800 ){
+                                        val71 = val70;
+                                        tax7 = 0;
+                                    } else{
+                                        val71 = val70 < 3360 ? ((val70 - 160) / 0.8) : (val70 / 0.84);
+                                        tax7 = val71 - val70;
+                                    }
                                 } else {
                                     obj7 = _this.caculate4(val70);
                                     val71 = (val70 - obj7['speed'])/(1 - 0.8 * obj7['tax']);
@@ -871,14 +909,18 @@
                         }
                         break;
                     case 8:
-                        // 财产转让所得
+                        // 财产转让所得 (已检验)
                         let val80 = 0, tax8 = 0;
                         const val81 = Number(_this.chosen[name]['arr'][0]['input']);
                         const val82 = Number(_this.chosen[name]['arr'][1]['input']);
                         const val83 = Number(_this.chosen[name]['arr'][2]['input']);
                         if ( val81 > 0 ){
                             if( subId == 0 ) {
-                                val80 = val81 - (val81 - val82 - val83) * 0.2;
+                                if ( val81 - val82 - val83 > 0 ){
+                                    val80 = val81 - (val81 - val82 - val83) * 0.2;
+                                } else {
+                                    val80 = val81;
+                                }
                                 tax8 = val81 - val80;
                                 _this.transfer['txt'] = { txt1: '税后收入（元）', txt2: common.format_number(val80) + '元' };
                                 _this.transfer['middle'] = [
@@ -886,8 +928,13 @@
                                     {top: common.format_number(val81), bottom: '税前收入（元）'}
                                 ];
                             } else {
-                                val80 = (val81 - 0.2 * val82 - 0.2 * val83) / 0.8;
-                                tax8 = val80 - val81;
+                                if ( val81 - 0.2 * val82 - 0.2 * val83 > 0 ){
+                                    val80 = (val81 - 0.2 * val82 - 0.2 * val83) / 0.8;
+                                    tax8 = val80 - val81;
+                                } else {
+                                    val80 = val81;
+                                    tax8 = 0;
+                                }
                                 _this.transfer['txt'] = { txt1: '税前收入（元）', txt2: common.format_number(val80) + '元' };
                                 _this.transfer['middle'] = [
                                     {top: common.format_number(tax8), bottom: '应纳个税（元）'},
@@ -907,47 +954,67 @@
                         }
                         break;
                     case 9:
-                        // 经营所得
+                        // 经营所得 (完成检验)
                         let val90 = 0, tax9 = 0, obj9 = null;
                         const val91 = _this.chosen[name]['arr'][0]['input']; 
-                        const val92 = _this.chosen[name]['arr'][1]['input']; 
-                        if( subId == 0 && val91 > 0) {
-                            obj9 = _this.caculate6(val91 - val92);
-                            val90 = val91 - (val91 - val92) * obj9['tax'] + obj9['speed'];
-                            tax9 = val91 - val90;
-                            _this.transfer['txt'] = { txt1: '税后收入（元）', txt2: common.format_number(val90) + '元' };
-                            _this.transfer['middle'] = [
-                                {top: common.format_number(tax9), bottom: '应纳个税（元）'},
-                                {top: common.format_number(val91), bottom: '税前收入（元）'}
+                        const val92 = _this.chosen[name]['arr'][1]['input'];
+                        if( val91 > 0 || val91 == 0 ) {
+                            if( subId == 0) {
+                                if(val91 > val92 || val91 == val92){
+                                    obj9 = _this.caculate6(val91 - val92);  // 税率和速算值
+                                    val90 = val91 - (val91 - val92) * obj9['tax'] + obj9['speed'];  // 税后
+                                    tax9 = val91 - val90;  // 个税
+                                    _this.transfer['txt'] = { txt1: '税后收入（元）', txt2: common.format_number(val90) + '元' };
+                                    _this.transfer['middle'] = [
+                                        {top: common.format_number(tax9), bottom: '应纳个税（元）'},
+                                        {top: common.format_number(val91), bottom: '税前收入（元）'}
+                                    ];
+                                } else {
+                                    canLink = false;
+                                    common.show_weakTip('经营所得必须大于等于成本费用及损失哦~');
+                                }
+                            } else {
+                                obj9 = _this.caculate7(val91 - val90);  // 税率和速算值
+                                val90 = (val91 - obj9['speed'] - val92 * obj9['tax']) / ( 1 - obj9['tax'] );  //  税前
+                                tax9 = val90 - val91;   //  个税
+                                if( val90 > val92 || val90 == val92 ){
+                                    _this.transfer['txt'] = { txt1: '税前收入（元）', txt2: common.format_number(val90) + '元' };
+                                    _this.transfer['middle'] = [
+                                        {top: common.format_number(tax9), bottom: '应纳个税（元）'},
+                                        {top: common.format_number(val91), bottom: '税后收入（元）'}
+                                    ];
+                                } else {
+                                    canLink = false;
+                                    common.show_weakTip('经营所得必须大于等于成本费用及损失哦~');
+                                }
+                            }
+                            _this.transfer['type'] = 0;
+                            _this.transfer['title'] = '经营所得个税计算公式：';
+                            _this.transfer['tableArr']= [
+                                {title: '经营所得对应税率表： ', table: _this.table4}
                             ];
-                        } else if (val91 > 0){
-                            obj9 = _this.caculate7(val91 - val90);
-                            val90 = (val91 - obj9['speed'] - obj9['tax'] * val92) / ( 1 - obj9['tax'] );
-                            tax9 = val90 - val91; 
-                            _this.transfer['txt'] = { txt1: '税前收入（元）', txt2: common.format_number(val90) + '元' };
-                            _this.transfer['middle'] = [
-                                {top: common.format_number(tax9), bottom: '应纳个税（元）'},
-                                {top: common.format_number(val91), bottom: '税后收入（元）'}
+                            _this.transfer['formulaArr'] = [
+                                {left: '应纳税所得额 ', right: '=年度收入总额 - 成本、费用及损失'},
+                                {left: '应纳税额 ', right: '=应纳税所得额 x 适用税率 - 速算扣除数'}
                             ];
+                            _this.transfer['tip'] = '';
                         } else {
                             canLink = false;
                         }
-                        _this.transfer['type'] = 0;
-                        _this.transfer['title'] = '经营所得个税计算公式：';
-                        _this.transfer['tableArr']= [
-                            {title: '经营所得对应税率表： ', table: _this.table4}
-                        ];
-                        _this.transfer['formulaArr'] = [
-                            {left: '应纳税所得额 ', right: '=年度收入总额 - 成本、费用及损失'},
-                            {left: '应纳税额 ', right: '=应纳税所得额 x 适用税率 - 速算扣除数'}
-                        ];
-                        _this.transfer['tip'] = '';
                         break;
                 }
                 if(canLink){
                     _this.getResult(_this.transfer);
                     this.link_to('/personalIncomeTax/result');
                 }
+            },
+            // 计算每个月的薪资（累计税额，累计期数-1，税前工资，五险一金，专项附加扣除）
+            caculate_detail( i, salary, five, special){
+                let should1 = salary * (i+1) - five * (i+1) - special * (i+1) - 5000*(i+1);  // 
+                let obj = this.caculate8(should1);
+                let should2 = should1 * obj['tax'] - obj['speed'] - this.special;
+                this.special = this.special + should2;
+                return should2;
             },
             // 选择tab标签 & 选择时的动效
             chose_tab(item, el){
@@ -1012,22 +1079,22 @@
             caculate1(val){
                 const obj = {};
                 val = val /12;
-                if(val < 3000){
+                if(val < 3000 || val == 3000){
                     obj['tax'] = 0.03;
                     obj['speed'] = 0;
-                } else if((val > 3000 || val == 3000) && (val < 12000)){
+                } else if((val > 3000) && (val < 12000 || val == 12000)){
                     obj['tax'] = 0.1;
                     obj['speed'] = 210;
-                } else if((val > 12000 || val == 12000) && (val < 25000)){
+                } else if((val > 12000) && (val < 25000 || val == 25000)){
                     obj['tax'] = 0.2;
                     obj['speed'] = 1410;
-                } else if((val > 25000 || val == 25000) && (val < 35000)){
+                } else if((val > 25000) && (val < 35000 || val == 35000)){
                     obj['tax'] = 0.25;
                     obj['speed'] = 2660;
-                } else if((val > 35000 || val == 35000) && (val < 55000)){
+                } else if((val > 35000) && (val < 55000 || val == 55000)){
                     obj['tax'] = 0.3;
                     obj['speed'] = 4410;
-                } else if((val > 55000 || val == 55000) && (val < 80000)){
+                } else if((val > 55000) && (val < 80000 || val == 80000)){
                     obj['tax'] = 0.35;
                     obj['speed'] = 7160;
                 } else if(val > 80000){
@@ -1097,7 +1164,7 @@
                 } else if((val > 37660 || val == 37660) && (val < 56660)){
                     obj['tax'] = 0.3;
                     obj['speed'] = 4410;
-                } else if((val > 56660 || val == 56660) && (val < 79160)){
+                } else if((val > 56660 || val == 56660) && (val < 79160 || val == 79160)){
                     obj['tax'] = 0.35;
                     obj['speed'] = 7160;
                 } else if(val > 79160){
@@ -1109,22 +1176,22 @@
             // 根据税率得出值5
             caculate5(val){
                 const obj = {};
-                if(val < 5267.14286){
+                if(val < 5267.14286 || val == 5267.14286){
                     obj['tax'] = 0.03;
                     obj['speed'] = 0;
-                } else if((val > 5267.14286 || val == 5267.14286) && (val < 20438.5714)){
+                } else if((val > 5267.14286) && (val < 20438.5714 || val == 20438.5714)){
                     obj['tax'] = 0.1;
                     obj['speed'] = 210;
-                } else if((val > 20438.5714 || val == 20438.5714) && (val < 41052.8571)){
+                } else if((val > 20438.5714) && (val < 41052.8571 || val == 41052.8571)){
                     obj['tax'] = 0.2;
                     obj['speed'] = 1410;
-                } else if((val > 41052.8571 || val == 41052.8571) && (val < 56410)){
+                } else if((val > 41052.8571) && (val < 56410 || val == 56410)){
                     obj['tax'] = 0.25;
                     obj['speed'] = 2660;
-                } else if((val > 56410 || val == 56410) && (val < 86124.2857)){
+                } else if((val > 56410) && (val < 86124.2857 || val == 86124.2857)){
                     obj['tax'] = 0.3;
                     obj['speed'] = 4410;
-                } else if((val > 86124.2857 || val == 86124.2857) && (val < 122017.143)){
+                } else if((val > 86124.2857) && (val < 122017.143 || val == 122017.143)){
                     obj['tax'] = 0.35;
                     obj['speed'] = 7160;
                 } else if(val > 122017.143){
@@ -1157,16 +1224,16 @@
             // 根据税率得出值7
             caculate7(val){
                 const obj = {};
-                if(val < 28500){
+                if(val < 28500 || val == 28500){
                     obj['tax'] = 0.05;
                     obj['speed'] = 0;
-                } else if((val > 28500 || val == 28500) && (val < 82500)){
+                } else if((val > 28500) && (val < 82500 || val == 82500)){
                     obj['tax'] = 0.1;
                     obj['speed'] = 1500;
-                } else if((val > 82500 || val == 82500) && (val < 250500)){
+                } else if((val > 82500) && (val < 250500 || val == 250500)){
                     obj['tax'] = 0.2;
                     obj['speed'] = 10500;
-                } else if((val > 250500 || val == 250500) && (val < 390500)){
+                } else if((val > 250500) && (val < 390500 || val == 390500)){
                     obj['tax'] = 0.3;
                     obj['speed'] = 40500;
                 } else if(val > 390500){
@@ -1204,12 +1271,28 @@
             },
         },
         activated(){
-            const id = this.chosen['chosenTab']['id'];
-            const subId = this.chosen['chosenSubTab'];
-            const name = 'chosen' + id + subId;
-            this.chosen[name]['special'] = this.$store.state.caculateTax['special'];
+            const _this = this;
+            const id = _this.chosen['chosenTab']['id'];
+            const subId = _this.chosen['chosenSubTab'];
+            let name = 'chosen' + id;
             document.querySelector('body').style='background: rgba(247,247,247,1);';
-            $('.can-scroll').animate({scrollLeft: this.tabLeft}, 200);
+            $('.can-scroll').animate({scrollLeft: _this.tabLeft}, 200);
+            if(_this.$route.query && _this.$route.query.cityId){
+                let type = _this.$route.query.type;
+                _this.getLocation(type);
+                name = name + type;
+                _this.chosen[name]['special'] = _this.$store.state.caculateTax['special'];
+                getRateValueByCityId({ cityId: _this.$route.query.cityId }, (res) => {
+                    _this.chosen[name]['city'] = res['data']['cityName'];
+                    _this.chosen[name]['socialDefault'] = res['data']['socialSecurity'];
+                    _this.chosen[name]['fundDefault'] = res['data']['minPublicFunds'];
+                    _this.chosen[name]['fundDefaultRate'] = res['data']['publicFunds'] * 100;
+                })
+            } else {
+                name = name + subId;
+                _this.chosen[name]['special'] = _this.$store.state.caculateTax['special'];
+                this.getLocation('all'); // 调用获取地理位置
+            }
         }
     }
 </script>

@@ -2,7 +2,7 @@
     <div id="specialAdditional">
         <div class="top">
             <div class="top-head space-between">
-                <div class="arrow center-vl" @touchstart='back_to()'></div>
+                <div class="arrow center-vl" @click.stop='back_to()'></div>
                 <span>专项附加扣除</span>
                 <i></i>
             </div>
@@ -241,6 +241,7 @@
             }
         },
         mounted(){
+            document.querySelector('body').style='background:rgba(249,249,249,1);';
         },
         methods:{
             ...mapActions('caculateTax',[ 
@@ -287,9 +288,6 @@
                 _this.back_to();
                 _this.getCaculateInfo(_this.totalNum);
             }
-        },
-        activated(){
-            document.querySelector('body').style='background:rgba(249,249,249,1);';
         }
     }
 </script>

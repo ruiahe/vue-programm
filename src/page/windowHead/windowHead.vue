@@ -11,7 +11,7 @@
       <div class="header-box">
         <div class="space-between">
           <div class="arrow center-vl" @click.stop='back_to()' :class="{'close': titleJson['close']}"></div>
-          <div class="title" @click='link_to("/mortgageCaculate/caculate")'>{{titleJson['title']}}</div>
+          <div class="title" @click='link_to("/personalIncomeTax/input",1)'>{{titleJson['title']}}</div>
           <span v-if='!titleJson["toolBol"]' class="tool center-h"></span>
           <span v-if='titleJson["toolBol"] && titleJson["toolTitle"]!="···" && titleJson["toolTitle"]!="calendar"' class="tool center-h" :class="{'hasRed': titleJson['hasRed']}" :style="'color:'+titleJson['color']+'!important;'">
             <span v-on:click='link_to(titleJson["url"])'>{{titleJson['toolTitle']}}</span>
@@ -53,8 +53,13 @@
             }
         },
         methods: {
-          link_to(url){
-              this.$router.push({path: url});
+          link_to(url,type){
+              const _this = this;
+              if(type && this.titleJson['title'].indexOf('心灵鸡汤') > -1){
+                  _this.$router.push({path: '/mortgageCaculate/caculate'});
+              } else {
+                  _this.$router.push({path: url});
+              }
           },
           back_to(){
               var path = this.$route.path;

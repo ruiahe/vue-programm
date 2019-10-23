@@ -12,7 +12,7 @@ const host = (()=>{
             url = 'http://test.36jiapp.com:8080';
             break;
         case 'local':
-            url = 'http://ytrm9f.natappfree.cc';
+            url = 'http://kqknsj.natappfree.cc';
             break;
     }
     return url;
@@ -45,3 +45,7 @@ export const reportForumReplyInfo = (p, suc) => post(host + '/app/forum/reportFo
 export const queryCityList = (suc) => post(host + '/app/rate/queryCityList', JSON.stringify({}), suc);
 // 个税  --  根据城市名称获取城市税率信息
 export const getRateValueByCityName = (p, suc) => post(host + '/app/rate/getRateValueByCityName', JSON.stringify(p), suc);
+// 个税  --  历史纪录
+export const queryRateHistoryCityList = (suc) => post(host + '/app/rate/queryRateHistoryCityList', JSON.stringify({}), suc);
+// 个税  --  根据城市id获取城市税率信息
+export const getRateValueByCityId = (p, suc) => post(host + '/app/rate/getRateValueByCityId', JSON.stringify(p), suc);

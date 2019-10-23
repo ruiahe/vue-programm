@@ -92,10 +92,10 @@
                             <td> <div class="center-vh">速算扣除数</div> </td>
                         </tr>
                         <tr v-for="(i2, index2) in i.table" :key="index2">
-                            <td> <div class="center-vh">{{i2.grade}}</div> </td>
-                            <td> <div class="center-vh">{{i2.taxTxt}}</div> </td>
-                            <td> <div class="center-vh">{{i2.rate}}</div> </td>
-                            <td> <div class="center-vh">{{i2.speed}}</div> </td>
+                            <td> {{i2.grade}} </td>
+                            <td> {{i2.taxTxt}} </td>
+                            <td> {{i2.rate}} </td>
+                            <td> {{i2.speed}} </td>
                         </tr>
                     </table>
                 </section>
@@ -118,7 +118,6 @@
         },
         mounted(){
             this.transfer = this.$store.state.caculateTax['result'];
-            console.log(this.transfer);
         },
         methods:{
             // 展开扣除总额部分
