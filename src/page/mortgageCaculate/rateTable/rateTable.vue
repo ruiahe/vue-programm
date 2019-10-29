@@ -51,9 +51,9 @@
     </div>
 </template>
 <script>
-    import wHead from '@/page/windowHead/windowHead'
+    import wHead from '@/page/common/windowHead/windowHead'
     // import scrollSelector from '@/page/common/scrollSelector/scrollSelector'
-    // import $ from 'jquery'
+    import $ from 'jquery'
     export default {
         name: 'rateTable',
         components:{
@@ -72,6 +72,9 @@
         },
         methods:{
         },
+        mounted(){
+            $('body,html').addClass('origin').removeClass('f7').removeClass('rgba0').removeClass('gray247').removeClass('fbfafa');
+        }
     }
 </script>
 <style lang="less" scoped>

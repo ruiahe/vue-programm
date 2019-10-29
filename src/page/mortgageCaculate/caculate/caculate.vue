@@ -2,7 +2,7 @@
     <div id="caculate">
         <div class="top">
             <wHead :titleJson='titleJson'></wHead>
-            <ul class="nav container space-between">
+            <ul class="nav space-between">
                 <li class='active' @click='nav_to(1, $event, "commercialLoans")'>商业贷款</li>
                 <li @click='nav_to(2, $event, "providentFundLoan")'>公积金贷</li>
                 <li @click='nav_to(3, $event, "portfolioLoan")'>组合贷款</li>
@@ -15,39 +15,40 @@
             等额本息和等额本金，具体公式如下：
             等额本息：月供 = 〔贷款本金×月利率×（1＋月利率）＾还款月数〕÷〔（1＋月利率）＾还款月数－1〕
             等额本金：每月还款金额 = （贷款本金 / 还款月数）+（本金 — 已归还本金累计额）×每月利率其中＾符号表示乘方。2个月就是2次方。 
+            PS:等额本金 => 0；等额本息 => 1；
         -->
         <!-- 商业贷款 -->
         <ul class="content commercialLoans" v-if="showContent == 'commercialLoans'">
             <li class="input">
                 <div class="container space-between">
                     <span>房价总额：</span>
-                    <input type="text" v-model="chosenObj['total_house_price']">
-                    <strong>万元</strong>
+                    <input type="number" v-model="chosenObj['total_house_price']">
+                    <strong :class="{'hasNum': chosenObj['total_house_price']>0}">万元</strong>
                 </div>
             </li>
             <li class="select" @click='open_selector(1, arrDownPaymentRatio, "首付比例", "commercial_loan", chosenObj["commercial_loan"])'>
                 <div class="container space-between">
                     <span>首付比例：</span>
-                    <i>{{arrDownPaymentRatio[chosenObj['commercial_loan']]['name']}}</i>
+                    <i v-if="arrDownPaymentRatio[chosenObj['commercial_loan']]">{{arrDownPaymentRatio[chosenObj['commercial_loan']]['name']}}</i>
                 </div>
             </li>
             <li class="input">
                 <div class="container space-between">
                     <span>贷款总额：</span>
-                    <input type="text" :value="chosenObj['total_house_price']>0?format_number(chosenObj['total_house_price']-chosenObj['total_house_price']*arrDownPaymentRatio[chosenObj['commercial_loan']]['result']):''" readonly>
-                    <strong>万元</strong>
+                    <input type="number" :value="chosenObj['total_house_price']>0?format_number(chosenObj['total_house_price']-chosenObj['total_house_price']*arrDownPaymentRatio[chosenObj['commercial_loan']]['result']):''" readonly>
+                    <strong :class="{'hasNum': chosenObj['total_house_price']>0}">万元</strong>
                 </div>
             </li>
             <li class="select" @click='open_selector(3, repaymentMethod, "还款方式", "repayment_method", chosenObj["repayment_method"])'>
                 <div class="container space-between">
                     <span>还款方式：</span>
-                    <i>{{repaymentMethod[chosenObj['repayment_method']]['name']}}</i>
+                    <i v-if="repaymentMethod[chosenObj['repayment_method']]">{{repaymentMethod[chosenObj['repayment_method']]['name']}}</i>
                 </div>
             </li>
             <li class="select" @click='open_selector(1, yearsOfMortgage, "按揭年数", "yearsOf_mortgage", chosenObj["yearsOf_mortgage"])'>
                 <div class="container space-between">
                     <span>按揭年数：</span>
-                    <i>{{yearsOfMortgage[chosenObj['yearsOf_mortgage']]['name']}}</i>
+                    <i v-if="yearsOfMortgage[chosenObj['yearsOf_mortgage']]">{{yearsOfMortgage[chosenObj['yearsOf_mortgage']]['name']}}</i>
                 </div>
             </li>
             <li class="select" @click="open_date_selector()">
@@ -59,7 +60,7 @@
             <li class="select" v-if='baseRnterestRate.length>0' @click='open_selector(1, baseRnterestRate, "利率", "base_interest_rate", chosenObj["base_interest_rate"])'>
                 <div class="container space-between">
                     <span>利率：</span>
-                    <i>{{baseRnterestRate[chosenObj['base_interest_rate']]['name']}}</i>
+                    <i v-if="baseRnterestRate[chosenObj['base_interest_rate']]">{{baseRnterestRate[chosenObj['base_interest_rate']]['name']}}</i>
                 </div>
             </li>
             <li class="btn">
@@ -71,8 +72,8 @@
             <li class="input">
                 <div class="container space-between">
                     <span>房价总额：</span>
-                    <input type="text" v-model="chosenObj2['total_house_price']">
-                    <strong>万元</strong>
+                    <input type="number" v-model="chosenObj2['total_house_price']">
+                    <strong :class="{'hasNum': chosenObj2['total_house_price']>0}">万元</strong>
                 </div>
             </li>
             <li class="select" @click='open_selector(1, arrDownPaymentRatio, "首付比例", "commercial_loan", chosenObj2["commercial_loan"])'>
@@ -84,8 +85,8 @@
             <li class="input">
                 <div class="container space-between">
                     <span>贷款总额：</span>
-                    <input type="text" :value="chosenObj2['total_house_price']>0?chosenObj2['total_house_price']-chosenObj2['total_house_price']*arrDownPaymentRatio[chosenObj2['commercial_loan']]['result']:''" readonly>
-                    <strong>万元</strong>
+                    <input type="number" :value="chosenObj2['total_house_price']>0?chosenObj2['total_house_price']-chosenObj2['total_house_price']*arrDownPaymentRatio[chosenObj2['commercial_loan']]['result']:''" readonly>
+                    <strong :class="{'hasNum': chosenObj2['total_house_price']>0}">万元</strong>
                 </div>
             </li>
             <li class="select" @click='open_selector(3, repaymentMethod, "还款方式", "repayment_method", chosenObj2["repayment_method"])'>
@@ -121,15 +122,15 @@
             <li class="input">
                 <div class="container space-between">
                     <span>商业贷：</span>
-                    <input type="text" v-model="chosenObj3['total_house_price0']">
-                    <strong>万元</strong>
+                    <input type="number" v-model="chosenObj3['total_house_price0']">
+                    <strong :class="{'hasNum': chosenObj3['total_house_price0']>0}">万元</strong>
                 </div>
             </li>
             <li class="input">
                 <div class="container space-between">
                     <span>公积金贷：</span>
-                    <input type="text" v-model="chosenObj3['total_house_price1']">
-                    <strong>万元</strong>
+                    <input type="number" v-model="chosenObj3['total_house_price1']">
+                    <strong :class="{'hasNum': chosenObj3['total_house_price1']>0}">万元</strong>
                 </div>
             </li>
             <li class="select" @click='open_selector(3, repaymentMethod, "还款方式", "repayment_method", chosenObj3["repayment_method"])'>
@@ -171,8 +172,8 @@
             <li class="input">
                 <div class="container space-between">
                     <span>贷款总额：</span>
-                    <input type="text" v-model="chosenObj4['total_house_price']">
-                    <strong>万元</strong>
+                    <input type="number" v-model="chosenObj4['total_house_price']">
+                    <strong :class="{'hasNum': chosenObj4['total_house_price']>0}">万元</strong>
                 </div>
             </li>
             <li class="select" @click='open_selector(3, typeOfLoan, "贷款类型", "type_of_loan", chosenObj4["type_of_loan"])'>
@@ -226,7 +227,7 @@
             <li class="input" v-if='chosenObj4["early_repayment_method"] == 1'>
                 <div class="container space-between">
                     <span>提前还款金额：</span>
-                    <input type="text" v-model="chosenObj4['early_repayment']">
+                    <input type="number" v-model="chosenObj4['early_repayment']">
                     <strong>万元</strong>
                 </div>
             </li>
@@ -251,7 +252,7 @@
     import scrollDate from '@/page/common/scrollDateYear/scrollDateYear'
     import {common} from '@/common/js/common.js'
     import { mapActions } from 'vuex'
-    import wHead from '@/page/windowHead/windowHead'
+    import wHead from '@/page/common/windowHead/windowHead'
     import $ from 'jquery'
     export default {
         name: 'caculate',
@@ -354,53 +355,13 @@
                     { name: '上浮30(4.23%)', id: 12, result: 0.0423 },
                 ],
                 // 商业贷输入选中信息
-                chosenObj:{
-                    commercial_loan: 2,
-                    total_house_price: '',
-                    repayment_method: 1,
-                    yearsOf_mortgage: 19,
-                    base_interest_rate: 6,
-                    first_repayment_time: 0,
-                    first_repayment_time_text: ''
-                },
+                chosenObj:{},
                 // 公积金贷输入选中信息
-                chosenObj2:{
-                    commercial_loan: 2,
-                    total_house_price: '',
-                    repayment_method: 0,
-                    yearsOf_mortgage: 19,
-                    base_interest_rate0: 6,
-                    first_repayment_time: 0,
-                    first_repayment_time_text: ''
-                },
+                chosenObj2:{},
                 // 组合贷输入选中信息
-                chosenObj3:{
-                    commercial_loan: 2,
-                    total_house_price0: '',
-                    total_house_price1: '',
-                    repayment_method: 0,
-                    yearsOf_mortgage: 19,
-                    base_interest_rate: 6,
-                    base_interest_rate0: 6,
-                    first_repayment_time: 0,
-                    first_repayment_time_text: '',
-                },
+                chosenObj3:{},
                 // 提前还款输入选中信息
-                chosenObj4:{
-                    total_house_price: '',
-                    type_of_loan: 0,
-                    yearsOf_mortgage: 19,
-                    first_repayment_time: 0,
-                    first_repayment_time_text: '',
-                    repayment_method: 1,
-                    early_repayment_time: 0,
-                    early_repayment_time_text: '',
-                    early_repayment_method: 0,
-                    early_repayment: '',
-                    disposition: 0,
-                    base_interest_rate: 6,
-                    base_interest_rate0: 6
-                },
+                chosenObj4:{},
                 // 当前选中的贷款类型
                 showContent: 'commercialLoans',
                 // 标题信息
@@ -496,21 +457,69 @@
                 toDetail:{}
             }
         },
-        mounted(){
-            const time = new Date().getTime();
-            this.baseRnterestRate = this.baseRnterestRateArr3;
-            this.baseRnterestRate0 = this.baseRnterestRateArr5;
-            this.chosenObj['first_repayment_time'] = time;
-            this.chosenObj2['first_repayment_time'] = time;
-            this.chosenObj3['first_repayment_time'] = time;
-            this.chosenObj4['first_repayment_time'] = time;
-            this.chosenObj4['early_repayment_time'] = time;
-            this.change_time_to_text(time,'all');
-        },
         methods:{
             ...mapActions('caculateInfo',[ 
                 'getCaculateInfo'
             ]),
+            init(){
+                const _this = this;
+                const time = new Date().getTime();
+                this.$nextTick(()=>{
+                    // 商业贷输入选中信息
+                    _this.chosenObj = {
+                        commercial_loan: 2,
+                        total_house_price: '',
+                        repayment_method: 0,
+                        yearsOf_mortgage: 19,
+                        base_interest_rate: 6,
+                        first_repayment_time: time,
+                        first_repayment_time_text: ''
+                    };
+                    // 公积金贷输入选中信息
+                    _this.chosenObj2 = {
+                        commercial_loan: 2,
+                        total_house_price: '',
+                        repayment_method: 0,
+                        yearsOf_mortgage: 19,
+                        base_interest_rate0: 6,
+                        first_repayment_time: time,
+                        first_repayment_time_text: ''
+                    },
+                    // 组合贷输入选中信息
+                    _this.chosenObj3 = {
+                        commercial_loan: 2,
+                        total_house_price0: '',
+                        total_house_price1: '',
+                        repayment_method: 0,
+                        yearsOf_mortgage: 19,
+                        base_interest_rate: 6,
+                        base_interest_rate0: 6,
+                        first_repayment_time: time,
+                        first_repayment_time_text: '',
+                    },
+                    // 提前还款输入选中信息
+                    _this.chosenObj4 = {
+                        total_house_price: '',
+                        type_of_loan: 0,
+                        yearsOf_mortgage: 19,
+                        first_repayment_time: time,
+                        first_repayment_time_text: '',
+                        repayment_method: 0,
+                        early_repayment_time: time,
+                        early_repayment_time_text: '',
+                        early_repayment_method: 0,
+                        early_repayment: '',
+                        disposition: 0,
+                        base_interest_rate: 6,
+                        base_interest_rate0: 6
+                    },
+                    // 当前选中的贷款类型
+                    _this.showContent = 'commercialLoans';
+                    _this.baseRnterestRate = this.baseRnterestRateArr3;
+                    _this.baseRnterestRate0 = this.baseRnterestRateArr5;
+                    _this.change_time_to_text(time,'all');
+                })
+            },
             // 切换tab
             nav_to(index, e, type){
                 $('#caculate .nav li').removeClass('active');
@@ -821,7 +830,7 @@
                 let n1 = 0, n10 = 0, n11 = 0, n2 = 0, n20 = 0, n21 = 0, n3 = 0, result = 0;
                 let totalHousePrice = 0; // 房价总款
                 let repaymentType = 1; // 详情页类型（商业贷款&公积金贷：1；组合贷&提前还：2）
-                let openType = 1; // 点亮的详情标签（等额本息：1，等额本金：2）
+                let openType = 0; // 点亮的详情标签（等额本息：0，等额本金：1）
                 let downPament = 0; // 首付
                 let totleLending = 0; // 贷款总额
                 let totalMortgage = 0; // 按揭总期数
@@ -853,6 +862,7 @@
                         totalHousePrice = this.chosenObj2['total_house_price'];
                         if(totalHousePrice.length > 0){
                             canLeave = true;
+                            openType = this.chosenObj2['repayment_method'];
                             downPament = totalHousePrice*this.arrDownPaymentRatio[this.chosenObj2['commercial_loan']]['result'];
                             totleLending = totalHousePrice - downPament;
                             totalMortgage = this.yearsOfMortgage[this.chosenObj2['yearsOf_mortgage']]['result'];
@@ -1011,11 +1021,19 @@
                 }
             }
         },
-        beforeCreate(){
-            document.querySelector('body').style='background: #fff;';
-        },
         activated(){
-            document.querySelector('body').style='background: #fff;';
+            $('body,html').addClass('fbfafa').removeClass('origin').removeClass('gray247').removeClass('f7');
+            if(!this.$route.meta.isUseCache){
+                this.init();
+            }
+        },
+        beforeRouteLeave(to, from, next){
+            if(to.path.indexOf('/mortgageCaculate/result')>-1 || to.path.indexOf('/mortgageCaculate/rateTable')>-1 ){
+                from.meta.isUseCache = true;
+            } else {
+                from.meta.isUseCache = false;
+            }
+            next();
         }
     }
 </script>

@@ -5,7 +5,6 @@
  * @type {{}}
  */
 import BMap from 'BMap'
-import $ from 'jquery'
 export function location(id, sucCal){
     let map = new BMap.Map(id);
     let geolocation = new BMap.Geolocation({

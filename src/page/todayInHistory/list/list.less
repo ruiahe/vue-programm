@@ -34,7 +34,6 @@
             .test{
                 width:112px;
                 height:34px;
-                border:1px solid rgba(221,221,221,1);
                 font-size:17px;
                 line-height:34px;
                 font-family:PingFangSC-Medium,PingFangSC;
@@ -43,6 +42,7 @@
                 background:rgba(117,122,137,1);
                 border-radius:6px;
                 margin:0 30px;
+                border:none;
                 img{
                     width:18px;
                     margin-left:8px;
@@ -76,12 +76,16 @@
                                 background-size: 100% auto;
                                 background-position: center;
                             }
+                            .special-background{
+                                background-image: url('../../../assets/defaultImg.png')!important;
+                            }
                         }
                         .time-year{
                             font-size:12px;
                             font-family:PingFangSC-Medium,PingFangSC;
                             font-weight:500;
                             color:rgba(102,102,102,1);
+                            white-space: nowrap;
                         }
                     }
                 }
@@ -103,6 +107,17 @@
                     .text-text{
                         width:152px;
                         margin:0;
+                        text-align: left;
+                    }
+                }
+            }
+            .liRight{
+                .text-and-img-box{
+                    display: flex;
+                    align-items: center;
+                    justify-content:flex-end;
+                    .text-text{
+                        text-align: right;
                     }
                 }
             }

@@ -1,6 +1,8 @@
 <template>
     <div id="message">
-        <wHead :titleJson='titleJson'></wHead>
+        <div class="message-head">
+            <wHead :titleJson='titleJson'></wHead>
+        </div>
         <div class="tab-box" @touchmove.prevent>
             <ul class="tab">
                 <li class='center-vh' v-for="(item, index) in tabList" :key='index' :class="{'chosen': item.chosen}" v-on:click='chosen_li(item)'>
@@ -14,20 +16,20 @@
         </div>
         <!-- 滚动区域 -->
         <div ref='mescroll' class="mescroll" id='mescrollList'>
-            <div>
+            <div class='mescroll-box'>
                 <div class="release" v-if='chosen_tab.id == 0'>
                     <div class="state" v-for='(relItem, relInd) in releaseList' :key='relInd'>
                         <div class="state-top container space-between">
-                            <div class="state-tx" :imgurl="relItem['uimg']" style="background-image: url('../../assets/load.jpg');">
+                            <div class="state-tx" :imgurl="relItem['uimg']" style="background-image: url('../../../assets/load.jpg');">
                             </div>
                             <div class="state-inf center-v">
                                 <span class="state-name">{{relItem['nickname']}}</span>
-                                <img class='state-img' src="../../assets/statement/phone.png" alt="">
+                                <img class='state-img' src="../../../assets/statement/phone.png" alt="">
                                 <span class='state-model'>{{relItem['deviceOsVersion']}}</span>
                                 <span class='state-version'>{{relItem['appVersion']}}</span>
                             </div>
                             <div class="state-ellipsis" v-on:click='complaint($event,relItem["id"], relItem)'>
-                                <img src="../../assets/statement/ellipsis.png" alt="">
+                                <img src="../../../assets/statement/ellipsis.png" alt="">
                             </div>
                         </div>
                         <div class="state-middle">
@@ -35,14 +37,14 @@
                                 {{relItem['replyContent']}}
                             </div>
                             <div class="middle-img-list" v-if='relItem["replyImg"]'>
-                                <div class="middle-img" v-for='(imgItem, imgInd) in relItem["replyImg"]' :key='imgInd' :imgurl="imgItem.img" style="background-image: url('../../assets/load.jpg');" @click.stop='show_big_img(relItem["replyImg"], imgInd)'> 
+                                <div class="middle-img" v-for='(imgItem, imgInd) in relItem["replyImg"]' :key='imgInd' :imgurl="imgItem.img" style="background-image: url('../../../assets/load.jpg');" @click.stop='show_big_img(relItem["replyImg"], imgInd)'> 
                                     <!-- <img :src="imgItem.img" alt="">  -->
                                 </div>
                             </div>
                         </div>
                         <div class="state-bottom container space-between">
                             <div class="state-operate center-v" @click.stop='give_a_like(relItem, relInd)' :class="{'animate': relItem['animate']}">
-                                <img src="../../assets/statement/discuss.png" alt="" @click.stop='show_input(relItem,relInd)'>
+                                <img src="../../../assets/statement/discuss.png" alt="" @click.stop='show_input(relItem,relInd)'>
                                 {{relItem['replyCount']>0?relItem['replyCount']:''}}
                                 <span class="center-v">
                                     <i :class="{'isUp': relItem['isUp']}"></i>
@@ -64,12 +66,12 @@
                             </div>
                             <div class="state-inf center-v">
                                 <span class="state-name">{{repItem['nickname']}}</span>
-                                <img class='state-img' src="../../assets/statement/phone.png" alt="">
+                                <img class='state-img' src="../../../assets/statement/phone.png" alt="">
                                 <span class='state-model'>{{repItem['deviceOsVersion']}}</span>
                                 <span class='state-version'>{{repItem['appVersion']}}</span>
                             </div>
                             <div class="state-ellipsis" v-on:click='complaint($event,repItem["id"],repItem)'>
-                                <img src="../../assets/statement/ellipsis.png" alt="">
+                                <img src="../../../assets/statement/ellipsis.png" alt="">
                             </div>
                         </div>
                         <div class="state-middle">
@@ -112,7 +114,7 @@
                             </div>
                             <div class="state-inf center-v">
                                 <span class="state-name">{{upItem['nickname']}}</span>
-                                <img class='state-img' src="../../assets/statement/phone.png" alt="">
+                                <img class='state-img' src="../../../assets/statement/phone.png" alt="">
                                 <span class='state-model'>{{upItem['deviceOsVersion']}}</span>
                                 <span class='state-version'>{{upItem['appVersion']}}</span>
                             </div>
@@ -129,7 +131,7 @@
                             </div>
                             <div class="middle-reply container">
                                 <div class="reply-img center-v" v-if='upItem["reply"]'>
-                                    <img :imgurl="upItem['reply']['uimg']" src='../../assets/load.jpg' alt="">
+                                    <img :imgurl="upItem['reply']['uimg']" src='../../../assets/load.jpg' alt="">
                                     <span>{{upItem['reply']['nickname']}}</span>
                                 </div>
                                 <div class="reply-con" v-if='upItem["reply"]'>
@@ -156,13 +158,13 @@
     </div>
 </template>
 <script>
-    import wHead from '../windowHead/windowHead'
+    import wHead from '@/page/common/windowHead/windowHead'
     import $ from 'jquery'
     import MeScroll from 'mescroll.js'
     import 'mescroll.js/mescroll.min.css'
     import popCommit from '@/page/common/popComment/popComment'
     import pop from '@/page/common/pop/pop'
-    import { common } from '../../common/js/common'
+    import { common } from '@/common/js/common'
     import swiper from '@/page/common/swiper/swiper'
     import { varibal, upReply, statisticsReplyInfo } from '@/common/js/myApi'
     export default {
@@ -210,7 +212,7 @@
             },
             up: {
                 callback: _this.upCallback,
-                htmlNodata: '<p class="upwarp-nodata">-- END --</p>',
+                htmlNodata: '<p class="upwarp-nodata">-- 我也是有底线的 --</p>',
                 noMoreSize: 3, //如果列表已无数据,可设置列表的总数量要大于5才显示无更多数据;避免列表数据过少(比如只有一条数据),显示无更多数据会不好看
                 empty: {
                     //列表第一页无任何数据时,显示的空提示布局; 需配置warpId才显示
@@ -384,11 +386,11 @@
         }
     },
     beforeCreate(){
-        document.querySelector('body').style='background:#F7F7F7;';
+        $('body').addClass('origin').removeClass('f7');
     }
   }
 </script>
 <style lang="less" scoped>
-  @import '../../common/style/stateList.less';
+  @import '../../../common/style/stateList.less';
   @import './myMessage.less';
 </style>

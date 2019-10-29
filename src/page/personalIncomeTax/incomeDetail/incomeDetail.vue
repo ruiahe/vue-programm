@@ -12,10 +12,10 @@
                     <td><div class="center-vh">税后收入</div></td>
                 </tr>
                 <tr v-for="(i,index) in transfer" :key="index">
-                    <td><div class="center-vh">{{index}}</div></td>
+                    <td><div class="center-vh">{{index+1}}</div></td>
                     <td><div class="center-vh" v-if='i.before'>{{i.before}}</div></td>
                     <td><div class="center-vh" v-if='i.tax'>{{i.tax}}</div></td>
-                    <td><div class="center-vh" v-if='i.fiveTax'>{{i.before - i.tax - i.fiveTax}}</div></td>
+                    <td><div class="center-vh" v-if='i.fiveTax'>{{form_data(i)}}</div></td>
                 </tr>
             </table>
             <div class="tip" @click="showDetail = !showDetail">
@@ -31,8 +31,9 @@
     </div>
 </template>
 <script> 
-    import wHead from '@/page/windowHead/windowHead'
+    import wHead from '@/page/common/windowHead/windowHead'
     import $ from 'jquery'
+    import {common} from '@/common/js/common.js'
     export default {
         name: 'incomeDetail',
         components:{
@@ -52,10 +53,15 @@
             }
         },
         mounted(){
+            $("body,html").animate({"scrollTop":0});
             this.transfer = this.$store.state.caculateTax['result']['detail'];
             document.querySelector('body').style='background:rgba(249,249,249,1);';
         },
         methods:{
+            form_data(i){
+                const num = i.before - i.tax - i.fiveTax;
+                return common.format_number(num);
+            }
         }
     }
 </script>

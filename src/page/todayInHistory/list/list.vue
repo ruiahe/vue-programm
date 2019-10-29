@@ -7,7 +7,7 @@
                     <img src="../../../assets/gray-arrow.png" alt="">
                     <span>前一天</span>
                 </span>
-                <div class='test center-vh' @click='changeTime()'>
+                <div class='test center-vh'>
                     <strong>{{change_to_date(currentDate)['month']+'月'+change_to_date(currentDate)['day']+'日'}}</strong>
                 </div>
                 <span class='center-vh reverse' @click='get_diff_date(1)'>
@@ -19,18 +19,18 @@
         <div class="place-holder"></div>
         <div class="content">
             <ul>
-                <li :class="{'liLeft': index%2==0, 'liRight': index%2!=0}" v-for="(i,index) in historyList" :key="index" class='space-between' @click.prevent='link_to("/todayInHistory/detail",i._id)'>
+                <li :class="{'liLeft': index%2==0, 'liRight': index%2!=0}" v-for="(i,index) in historyList" :key="index" class='space-between' @click.prevent='link_to("/todayInHistory/detail",i.eventId)'>
                     <div class="liLeft liContent" v-if="index%2==0">
                         <div class="time">
                             <div class="time-content space-between">
                                 <div class="time-img">
-                                    <div class="time-img-bg" :style="{ 'background-image': 'url('+i.pic+')'}" v-if="i.pic&&i.pic.length>0"></div>
+                                    <div class="time-img-bg" :class="{'special-background': i.pic == null}" :style="{ 'background-image': 'url('+ i.pic +')'}"></div>
                                 </div>
-                                <div class="time-year">{{i.year}}年</div>
+                                <div class="time-year">{{i.year > 0 ? i.year : '公元前' + (-i.year)}}年</div>
                             </div>
                         </div>
                         <div class="text-and-img-box">
-                            <div class="text-text"> {{i.des}} </div>
+                            <div class="text-text"> {{i.title}} </div>
                         </div>
                     </div>
                     <div class="liRight liContent" v-if="index%2==0"></div>
@@ -38,14 +38,14 @@
                     <div class="liRight liContent" v-if="index%2!=0">
                         <div class="time center-vr">
                             <div class="time-content space-between">
-                                <div class="time-year">{{i.year}}年</div>
+                                <div class="time-year">{{i.year > 0 ? i.year : '公元前' + (-i.year)}}年</div>
                                 <div class="time-img">
-                                    <div class="time-img-bg" :style="{ 'background-image': 'url('+i.pic+')'}" v-if="i.pic&&i.pic.length>0"></div>
+                                    <div class="time-img-bg" :class="{'special-background': i.pic == null}" :style="{ 'background-image': 'url('+ i.pic +')'}"></div>
                                 </div>
                             </div>
                         </div>
                         <div class="text-and-img-box center-vr">
-                            <div class="text-text"> {{i.des}} </div>
+                            <div class="text-text"> {{i.title}} </div>
                         </div>
                     </div>
                 </li>
@@ -55,10 +55,10 @@
     </div>
 </template>
 <script>
-    import wHead from '@/page/windowHead/windowHead'
+    import wHead from '@/page/common/windowHead/windowHead'
     import $ from 'jquery'
     import scrollDate from '@/page/common/scrollDate/scrollDate'
-    import {toh, time} from '../../../common/js/myApi'
+    import {listHistoryEvents, time} from '../../../common/js/myApi'
     import {common} from '@/common/js/common.js'
     export default {
         name: 'todayInHistoryList',
@@ -79,18 +79,22 @@
             }
         },
         mounted(){
-            const _this = this;
-            time((res)=>{
-                _this.currentDate = res['data']['BJTime'];
-                _this.get_data(common.change_to_date(_this.currentDate)['month'], common.change_to_date(_this.currentDate)['day']);
-            });
+            this.init();
         },
         methods:{
+            // 初始化页面
+            init() {
+                const _this = this;
+                time((res)=>{
+                    _this.currentDate = res['data']['BJTime'];
+                    _this.get_data(common.change_to_date(_this.currentDate)['month'], common.change_to_date(_this.currentDate)['day']);
+                });
+            },
             // 获取列表数据集
             get_data(month, day){
                 const _this = this;
-                toh({ v: '1.0', month: month, day: day },  (res) => {
-                    _this.historyList = res['result'];
+                listHistoryEvents({ month: month, day: day },  (res) => {
+                    _this.historyList = res['data']['dataList'];
                 })
             },
             // 传入日期 - 获取数据
@@ -131,7 +135,19 @@
             }
         },
         activated(){
-            document.querySelector('body').style='background: rgba(255,255,255,1);';
+            $('body').addClass('origin').removeClass('f7').removeClass('gray247').removeClass('fbfafa').removeClass('rgba0')
+            if(!this.$route.meta.isUseCache) {
+                this.init()
+            }
+        },
+        beforeRouteLeave(to, from, next){
+            if(to.path.indexOf('/todayInHistory/detail')>-1){
+                from.meta.isUseCache = true;
+            } else {
+                from.meta.isUseCache = false;
+                window.localStorage.setItem('listScroll', false);
+            }
+            next();
         }
     }
 </script>

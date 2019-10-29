@@ -19,6 +19,9 @@ audio, video {
     list-style: none;
     outline-style:none;/*FF*/ 
 }
+html{
+    background-color: #fff;
+}
 body{
     line-height:1;
 }
@@ -32,7 +35,7 @@ body{
     -ms-user-select: none!important; /*IE浏览器*/
     user-select: none!important; /*用户是否能够选中文本*/
 }
-input,select {
+input,select,textarea {
     -webkit-user-select:auto!important; /*webkit浏览器*/
     user-select: auto!important; /*用户是否能够选中文本*/
 }

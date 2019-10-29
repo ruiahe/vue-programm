@@ -33,11 +33,15 @@
                 this.text = txt ? txt : '是否删除您的回复';
                 $('#strong-tip').fadeIn(200);
                 $('#strong-tip .strong-con').addClass('show');
+                $('body').addClass('rgba0');
+                // document.querySelector('body').style = 'background-color: rgba(0,0,0,0.6);';
             },
             // 取消删除强提示
             cancel(){
                 $('#strong-tip').fadeOut(200);
                 $('#strong-tip .strong-con').removeClass('show');
+                // document.querySelector('body').style = 'background-color: #fff;';
+                $('body').removeClass('rgba0');
             },
             // 删除回复
             confirm_delete(){
@@ -45,6 +49,7 @@
                 deleteForumReplyInfo({ "titleId":_this.chosenItem.id }, ()=>{
                     _this.$emit('delete_suc','删除成功');
                     _this.cancel();
+                    $('body').removeClass('rgba0');
                 })
             }
         }

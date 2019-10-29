@@ -4,47 +4,55 @@
         top:0;
         left:0;
         width:100%;
+        background-color:#fff;
         .nav{
+            width:365px;
             position: relative;
             height:48px;
+            margin: 0 auto;
             li{
+                width:91.25px;
                 font-size:15px;
-                font-family:PingFangSC;
+                font-family:PingFangSC-Regular,PingFang SC;
                 font-weight:400;
                 color:rgba(212,214,221,1);
+                line-height:21px;
+                text-align:center;
             }
             .active{
                 font-size:17px;
                 font-weight:500;
                 color:rgba(104,196,161,1);
+                font-family:PingFangSC-Medium,PingFang SC;
             }
         }
         .nav:before{
             content:'';
             position: absolute;
-            left:19px;
+            left:29.625px;
             bottom:0;
             width:30px;
             height:2px;
+            // height:30px;
             border:none;
+            // border:1px solid red;
             background-color: #68C4A1;
-    
             transition: all 500ms;
             -webkit-transition: all 500ms;
             -o-transition: all 500ms;
             -ms-transition: all 500ms;
         }
         .nav.left1:before{
-            left:19px;
+            left:29.625px;
         }
         .nav.left2:before{
-            left:116px;
+            left:121.875px;
         }
         .nav.left3:before{
-            left:205px;
+            left:212.125px;
         }
         .nav.left4:before{
-            left:295px;
+            left:304.375px;
         }
     }
     .place-holder{
@@ -56,24 +64,27 @@
             overflow: hidden;
             width:100%;
             box-sizing: border-box;
-            border-bottom:1px solid #EEEEEE;
+            border-bottom:1px solid rgba(238, 238, 238, 0.5);
             .container{
                 height:55px;
                 span{
                     font-size:15px;
-                    font-family:PingFangSC;
+                    font-family:PingFangSC-Regular,PingFang SC;
                     font-weight:400;
                     color:rgba(117,122,137,1);
                 }
                 strong{
                     font-size:14px;
-                    font-family:PingFangSC;
+                    font-family:PingFangSC-Regular,PingFang SC;
                     font-weight:400;
                     color:rgba(212,214,221,1);
                 }
+                strong.hasNum{
+                    color:rgba(117,122,137,1);
+                }
                 i{
                     font-size:14px;
-                    font-family:PingFangSC;
+                    font-family:PingFangSC-Regular,PingFang SC;
                     font-weight:400;
                     font-style:normal;
                     color:rgba(117,122,137,1);
@@ -84,15 +95,20 @@
                     background-position: right center;
                 }
                 input{
+                    font-family:PingFangSC-Regular,PingFang SC;
                     font-size:14px;
                     flex:1!important;
                     text-align: right;
                     margin-right:2px;
+                    background-color:transparent;
+                    color:rgba(117,122,137,1);
+                    font-weight:400;
                 }
             }
         }
         .unshow{
             height:0;
+            border:none;
         }
         .btn{
             border:none;
@@ -102,7 +118,7 @@
                 background:rgba(104,196,161,1);
                 border-radius:21px;
                 font-size:18px;
-                font-family:PingFangSC;
+                font-family:PingFangSC-Medium,PingFang SC;
                 font-weight:500;
                 color:rgba(255,255,255,1);
                 line-height:42px;

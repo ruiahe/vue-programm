@@ -7,13 +7,15 @@ import store from '@/store/index'
 import { common } from '@/common/js/common';
 // 设置请求超时
 const post_obj = {};
+const formal_host = 'http://www.36jiapp.com:8080/core';
+const beta_host = 'http://test.36jiapp.com:8080';
 export let set_post_bol = false; // 判断是否已经设置了请求头 && 暴露的变量（为方便不需要设置请求头的接口使用）
-axios.defaults.timeout = 10000;
 export let type = {"Content-Type": "application/json;charset=UTF-8"};
+axios.defaults.timeout = 10000;
 // post请求头设置
 export function set_headers(){
-    set_post_bol = true;
     if (store.state.appInfo.token){
+        set_post_bol = true;
         post_obj['token'] = store.state.appInfo.token;
     }
     if (store.state.appInfo.deviceName){
@@ -27,27 +29,33 @@ export function set_headers(){
         ...type
     }
 }
-// get请求
-export function get(url, params, calbackSuc){
-    if(set_post_bol){
-        return net_result(url, params, calbackSuc);
+/*
+    get请求
+    参数：url => 请求链接， params => 传参，callbackSuc => 成功回调， reset_headers => 是否需要重置请求头，reset_host => 是否需要重置域名
+*/
+export function get(url, params, calbackSuc, reset_headers, reset_host){
+    if(!no_token && set_post_bol){
+        return net_result(url, params, calbackSuc, reset_headers, reset_host);
     } else {
         setTime(()=>{
-            return net_result(url, params, calbackSuc);
+            return net_result(url, params, calbackSuc, reset_headers, reset_host);
         });
     }
 }
-// post请求
-export function post(url, params, calbackSuc, reset_headers) {
+/* 
+    post请求
+    参数：url => 请求链接， params => 传参，callbackSuc => 成功回调， reset_headers => 是否需要重置请求头，reset_host => 是否需要重置域名
+*/
+export function post(url, params, calbackSuc, reset_headers, reset_host) {
     if(set_post_bol){
-        return net_result(url, params, calbackSuc, reset_headers);
+        return net_result(url, params, calbackSuc, reset_headers, reset_host);
     } else {
         setTime(()=>{
-            return net_result(url, params, calbackSuc, reset_headers);
+            return net_result(url, params, calbackSuc, reset_headers, reset_host);
         });
     }
 }
-function net_result(url, params, calbackSuc, reset_headers){
+function net_result(url, params, calbackSuc, reset_headers, reset_host){
     if(reset_headers){
         type = {'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'};
         set_headers();
@@ -55,7 +63,8 @@ function net_result(url, params, calbackSuc, reset_headers){
         type = {"Content-Type": "application/json;charset=UTF-8"};
         set_headers();
     }
-    axios.post(url, params).then(res => {
+    const new_url = reset_host ? (store.state.appInfo.istest ? (beta_host + url) : (formal_host + url) ) : url;
+    axios.post(new_url, params).then(res => {
         switch(res['data']['code'] || res['data']['error_code']){
             case 0:
                 calbackSuc(res['data']);
@@ -78,7 +87,7 @@ function net_result(url, params, calbackSuc, reset_headers){
 }
 // 不断延迟请求获取并设置头部
 function setTime(calback){
-    var time = setTimeout(()=>{a
+    var time = setTimeout(()=>{
         if(store.state.appInfo.token){
             calback();
             clearTimeout(time);

@@ -148,15 +148,15 @@
                 const obj = {};
                 obj['month'] = this.$refs['mySwiperMonth'].swiper.activeIndex + 1;
                 obj['day'] = this.$refs['mySwiperDay'].swiper.activeIndex + 1;
-                const time = (new Date(obj['year']+'/'+obj['month']+'/'+obj['day'])).getTime();
+                const time = (new Date('2016/'+obj['month']+'/'+obj['day'])).getTime();
                 this.$emit('date',{ 'name': this.returnName, 'result': time });
                 this.close();
             },
             update_swiper(){
-                    this.$refs['mySwiperMonth'].swiper.updateSize();
-                    this.$refs['mySwiperMonth'].swiper.updateSlides();
-                    this.$refs['mySwiperDay'].swiper.updateSize();
-                    this.$refs['mySwiperDay'].swiper.updateSlides();
+                this.$refs['mySwiperMonth'].swiper.updateSize();
+                this.$refs['mySwiperMonth'].swiper.updateSlides();
+                this.$refs['mySwiperDay'].swiper.updateSize();
+                this.$refs['mySwiperDay'].swiper.updateSlides();
             }
         }
     }

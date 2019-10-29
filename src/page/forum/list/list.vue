@@ -22,12 +22,12 @@
                             <div class="state-tx" :imgurl="i.uimg" style="background-image: url('../../assets/load.jpg');"></div>
                             <div class="state-inf center-v">
                                 <span class="state-name">{{i.nickName}}</span>
-                                <img class='state-img' src="../../assets/statement/phone.png" alt="">
+                                <img class='state-img' src="../../../assets/statement/phone.png" alt="">
                                 <span class='state-model'>{{i.deviceOsVersion}} </span>
                                 <span class='state-version'>{{i.appVersion}}</span>
                             </div>
                             <div class="state-ellipsis" @click.stop='complaint($event, i.id, i)'>
-                                <img src="../../assets/statement/ellipsis.png" alt="">
+                                <img src="../../../assets/statement/ellipsis.png" alt="">
                             </div>
                         </div>
                         <div class="state-middle">
@@ -40,7 +40,7 @@
                         </div>
                         <div class="state-bottom container space-between">
                             <div class="state-operate center-v" :class="{'animate': i.animate}">
-                                <img src="../../assets/statement/discuss.png" alt="" @click.stop='show_input(i, index)'>
+                                <img src="../../../assets/statement/discuss.png" alt="" @click.stop='show_input(i, index)'>
                                 <strong>{{i.replyCount>0?i.replyCount:''}}</strong>                             
                                 <span class='center-v' @click.stop='give_a_like(i, index, $event)'>
                                     <i class="img" :class="{'isUp':i.isUp}"></i>
@@ -57,7 +57,7 @@
         </div>
         <div class="input-box" @touchmove.prevent>
             <div class="input container space-between" @click="link_to_app()">
-                <img src="../../assets/ico_fayan@3x.png" alt="">
+                <img src="../../../assets/ico_fayan@3x.png" alt="">
                 <span>我要发言...</span>
             </div>
         </div>
@@ -74,7 +74,7 @@
 <script>
     import MeScroll from 'mescroll.js'
     import 'mescroll.js/mescroll.min.css'
-    import wHead from '../windowHead/windowHead'
+    import wHead from '@/page/common/windowHead/windowHead'
     import $ from 'jquery'
     import {common} from '@/common/js/common.js'
     import pop from '@/page/common/pop/pop'
@@ -115,7 +115,8 @@
                 sticky: false,
                 listScroll: 0,
                 headHeight:0,
-                stickyIos: false
+                stickyIos: false,
+                initChosenItem: {id: 1, title: '最热发言'},
             }
         },
         methods:{
@@ -130,7 +131,6 @@
                     this.clickKind = 'list-tip-complaint';
                     pop.methods.pop_position(x, y, '#pop .list-tip-complaint',true);
                 }
-                this.choseItem = i;
             },
             // 打开排序遮罩
             show_sort(e){
@@ -149,9 +149,6 @@
             },
             // 跳转到app的评论页
             link_to_app(){
-                // this.$router.push({
-                //     path: '/todayInHistory/list', 
-                // });
                 common.link_to_app({
                     "titleId": this.discussId,
                     "sortNum": this.orderBy,
@@ -245,6 +242,8 @@
                 this.list = [];
                 this.mescrollObj.resetUpScroll(true);
             }
+            // 初始化内容
+            this.init();
             //创建MeScroll对象
             this.mescrollObj = new MeScroll(this.$refs.mescroll, { //在mounted初始化mescroll,确保此处配置的ref有值
                 down:{
@@ -253,7 +252,7 @@
                 },
                 up: {
                     callback: _this.upCallback,
-                    htmlNodata: '<p class="upwarp-nodata">-- END --</p>',
+                    htmlNodata: '<p class="upwarp-nodata">-- 我也是有底线的 --</p>',
                     noMoreSize: 0, //如果列表已无数据,可设置列表的总数量要大于5才显示无更多数据;避免列表数据过少(比如只有一条数据),显示无更多数据会不好看
                     // warpId: 'upscrollWarp', //让上拉进度装到upscrollWarp里面
                     empty: {
@@ -278,16 +277,16 @@
                     }
                 },
             });
-            this.init();
         },
         beforeCreate(){
-            document.querySelector('body').style='background: linear-gradient(#F7F7F7 95%, #fff 100%);';
+            $('body').addClass('origin').removeClass('f7').removeClass('rgba0').removeClass('gray247').removeClass('fbfafa');
         },
         updated(){
             this.subNavToTop = $('.statement-tip').outerHeight(true);
             this.headHeight = $('#header').outerHeight(true);
         },
         activated(){
+            $('body').addClass('origin').removeClass('f7').removeClass('rgba0').removeClass('gray247').removeClass('fbfafa');
             if(this.$route.meta.isUseCache){
                 var listScroll = Number(window.localStorage.getItem('listScroll'));
                 var changeItem = JSON.parse(window.localStorage.getItem('listInfo'));
@@ -305,7 +304,7 @@
                 this.list = [];
                 this.sticky = false;
                 this.init();
-                this.downCallback();
+                this.change_sort(this.initChosenItem);
             }
         },
         beforeRouteLeave(to, from, next){
@@ -321,6 +320,6 @@
     }
 </script>
 <style lang="less" scoped>
-    @import '../../common/style/stateList.less';
+    @import '../../../common/style/stateList.less';
     @import './list.less';
 </style>

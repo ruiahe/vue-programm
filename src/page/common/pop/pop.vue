@@ -61,6 +61,7 @@
                 this.tipType = 'strong';
                 $('.pop-content').fadeOut(200);
                 $('.pop-reason').slideDown(200);
+                $('body').removeClass('rgba0');
             },
             // 选中删除
             delete_item(){
@@ -72,20 +73,22 @@
             // 定位黑色遮罩中的白框的位置
             pop_position(x, y, cName, bol){
                 $('#pop').fadeIn(200);
+                $('body').addClass('rgba0');
                 var yBody = window.screen.availHeight;
-                y = (bol && (y + 57)) > yBody ? y - 81 : y; 
+                y = (bol && (y + 57)) > yBody ? y - 81 : y;
                 document.querySelector(cName).style.top = y+'px';
                 document.querySelector(cName).style.left = x+'px';
                 $(cName).slideDown(200);
             },
             // 关闭弹框
             close_pop(bol){
-                if(this.tipType == 'weak' || bol){
+                $('body').removeClass('rgba0');
+                // if(this.tipType == 'weak' || bol){
                     $('.pop-reason').slideUp(200);
                     $('#pop .pop-content').slideUp(200);
                     $('#pop').fadeOut(200);
                     this.tipType = 'weak';
-                }
+                // }
             },
             // 提交信息（删除）
             commit_data(calSuc){
@@ -118,11 +121,13 @@
             // 发送举报原因
             confirm_complaint(){
                 const _this = this;
-                reportForumReplyInfo({ titleId: _this.chosenItem.id, tipId: _this.complaintReason }, (res)=>{
-                    _this.close_pop(true);
-                    _this.complaintReason = false;
-                    common.show_weakTip('举报成功');
-                })
+                if(_this.complaintReason){
+                    reportForumReplyInfo({ titleId: _this.chosenItem.id, tipId: _this.complaintReason }, (res)=>{
+                        _this.close_pop(true);
+                        _this.complaintReason = false;
+                        common.show_weakTip('举报成功');
+                    })
+                }
             }
         }
     }

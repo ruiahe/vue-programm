@@ -24,7 +24,7 @@
     </div>
 </template>
 <script>
-    import wHead from '../windowHead/windowHead'
+    import wHead from '@/page/common/windowHead/windowHead'
     import MeScroll from 'mescroll.js'
     import 'mescroll.js/mescroll.min.css'
     import { common } from '@/common/js/common';
@@ -84,7 +84,7 @@
         },
         beforeCreate(){
             // 设置body整体背景色
-            document.querySelector('body').style = 'background:#F7F7F7';
+            $('body').addClass('f7').removeClass('origin');
         },
         mounted() {
             var n = Math.random()*10;
@@ -102,19 +102,19 @@
 						num: 0, //当前页 默认0,回调之前会加1; 即callback(page)会从1开始
 						size: 10 //每页数据条数,默认10
 					},
-					htmlNodata: '<p class="upwarp-nodata">-- END --</p>',
+					htmlNodata: '<p class="upwarp-nodata" id="upwrap-nodata">-- 我也是有底线的 --</p>',
 					noMoreSize: 3, //如果列表已无数据,可设置列表的总数量要大于5才显示无更多数据;
 				}
             });
             // 获取消息小红点相关
-            statisticsReplyInfo(()=>{
+            statisticsReplyInfo((data)=>{
                 if(data['data']['replyCount'] + data['data']['upCount'] > 0) {
                     _this.$nextTick(()=>{
                         _this.titleJson['hasRed'] = true;
                     })
                 }
             });
-        },
+        }
     }
 </script>
 <style lang="less" scoped>

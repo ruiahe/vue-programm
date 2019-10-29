@@ -3,6 +3,12 @@
         background-image: url(../../../assets/tax-bg2.png);
         background-size: 100%;
         background-repeat: no-repeat;
+        position: fixed;
+        width:100%;
+        top:0;
+        left:0;
+        z-index:10;
+        box-shadow:0px 2px 10px 0px rgba(0,0,0,0.04);
         .top-head{
             width:335px;
             margin:0 auto;
@@ -18,7 +24,7 @@
             }
             span{
                 font-size:18px;
-                font-family:PingFangSC-Medium,PingFangSC;
+                font-family:PingFangSC;
                 font-weight:500;
                 color:rgba(255,255,255,1);
             }
@@ -41,11 +47,14 @@
             padding:6px 0 10px;
             height:20px;
             font-size:14px;
-            font-family:PingFang-SC-Medium,PingFang-SC;
+            font-family:PingFang-SC;
             font-weight:500;
             color:rgba(255,255,255,0.7);
             text-align: center;
         }
+    }
+    .top-placeholder{
+        height:164px;
     }
     .bottom{
         margin-bottom:24px;
@@ -84,8 +93,8 @@
                         min-height:39px;
                         i{
                             margin:3px 0px 0px 15px;
-                            width:14px;
-                            height:14px;
+                            width:12px;
+                            height:12px;
                             border-radius:3px;
                             border:1px solid rgba(151,151,151,1);
                             display:block;
@@ -131,7 +140,7 @@
                             .little-title{
                                 height:20px;
                                 font-size:14px;
-                                font-family:PingFang-SC-Bold,PingFang-SC;
+                                font-family:PingFang-SC;
                                 font-weight:bold;
                                 color:rgba(55,55,55,1);
                                 line-height:20px;
@@ -140,7 +149,7 @@
                                 margin-top:2px;
                                 height:17px;
                                 font-size:12px;
-                                font-family:PingFang-SC-Medium,PingFang-SC;
+                                font-family:PingFang-SC;
                                 font-weight:500;
                                 color:rgba(124,124,124,1);
                                 line-height:17px;
@@ -150,7 +159,7 @@
                             position: relative;
                             height:20px;
                             font-size:16px;
-                            font-family:DINAlternate-Bold,DINAlternate;
+                            font-family:PingFang-SC-Medium,PingFang-SC;
                             font-weight:bold;
                             color:rgba(0,0,0,1);
                             line-height:20px;
@@ -171,11 +180,11 @@
                         }
                         .box-right{
                             padding:13px 0;
-                            border-bottom:1px solid #E1E1E1;
+                            border-bottom:0.5px solid #E1E1E1;
                             .content-left{
                                 width:195px;
                                 font-size:13px;
-                                font-family:PingFang-SC-Medium,PingFang-SC;
+                                font-family:PingFang-SC;
                                 font-weight:500;
                                 color:rgba(55,55,55,1);
                                 line-height:18px;
@@ -209,7 +218,7 @@
                             height:62px;
                             .content-left{
                                 font-size:13px;
-                                font-family:PingFang-SC-Medium,PingFang-SC;
+                                font-family:PingFang-SC;
                                 font-weight:500;
                                 color:rgba(55,55,55,1);
                             }
@@ -226,13 +235,13 @@
                                         background-color:transparent;
                                         text-align:center;
                                         font-size:13px;
-                                        font-family:PingFang-SC-Medium,PingFang-SC;
+                                        font-family:PingFang-SC;
                                         font-weight:500;
                                         color:rgba(31,99,112,1);
                                     }
                                     span{
                                         font-size:13px;
-                                        font-family:PingFang-SC-Medium,PingFang-SC;
+                                        font-family:PingFang-SC;
                                         font-weight:500;
                                         color:rgba(31,99,112,1);
                                     }
@@ -268,7 +277,7 @@
         background:rgba(31,99,112,1);
         border-radius:24px;
         font-size:18px;
-        font-family:PingFangSC-Medium,PingFangSC;
+        font-family:PingFang-SC;
         font-weight:500;
         color:rgba(255,255,255,1);
         border:none;
@@ -276,12 +285,18 @@
 }
 
 @media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio:2) {
-    #header .header-box{
+    #specialAdditional .top .top-head{
         padding-top:34px!important;
+    }
+    #specialAdditional .top-placeholder{
+        height:178px;
     }
 }
 @media only screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio:3) {
-    #header .header-box{
+    #specialAdditional .top .top-head{
         padding-top:34px!important;
+    }
+    #specialAdditional .top-placeholder{
+        height:178px;
     }
 }

@@ -9,6 +9,7 @@
             <div class="total-price">{{format_number(totalNum)}}</div>
             <div class="total-price-desc">专项附加扣除(元)</div>
         </div>
+        <div class="top-placeholder"></div>
         <div class="bottom">
             <nav>请选择符合标准的扣除专项</nav>
             <ul class="section">
@@ -241,6 +242,8 @@
             }
         },
         mounted(){
+            $("body,html").animate({"scrollTop":0});
+            $('body').addClass('gray247').removeClass('origin').removeClass('fbfafa');
             document.querySelector('body').style='background:rgba(249,249,249,1);';
         },
         methods:{
@@ -270,6 +273,11 @@
                     $(ele).removeClass('showMore');
                     $(ele).find('.more').slideUp(200);
                 } else {
+                    const arr = $('.bottom .section');
+                    for(let i = 0; i < arr.length; i++){
+                        $(arr[i]).removeClass('showMore');
+                        $(arr[i]).find('.more').slideUp(200);
+                    }
                     $(ele).addClass('showMore');
                     $(ele).find('.more').slideDown(200);
                 }

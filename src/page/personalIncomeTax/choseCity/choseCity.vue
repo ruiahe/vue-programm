@@ -2,12 +2,12 @@
     <div id="choseCity">
         <wHead :titleJson='titleJson'></wHead>
         <div class="search container">
-            <input type="text" placeholder="输入所在城市" @input="change_city_list()" v-model="inputName">
+            <input class='font14' type="text" placeholder="输入所在城市" @input="change_city_list()" v-model="inputName">
             <i></i>
         </div>
         <div class="history">
-            <div class="history-title container">历史选择城市</div>
-            <div class="list-con">
+            <div class="history-title container" v-if='historyList.length > 0'>历史选择城市</div>
+            <div class="list-con" v-if='historyList.length > 0'>
                 <ul class="list">
                     <li class="center-vh" v-for = '(i, index) in historyList' :key = 'index' @click="link_to('/personalIncomeTax/input', i.cityId)">
                         {{i.cityName}}
@@ -25,7 +25,7 @@
     </div>
 </template>
 <script> 
-    import wHead from '@/page/windowHead/windowHead'
+    import wHead from '@/page/common/windowHead/windowHead'
     import { queryCityList, queryRateHistoryCityList } from '@/common/js/myApi'
     import $ from 'jquery'
     export default {
@@ -57,7 +57,7 @@
                 this.cityList = res['data']['dataList'];
                 this.defaultCityList = res['data']['dataList'];
             })
-            document.querySelector('body').style='background: rgba(255,255,255,1);';
+            $('body').addClass('origin').removeClass('f7').removeClass('gray247');
         },
         methods:{
             // 跳转至其他页面

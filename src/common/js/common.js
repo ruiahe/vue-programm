@@ -15,7 +15,7 @@ export const common = {
     link_to_app(obj){
         if(common.isAndroid()){
             window.Android.linkTo(JSON.stringify(obj));
-        }else if(common.isIos()){
+        }else{
             window.webkit.messageHandlers.linkTo.postMessage(obj);
         }
     },
@@ -25,7 +25,7 @@ export const common = {
     },
     // 弱提示(展示文本)
     show_weakTip(txt){
-        $('.weakTip').html(txt).fadeIn(1000);
+        $('.weakTip').html(txt).fadeIn(0);
         setTimeout(() => {
             $('.weakTip').fadeOut(1000);
         }, 2000)

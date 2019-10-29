@@ -7,13 +7,11 @@
     </div>
 </template>
 <script>
-import {common} from './common/js/common.js'
+import { common } from './common/js/common.js'
 import { mapActions } from 'vuex'
 import { set_headers } from './common/js/axios'
 export default {
   name: 'App',
-  components:{
-  },
   methods:{
     ...mapActions('appInfo',[ 
         'getAppInfo'
@@ -26,12 +24,19 @@ export default {
       _this.getAppInfo(json);
       set_headers();
     }
+    window['getback'] = () => {
+      const path = this.$route.path;
+      const bol = path.indexOf('feed') > -1 || path.indexOf('mortgageCaculate/caculate') > -1 || path.indexOf('personalIncomeTax/input') > -1;
+      common.back(bol)
+    }
     if(common.isAndroid()){
-        info = window.Android.getInfo();
-        _this.getAppInfo(JSON.parse(json));
-        set_headers();
+      let info = window.Android.getInfo();
+      setTimeout(()=>{
+        _this.getAppInfo(JSON.parse(info));
+      })
+      set_headers();
     } else if(common.isIos()){
-        window.webkit.messageHandlers.linkTo.postMessage({'methodName': 'getInfo'});
+      window.webkit.messageHandlers.linkTo.postMessage({'methodName': 'getInfo'});
     }
   }
 }

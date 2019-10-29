@@ -21,7 +21,7 @@
                 <span class='emoji-txt'>{{commentLen}}/200</span>
             </div>
         </div>
-        <div id="pop-comment-box"></div>
+        <div id="pop-comment-box" @click="close_comment()"></div>
     </div>
 </template>
 <script>
@@ -78,7 +78,7 @@
                             _this.close_comment();
                             _this.commentText = '';
                             _this.commentLen = 0;
-                            common.show_weakTip('发送成功');
+                            common.show_weakTip('评论成功');
                             _this.$emit('refresh',data);
                         })
                     }

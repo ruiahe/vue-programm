@@ -118,6 +118,7 @@
         },
         mounted(){
             this.transfer = this.$store.state.caculateTax['result'];
+            $("body,html").animate({"scrollTop":0});
         },
         methods:{
             // 展开扣除总额部分
@@ -145,6 +146,7 @@
             }
         },
         activated(){
+            $("body,html").animate({"scrollTop":0});
             document.querySelector('body').style='background:rgba(249,249,249,1);';
         }
     }

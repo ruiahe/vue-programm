@@ -2,7 +2,7 @@
     <div id="cacultResult">
         <head class="space-between">
             <i @click="back_to()"></i>
-            <div class="top-box space-between" :class="{'left': info['open_type'] == 0, 'right': info['open_type'] == 1}">
+            <div class="top-box space-between" :class="{'left': info['open_type'] == 1, 'right': info['open_type'] == 0}">
                 <div class="top" @click="change_tab('left',$event)">等额本息</div>
                 <div class="top" @click="change_tab('right',$event)">等额本金</div>
             </div>
@@ -10,48 +10,51 @@
         </head>
         <div class="placeholder"></div>
         <!-- 详情类型1 && 等额本息 -->
-        <div class="show1-container" v-if="info['repayment_type'] == 1 && info['open_type'] == 0">
-            <ul class="show1 flex-wrap container">
+        <div class="show1-container" v-if="info['repayment_type'] == 1 && info['open_type'] == 1">
+            <ul class="show1 flex-wrap">
                 <li v-for='(i,index) in arr10' :key='index' :class="{'center-vh': (index == 1||index == 4),'center-h':(index == 0||index == 3),'center-vr':(index == 2||index == 5)}">
                     <div class="show1-box">
                         <div class="show1-top">{{i}}</div>
-                        <div class="show1-bottom" v-if='index != 5'>{{arr20[index]}}万</div>
+                        <div class="show1-bottom" v-if='index != 5'>{{common_format(arr20[index])}}万</div>
                         <div class="show1-bottom" v-if='index == 5'>{{arr20[index]}}</div>
                     </div>
                 </li>
             </ul>
         </div>
         <!-- 详情类型1 && 等额本金 -->
-        <div class="show1-container" v-if="info['repayment_type'] == 1 && info['open_type'] == 1">
-            <ul class="show1 flex-wrap container">
-                <li v-for='(i,index) in arr10' :key='index' :class="{'center-vh': (index == 1||index == 4),'center-h':(index == 0||index == 3),'center-vr':(index == 2||index == 5)}">
+        <div class="show1-container" v-if="info['repayment_type'] == 1 && info['open_type'] == 0">
+            <ul class="show1 flex-wrap">
+                <!-- <li v-for='(i,index) in arr10' :key='index' :class="{'center-vh': (index == 1||index == 4),'center-h':(index == 0||index == 3),'center-vr':(index == 2||index == 5)}"> -->
+                <li v-for='(i,index) in arr10' :key='index'>
                     <div class="show1-box">
                         <div class="show1-top">{{i}}</div>
-                        <div class="show1-bottom" v-if='index != 5'>{{arr21[index]}}万</div>
+                        <div class="show1-bottom" v-if='index != 5'>{{common_format(arr21[index])}}万</div>
                         <div class="show1-bottom" v-if='index == 5'>{{arr21[index]}}</div>
                     </div>
                 </li>
             </ul>
         </div>
         <!-- 详情类型2 && 等额本息 -->
-        <div class="show1-container show2-container" v-if="info['repayment_type'] == 2 && info['open_type'] == 0">
-            <ul class="show1 flex-wrap container">
-                <li v-for='(i,index) in arr11' :key='index' :class="{'center-vh': (index == 1||index == 2),'center-h':(index == 0),'center-vr':(index == 3)}">
+        <div class="show1-container show2-container" v-if="info['repayment_type'] == 2 && info['open_type'] == 1">
+            <ul class="show1 flex-wrap">
+                <!-- <li v-for='(i,index) in arr11' :key='index' :class="{'center-vh': (index == 1||index == 2),'center-h':(index == 0),'center-vr':(index == 3)}"> -->
+                <li v-for='(i,index) in arr11' :key='index'>
                     <div class="show1-box">
                         <div class="show1-top">{{i}}</div>
-                        <div class="show1-bottom" v-if='index != 3'>{{arr20[index]}}万</div>
+                        <div class="show1-bottom" v-if='index != 3'>{{common_format(arr20[index])}}万</div>
                         <div class="show1-bottom" v-if='index == 3'>{{arr20[index]}}</div>
                     </div>
                 </li>
             </ul>
         </div>
         <!-- 详情类型2 && 等额本金 -->
-        <div class="show1-container show2-container" v-if="info['repayment_type'] == 2 && info['open_type'] == 1">
-            <ul class="show1 flex-wrap container">
-                <li v-for='(i,index) in arr11' :key='index' :class="{'center-vh': (index == 1||index == 2),'center-h':(index == 0),'center-vr':(index == 3)}">
+        <div class="show1-container show2-container" v-if="info['repayment_type'] == 2 && info['open_type'] == 0">
+            <ul class="show1 flex-wrap">
+                <!-- <li v-for='(i,index) in arr11' :key='index' :class="{'center-vh': (index == 1||index == 2),'center-h':(index == 0),'center-vr':(index == 3)}"> -->
+                <li v-for='(i,index) in arr11' :key='index'>
                     <div class="show1-box">
                         <div class="show1-top">{{i}}</div>
-                        <div class="show1-bottom" v-if='index != 3'>{{arr21[index]}}万</div>
+                        <div class="show1-bottom" v-if='index != 3'>{{common_format(arr21[index])}}万</div>
                         <div class="show1-bottom" v-if='index == 3'>{{arr21[index]}}</div>
                     </div>
                 </li>
@@ -112,11 +115,11 @@
                 const _this = this;
                 switch (txt) {
                     case 'left':
-                        _this.info['open_type'] = 0;
+                        _this.info['open_type'] = 1;
                         _this.list = _this.info['list1'];
                         break;
                     default:
-                        _this.info['open_type'] = 1;
+                        _this.info['open_type'] = 0;
                         _this.list = _this.info['list2'];
                         break;
                 }
@@ -125,6 +128,9 @@
             back_to(){
                 var bol = this.$route.path.indexOf('feed') > -1;
                 common.back(bol);
+            },
+            common_format(num){
+                return common.format_number(num);
             }
         },
         mounted(){
@@ -152,11 +158,8 @@
                 }
             })
         },
-        beforeCreate(){
-            document.querySelector('body').style='background: linear-gradient(rgba(245,245,245,1) 95%, #fff 100%);';
-        },
         activated(){
-            document.querySelector('body').style='background: linear-gradient(rgba(245,245,245,1) 95%, #fff 100%);';
+            $('body,html').addClass('fbfafa').removeClass('origin').removeClass('gray247').removeClass('f7');
         }
     }
 </script>

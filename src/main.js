@@ -7,6 +7,7 @@ import axios from 'axios'
 import store from './store/index'
 import 'amfe-flexible/index.js'
 
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
@@ -16,3 +17,10 @@ new Vue({
   components: { App },
   template: '<App/>',
 })
+//封装成一个指令
+// Vue.directive('highlight', (el) => {
+//   let blocks = el.querySelectorAll('pre code')
+//   blocks.forEach((block) => {
+//       hljs.highlightBlock(block)
+//   })
+// })

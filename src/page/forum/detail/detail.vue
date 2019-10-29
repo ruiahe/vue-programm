@@ -13,7 +13,7 @@
                     </div>
                     <div class="detail-version">
                         <div class="detail-txt center-vr">
-                            <img src="../../assets/statement/phone.png" alt="">
+                            <img src="../../../assets/statement/phone.png" alt="">
                             <span>{{makeStatement['deviceOsVersion']}} {{makeStatement['appVersion']}}</span>
                         </div>
                         <div class="detail-blank"></div>
@@ -40,7 +40,7 @@
                                     <div class="item-time">{{item.replyDatetime}}</div>
                                 </div>
                                 <div class="item-info-right  center-vh" :class="{'animate': item.animate}">
-                                    <img class='' src="../../assets/statement/discuss.png" alt="" @click.stop="show_input(item, false)">
+                                    <img class='' src="../../../assets/statement/discuss.png" alt="" @click.stop="show_input(item, false)">
                                     <strong>{{item.replyCount>0?item.replyCount:''}}</strong>
                                     <span class='center-v' @click.stop='give_up(index,item)'>
                                         <i class="img" :class="{'isUp':item.isUp}"></i>
@@ -63,7 +63,7 @@
             <div class="bottom-box">
                 <div class="container space-between">
                     <span class="bottom-input space-between">
-                        <img src="../../assets/takeComment.png" alt="">
+                        <img src="../../../assets/takeComment.png" alt="">
                         <input type="text" placeholder="评论点什么" readonly @click.stop='show_input(detailId, true)'>
                     </span>
                     <span class='bottom-up' :class="{'animate': makeStatement['animate'], 'isUp': makeStatement['isUp']}" @click.stop='give_up("bottom",makeStatement["id"], makeStatement["isUp"], true)'>
@@ -87,8 +87,8 @@
 </template>
 <script>
     import $ from 'jquery';
-    import wHead from '../windowHead/windowHead';
-    import { common } from '../../common/js/common';
+    import wHead from '@/page/common/windowHead/windowHead';
+    import { common } from '@/common/js/common';
     import strongTip from '@/page/common/strongTip/strongTip';
     import pop from '@/page/common/pop/pop'
     import popCommit from '@/page/common/popComment/popComment'
@@ -253,7 +253,8 @@
             }
         },
         beforeCreate(){
-            document.querySelector('body').style='background: linear-gradient(#F7F7F7 95%, #fff 100%);';
+            $('body').addClass('origin').removeClass('f7');
+            // document.querySelector('body').style='background: #fff;';
         },
         beforeRouteLeave(to, from, next){
             if(to.path.indexOf('/list')>-1){
