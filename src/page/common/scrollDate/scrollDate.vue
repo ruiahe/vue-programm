@@ -78,7 +78,7 @@
                 },
                 scrollSetTimeOut: 1,
                 returnDayNum: 30,
-                returnName: 'first_repayment_time'
+                returnName: 'first_repayment_time',
             }
         },
         methods: {

@@ -11,7 +11,8 @@
       <div class="header-box">
           <div class="space-between">
               <div class="arrow center-vl" @click.stop='back_to()' :class="{'close': titleJson['close']}"></div>
-              <div class="title"  v-on:click='link_to(titleJson["url"], titleJson["title"])'>{{titleJson['title']}}</div>
+              <!-- <div class="title"  v-on:click='link_to(titleJson["url"], titleJson["title"])'>{{titleJson['title']}}</div> -->
+              <div class="title">{{titleJson['title']}}</div>
               <span v-if='!titleJson["toolBol"]' class="tool center-h"></span>
               <span v-if='titleJson["toolBol"] && titleJson["toolTitle"]!="···" && titleJson["toolTitle"]!="calendar"' class="tool center-h" :class="{'hasRed': titleJson['hasRed']}" :style="'color:'+titleJson['color']+'!important;'">
                   <span v-on:click='link_to(titleJson["url"])'>{{titleJson['toolTitle']}}</span>
@@ -54,11 +55,11 @@
         },
         methods: {
           link_to(url,type){
-              if(type == '探记说吧'){
-                  this.$router.push({path: 'todayInHistory/list'});
-              } else {
+            //   if(type == '探记说吧'){
+            //       this.$router.push({path: 'todayInHistory/list'});
+            //   } else {
                   this.$router.push({path: url});
-              }
+            //   }
           },
           back_to(){
               let path = this.$route.path;

@@ -43,16 +43,12 @@
             clickKind: '',
             chosenItem: null,
             compaintUrl: '',
+            sortList:''
         },
         data(){
             return {
                 complaintReason: false,
-                tipType: 'weak',
-                sortList:[
-                    {title: '最热发言', id: 1, chosen: true},
-                    {title: '最新发言', id: 2, chosen: false},
-                    {title: '最近回复', id: 3, chosen: false}
-                ]
+                tipType: 'weak'
             }
         },
         methods: {
@@ -106,6 +102,7 @@
                 this.$emit('change_sort', i);
                 $('#pop .pop-content').slideUp(200);
                 $('#pop').fadeOut(200);
+                $('body').removeClass('rgba0');
             },
             // 选择具体的举报原因
             chose_reason(i,e){

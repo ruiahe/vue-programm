@@ -62,7 +62,7 @@
             </div>
         </div>
         <!-- 阴影加弹框 （举报&删除&排序） -->
-        <pop :sortChosenItem='sortChosenItem' :clickKind='clickKind' :chosenItem = 'choseItem' @delete_current='delete_current' @change_sort='change_sort'></pop>
+        <pop :sortChosenItem='sortChosenItem' :clickKind='clickKind' :sortList='sortList' :chosenItem = 'choseItem' @delete_current='delete_current' @change_sort='change_sort'></pop>
         <!-- 阴影加弹框  （评论弹框） -->
         <popCommit ref='popCommit' :operaId='operaId' @refresh='commit_current'></popCommit>
         <!-- 弱提示 -->
@@ -108,7 +108,7 @@
                 orderBy: 1,                                             //排序
                 discussId: 0,                                           //当前发言id
                 operaId: 0,
-                index: 0,                                                    //当前是第n条数据
+                index: 0,                                               //当前是第n条数据
                 subTitle: '',
                 imgsList:[],
                 subNavToTop: 0,
@@ -117,6 +117,7 @@
                 headHeight:0,
                 stickyIos: false,
                 initChosenItem: {id: 1, title: '最热发言'},
+                sortList: []
             }
         },
         methods:{
@@ -229,10 +230,18 @@
             },
             // 初始化列表数据
             init(){
-                this.titleJson['title'] = this.$route.query.title;
-                this.subTitle = this.$route.query.subtitle;
-                this.discussId = this.$route.query.id;
-                this.orderBy = this.$route.query.sort ? this.$route.query.sort : 1;
+                const _this = this;
+                _this.$nextTick(() => {
+                    _this.titleJson['title'] = _this.$route.query.title;
+                    _this.subTitle = _this.$route.query.subtitle;
+                    _this.discussId = _this.$route.query.id;
+                    _this.orderBy = _this.$route.query.sort ? _this.$route.query.sort : 1;
+                    _this.sortList = [
+                        {title: '最热发言', id: 1, chosen: true},
+                        {title: '最新发言', id: 2, chosen: false},
+                        {title: '最近回复', id: 3, chosen: false}
+                    ]
+                })
             }
         },
         mounted () {
