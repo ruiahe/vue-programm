@@ -5,7 +5,7 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
-    // 首页（重定向：反馈页面）
+    // 论坛 -- 反馈列表页（重定向：反馈页面）
     {
       path: '/',
       name: 'Feed',
@@ -18,21 +18,21 @@ export default new Router({
       meta: { keepAlive: false },
       component: () => import('@/page/forum/feed/feed')
     },
-    // 论坛列表页
+    // 论坛 -- 发言列表页
     {
       path: '/list',
       name: 'List',
       meta: { keepAlive: true, isUseCache: true },
       component: () => import('@/page/forum/list/list')
     },
-    // 论坛详情页
+    // 论坛 -- 发言详情页
     {
       path: '/detail',
       name: 'Detail',
       meta: { keepAlive: false },
       component: () => import('@/page/forum/detail/detail')
     },
-    // 论坛消息页
+    // 论坛 -- 消息列表页
     {
       path: '/myMessage',
       name: 'MyMessage',
@@ -61,7 +61,6 @@ export default new Router({
       component: () => import('@/page/mortgageCaculate/caculate/caculate')
     },
     // 房贷计算器 -- 利率表
-    // {
     {
       path: '/mortgageCaculate/rateTable',
       name: 'mortgageCaculateRateTable',
@@ -109,6 +108,20 @@ export default new Router({
       name: 'personalIncomeTaxIncomeDetail',
       meta: { keepAlive: false },
       component: () => import('@/page/personalIncomeTax/incomeDetail/incomeDetail')
+    },
+    // 时间计算器 -- 首页
+    {
+      path: '/timeSelector/index',
+      name: 'timeSelectorIndex',
+      meta: { keepAlive: false },
+      component: () => import('@/page/timeSelector/index/index')
+    },
+    // 时间计算器 -- 国家列表
+    {
+      path: '/timeSelector/countryList',
+      name: 'timeSelectorCountryList',
+      meta: { keepAlive: false },
+      component: () => import('@/page/timeSelector/countryList/countryList')
     },
   ]
 })

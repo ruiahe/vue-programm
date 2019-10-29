@@ -19,25 +19,25 @@ export default {
   },
   beforeCreate(){
     const _this = this;
-    // set_headers();
-    window['getJson'] = (json) => {
-      _this.getAppInfo(json);
-      set_headers();
-    }
-    window['getback'] = () => {
-      const path = this.$route.path;
-      const bol = path.indexOf('feed') > -1 || path.indexOf('mortgageCaculate/caculate') > -1 || path.indexOf('personalIncomeTax/input') > -1;
-      common.back(bol)
-    }
-    if(common.isAndroid()){
-      let info = window.Android.getInfo();
-      setTimeout(()=>{
-        _this.getAppInfo(JSON.parse(info));
-      })
-      set_headers();
-    } else if(common.isIos()){
-      window.webkit.messageHandlers.linkTo.postMessage({'methodName': 'getInfo'});
-    }
+    set_headers();
+    // window['getJson'] = (json) => {
+    //   _this.getAppInfo(json);
+    //   set_headers();
+    // }
+    // window['getback'] = () => {
+    //   const path = this.$route.path;
+    //   const bol = path.indexOf('feed') > -1 || path.indexOf('mortgageCaculate/caculate') > -1 || path.indexOf('personalIncomeTax/input') > -1;
+    //   common.back(bol)
+    // }
+    // if(common.isAndroid()){
+    //   let info = window.Android.getInfo();
+    //   setTimeout(()=>{
+    //     _this.getAppInfo(JSON.parse(info));
+    //   })
+    //   set_headers();
+    // } else if(common.isIos()){
+    //   window.webkit.messageHandlers.linkTo.postMessage({'methodName': 'getInfo'});
+    // }
   }
 }
 </script>
