@@ -26,7 +26,10 @@ export default {
     }
     window['getback'] = () => {
       const path = this.$route.path;
-      const bol = path.indexOf('feed') > -1 || path.indexOf('mortgageCaculate/caculate') > -1 || path.indexOf('personalIncomeTax/input') > -1;
+      const bol = path.indexOf('feed') > -1 || 
+        path.indexOf('mortgageCaculate/caculate') > -1 || 
+        path.indexOf('personalIncomeTax/input') > -1 ||
+        path.indexOf('todayInHistory/list') > -1;
       common.back(bol)
     }
     if(common.isAndroid()){
