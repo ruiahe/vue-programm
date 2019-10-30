@@ -46,12 +46,7 @@
         <div class="constellation" v-if='chosenNav.id == 4'>生肖星座</div>
         <div class="pop flex-bottom">
             <div class="pop-box">
-                <div class="pop-box-title space-between">
-                    <span class='center-vh'>取消</span>
-                    <strong class='center-vh'>开始时间</strong>
-                    <i class='center-vh'>确定</i>
-                </div>
-                <DatetimePicker :formatter="formatter" v-model="currentDate" :min-date="minDate" :max-date="maxDate" :confirm = 'confirm'></DatetimePicker>
+                <DatetimePicker :title="'选个事件'" :type = "'datetime'" :formatter="formatter" v-model="currentDate" :min-date="minDate" :max-date="maxDate" @confirm = 'confirm'></DatetimePicker>
             </div>
         </div>
     </div>
@@ -85,6 +80,7 @@
                 currentDate: new Date(),
                 minDate: new Date(1900, 1, 1),
                 maxDate: new Date(2099, 12, 30),
+                chosenItem: {}
             }
         },
         methods:{
@@ -99,6 +95,7 @@
                 $(el.target).addClass('active');
                 $('.top-nav').animate({scrollLeft: this.tabLeft}, 200);
             },
+            // 格式化时间选择器
             formatter(type, value) {
                 if (type === 'year') {
                     return `${value}年`;
@@ -113,8 +110,8 @@
                 }
                 return value;
             },
+            // 确认
             confirm(value){
-                console.log('0000000000000')
                 console.log(value);
             }
         },
@@ -130,5 +127,33 @@
     @import './index.less';
 </style>
 <style>
-    @import './reset_vue.less';
+    .pop-box{
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+        overflow:hidden;
+        box-sizing: border-box;
+    }
+    .van-picker__toolbar{
+        height:56px;
+        border-bottom:1px solid rgba(215, 213, 213, 0.6);
+    }
+    .van-picker__title{
+        font-size:16px;
+        font-family:PingFangSC-Medium,PingFang SC;
+        font-weight:500;
+        color:rgba(18,18,18,1);
+    }
+    .van-picker__cancel,
+    .van-picker__confirm{
+        padding: 0 25px;
+        font-size:14px;
+        font-family:PingFangSC-Regular,PingFang SC;
+        font-weight:400;
+    }
+    .van-picker__cancel{
+        color:rgba(183,194,201,1);
+    }
+    .van-picker__confirm{
+        color:rgba(104,196,161,1);
+    }
 </style>
