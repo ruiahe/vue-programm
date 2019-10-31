@@ -240,7 +240,10 @@
                         {title: '最热发言', id: 1, chosen: true},
                         {title: '最新发言', id: 2, chosen: false},
                         {title: '最近回复', id: 3, chosen: false}
-                    ]
+                    ];
+                    _this.list = [];
+                    _this.sticky = false;
+                    _this.change_sort(_this.initChosenItem);
                 })
             }
         },
@@ -310,10 +313,7 @@
                     });
                 }
             } else {
-                this.list = [];
-                this.sticky = false;
                 this.init();
-                this.change_sort(this.initChosenItem);
             }
         },
         beforeRouteLeave(to, from, next){
