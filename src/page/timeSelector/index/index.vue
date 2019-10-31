@@ -74,7 +74,47 @@
             </div>
         </div>
         <!-- 世界时间 -->
-        <div class="earth" v-if='chosenNav.id == 2'>世界时间</div>
+        <div class="earth" v-if='chosenNav.id == 2'>
+            <ul class="earth-list">
+                <li class='space-between' v-for="(i, index) in earthList" :key="index">
+                    <SwipeCell>
+                        <div class="cell space-between">
+                            <div class="earth-box">
+                                <div class="earth-clock center-vh">
+                                    <div class="earth-clock-disk center-vh">
+                                        <i></i>
+                                    </div>
+                                </div>
+                                <div class="earth-hour square"></div>
+                                <div class="earth-minute square"></div>
+                                <div class="earth-second square"></div>
+                            </div>
+                            <div class="earth-right">
+                                <div class="earth-right-top">{{i.txt}}</div>
+                                <div class="earth-right-bottom space-between">
+                                    <span>{{i.country}}</span>
+                                    <strong>{{i.dValue}}</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='delete space-between' slot="right">
+                            <div class='delete-change center-vh'>
+                                <img src="../../../assets/timeSelector/change.png" alt="">
+                            </div>
+                            <div class='delete-delete center-vh'>
+                                <img src="../../../assets/timeSelector/delete.png" alt="">
+                            </div>
+                        </div>
+                    </SwipeCell>
+                </li>
+            </ul>
+            <div class="earth-add center-vh">
+                <div class="space-between" @click="link_to('/timeSelector/countryList')">
+                    <img src="../../../assets/timeSelector/plus.png" alt="">
+                    <span>添加国家</span>
+                </div>
+            </div>
+        </div>
         <!-- 闰年计算 -->
         <div class="leapyear" v-if='chosenNav.id == 3'>
             <ul class="leapyear-top space-between">
@@ -135,7 +175,7 @@
 </template>
 <script>
     import wHead from '@/page/common/windowHead/windowHead'
-    import { DatetimePicker, Switch } from 'vant';
+    import { DatetimePicker, Switch, SwipeCell, Cell, Button } from 'vant';
     import { time } from '@/common/js/myApi'
     import { common } from '@/common/js/common'
     import $ from 'jquery'
@@ -144,7 +184,10 @@
         components:{
             wHead,
             DatetimePicker,
-            SwitchVant: Switch
+            SwitchVant: Switch,
+            SwipeCell,
+            Cell,
+            Button
         },
         data(){
             return {
@@ -169,6 +212,12 @@
                 popTitle: '开始时间',
                 checked: true,
                 timeJson: {},                                                           // 选择器的输入值（type1:间隔计算;type2:日期推算;type3:世界时间;type4:闰年计算;type5:生肖星座;
+                earthList: [
+                    {time: 1579503833000, country: '北京（中国）', dValue: ''},
+                    {time: 1572103813000, country: '华盛顿（美国）', dValue: '今天+1小时'},
+                    {time: 1572503803000, country: '香港（中国）', dValue: '今天-8小时'},
+                    {time: 1572503633000, country: '东京（日本）', dValue: '今天-6小时'}
+                ]
             }
         },
         methods:{
@@ -375,9 +424,35 @@
                     }
                 }
             },
-            // 返回列表
+            // 倒计时
+            countDown(time, index){
+                const _this = this;
+                setInterval(() => {
+                    let obj = {};
+                    obj = common.change_to_date(time);
+                    const txt = obj['year']+'年'+obj['month']+'月'+obj['day']+'日 星期'+obj['week']+' '+obj['hour']+':'+obj['minutes']+':'+obj['seconds'];
+                    $($('.earth .earth-box')[index]).find('.earth-hour').css({'transform': 'rotate('+((obj['hour']%12)*30)+'deg)'});
+                    $($('.earth .earth-box')[index]).find('.earth-minute').css({'transform': 'rotate('+(obj['minutes']*6)+'deg)'});
+                    $($('.earth .earth-box')[index]).find('.earth-second').css({'transform': 'rotate('+(obj['seconds']*6)+'deg)'});
+                    $($('.earth .earth-right')[index]).find('.earth-right-top').html(txt)
+                    time += 1000;
+                    _this.earthList[index]['txt'] = txt;
+                    _this.earthList[index]['time'] = time;
+                }, 1000)
+            },
+            // 重置钟表时间
+            reset_clock(){
+                this.earthList.forEach((e, index) => {
+                    this.countDown(e.time, index);
+                })
+            },
             returnArr(arr){
-
+            },
+            // 跳转页面
+            link_to(url){
+                this.$router.push({
+                    path: url, 
+                });
             }
         },
         activated(){
@@ -386,6 +461,7 @@
         mounted(){
             $('body,html').addClass('gray245').removeClass('origin').removeClass('gray247').removeClass('f7').removeClass('fbfafa');
             this.init();
+            this.reset_clock();
         }
     }
 </script>

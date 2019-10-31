@@ -182,7 +182,187 @@
         }
     }
     .earth{
-        border:1px solid salmon;
+        height:500px;
+        .earth-list{
+            li{
+                border-bottom:1px solid rgba(231, 230, 230, 0.5);
+                // 时钟
+                .earth-box{
+                    position: relative;
+                    width:65px;
+                    height:65px;
+                    .earth-clock{
+                        position: relative;
+                        width:100%;
+                        height:100%;
+                        border-radius:100%;
+                        border:1px solid rgba(216, 216, 216, 1);
+                        .earth-clock-disk{
+                            position: relative;
+                            width:61px;
+                            height:61px;
+                            border-radius: 100%;
+                            background-color:#656464;
+                            i{
+                                width:7px;
+                                height:7px;
+                                border-radius: 100%;
+                                background-color:#fff;
+                            }
+                        }
+                        .earth-clock-disk::before{
+                            content:'';
+                            position: absolute;
+                            top:0;
+                            left:50%;
+                            width:1px;
+                            height:3px;
+                            background: rgba(216, 216, 216, 1);
+                        }
+                        .earth-clock-disk::after{
+                            content:'';
+                            position: absolute;
+                            bottom:0;
+                            left:50%;
+                            width:1px;
+                            height:3px;
+                            background: rgba(245, 245, 245, 1);
+                        }
+                    }
+                    .earth-clock::before{
+                        content:'';
+                        position: absolute;
+                        left:2px;
+                        top:50%;
+                        width:3px;
+                        height:1px;
+                        z-index:10;
+                        background: rgba(245, 245, 245, 1);
+                    }
+                    .earth-clock::after{
+                        content:'';
+                        position: absolute;
+                        right:2px;
+                        top:50%;
+                        width:3px;
+                        height:1px;
+                        z-index:10;
+                        background: rgba(245, 245, 245, 1);
+                    }
+                    .square{
+                        position: absolute;
+                        top:50%;
+                        left:50%;
+                        transform-origin: 50% 50%;
+                    }
+                    .square::before{
+                        content:'';
+                        position: absolute;
+                        top:0;
+                        left:50%;
+                        width:3px;
+                        height:50%;
+                        background-color:#fff;
+                    }
+                    .earth-hour{
+                        width:26px;
+                        height:26px;
+                        margin-left:-13px;
+                        margin-top:-13px;
+                        transform: rotate(0deg);
+                    }
+                    .earth-minute{
+                        width:38px;
+                        height:38px;
+                        margin-left:-19px;
+                        margin-top:-19px;
+                        transform: rotate(0deg);
+                    }
+                    .earth-second{
+                        width:40px;
+                        height:40px;
+                        margin-left:-20px;
+                        margin-top:-20px;
+                        transform: rotate(0deg);
+                    }
+                    .earth-hour::before{
+                        width:3px;
+                        margin-left:-1.5px;
+                    }
+                    .earth-minute::before{
+                        width:2px;
+                        margin-left:-1px;
+                    }
+                    .earth-second::before{
+                        width:1px;
+                        margin-left:-0.5px;
+                    }
+                }
+                // 单元格样式
+                .cell{
+                    width:100%;
+                    height:83px;
+                    padding-left:17px;
+                    padding-right:28px;
+                    box-sizing: border-box;
+                    .earth-right{
+                        width:245px;
+                        .earth-right-top{
+                            height:22px;
+                            font-size:16px;
+                            font-family:PingFangSC-Medium,PingFang SC;
+                            font-weight:500;
+                            color:rgba(18,18,18,1);
+                            line-height:22px;
+                        }
+                        .earth-right-bottom{
+                            margin-top:11px;
+                            font-size:14px;
+                            font-family:PingFangSC-Regular,PingFang SC;
+                            font-weight:400;
+                            color:rgba(117,122,137,1);
+                        }
+                    }
+                }
+                // 删除和切换
+                .delete{
+                    width:170px;
+                    height:100%;
+                    background-color:rgba(231, 231, 231, 1);
+                    div{
+                        flex:1;
+                        img{
+                            width:52px;
+                        }
+                    }
+                }
+                .van-swipe-cell{
+                    width:100%;
+                    height:100%;
+                    .van-swipe-cell__wrapper{
+                        width:100%;
+                    }
+                }
+            }
+        }
+        .earth-add{
+            padding-top:80px;
+            .space-between{
+                padding: 0 34px;
+                box-sizing: border-box;
+                width:146px;
+                height:37px;
+                border-radius:23px;
+                border:1px solid rgba(32,99,112,1);
+                font-size:15px;
+                font-family:PingFangSC-Regular,PingFang SC;
+                font-weight:400;
+                color:rgba(32,99,112,1);
+                img{
+                    width:12px;
+                }
+            }
+        }
     }
     .leapyear{
         .leapyear-top{
@@ -248,7 +428,32 @@
             margin:0 auto;
         }
         .constellation-bottom{
+            border-top:1px solid rgba(228, 224, 224, 0.5);
             padding-top:38px;
+            .bottom-top{
+                width:315px;
+                padding-bottom:22px;
+                margin: 0 auto;
+                height:21px;
+                font-size:15px;
+                font-family:PingFangSC-Regular,PingFang SC;
+                font-weight:400;
+                color:rgba(117,122,137,1);
+            }
+            .bottom-bottom{
+                width:315px;
+                margin: 0 auto;
+                li{
+                    flex:1;
+                    width:102px;
+                    height:24px;
+                    font-size:17px;
+                    font-family:PingFangSC-Regular,PingFang SC;
+                    font-weight:400;
+                    color:rgba(32,99,112,1);
+                    line-height:24px;
+                }
+            }
         }
     }
     .pop{

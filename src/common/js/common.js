@@ -38,19 +38,22 @@ export const common = {
         var get_h = new Date(t).getHours();
         var get_m = new Date(t).getMinutes();
         var get_s = new Date(t).getSeconds();
+        var get_week = new Date(t).getDay();
         var y = get_y > 9 ? get_y : '0' + get_y; 
         var mon = get_mon > 9 ? get_mon : '0' + get_mon; 
         var d = get_d > 9 ? get_d : '0' + get_d; 
         var h = get_h > 9 ? get_h : '0' + get_h; 
         var m = get_m > 9 ? get_m : '0'+ get_m; 
         var s = get_s > 9 ? get_s : '0'+ get_s; 
+        var w = get_week == 0 ? '日' : (get_week == 1 ? '一' : (get_week == 2 ? '二' : (get_week == 3 ? '三' : (get_week == 4 ? '四' : (get_week == 5 ? '五' : '六')))));
         var obj = {
             'year': y,
             'month': mon,
             'day': d,
             'hour': h,
             'minutes': m,
-            'seconds': s
+            'seconds': s,
+            'week': w
         }
         return obj;
     },

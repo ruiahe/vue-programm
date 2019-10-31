@@ -1,0 +1,466 @@
+#timeSelectorIndex .top {
+  position: relative;
+  z-index: 10;
+  overflow: hidden;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  box-shadow: 0px 2px 7px 0px rgba(236, 236, 236, 0.5);
+}
+#timeSelectorIndex .top .top-nav-box {
+  height: 57px;
+  overflow: hidden;
+}
+#timeSelectorIndex .top .top-nav-box .top-nav {
+  padding-bottom: 20px;
+  overflow: hidden;
+  overflow-x: auto;
+  height: 57px;
+  background: #fff;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+#timeSelectorIndex .top .top-nav-box .top-nav .nav {
+  width: 450px;
+  height: 100%;
+  padding: 0 5px;
+}
+#timeSelectorIndex .top .top-nav-box .top-nav .nav li {
+  position: relative;
+  width: 88px;
+  height: 100%;
+  font-size: 15px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #d4d6dd;
+  box-sizing: border-box;
+}
+#timeSelectorIndex .top .top-nav-box .top-nav .nav .active {
+  font-size: 17px;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #206370;
+}
+#timeSelectorIndex .top .top-nav-box .top-nav .nav li.active::after {
+  position: absolute;
+  left: 50%;
+  bottom: 3px;
+  content: '';
+  width: 2px;
+  height: 8px;
+  background-color: #206370;
+  border: none;
+}
+#timeSelectorIndex .interval .interval-top ul li {
+  padding: 0 20px;
+  height: 54px;
+  border-bottom: 1px solid rgba(238, 238, 238, 0.6);
+}
+#timeSelectorIndex .interval .interval-top ul li span {
+  font-size: 16px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #121212;
+}
+#timeSelectorIndex .interval .interval-top ul li i {
+  position: relative;
+  height: 100%;
+  padding-right: 16px;
+  font-size: 16px;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #121212;
+  font-style: normal;
+}
+#timeSelectorIndex .interval .interval-top ul li i::before {
+  position: absolute;
+  content: '';
+  top: 0;
+  right: 0;
+  width: 8px;
+  height: 100%;
+  background-image: url(../../../assets/timeSelector/timeSelector-arrow.png);
+  background-position: center right;
+  background-size: 8px auto;
+  background-repeat: no-repeat;
+}
+#timeSelectorIndex .interval .interval-top ul li:last-child {
+  border: none;
+}
+#timeSelectorIndex .interval .interval-middle {
+  width: 100%;
+  height: 8px;
+  background: #ebebeb;
+}
+#timeSelectorIndex .interval .interval-bottom ul li {
+  padding: 0px 20px;
+  height: 44px;
+  border-bottom: 1px solid rgba(245, 245, 245, 0.6);
+}
+#timeSelectorIndex .interval .interval-bottom ul li span {
+  height: 22px;
+  font-size: 16px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #757a89;
+  line-height: 22px;
+}
+#timeSelectorIndex .interval .interval-bottom ul li:last-child {
+  border: none;
+}
+#timeSelectorIndex .date .date-top {
+  padding: 30px 0;
+  width: 315px;
+  margin: 0 auto;
+}
+#timeSelectorIndex .date .date-top li {
+  width: 77px;
+  height: 30px;
+  background: #b5cbd0;
+  border-radius: 6px;
+  font-size: 13px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #ffffff;
+}
+#timeSelectorIndex .date .date-top .active {
+  background: #206370;
+}
+#timeSelectorIndex .date .date-middle {
+  padding: 10px 0 30px;
+  width: 315px;
+  margin: 0 auto;
+}
+#timeSelectorIndex .date .date-middle .date-middle1 {
+  margin-bottom: 20px;
+}
+#timeSelectorIndex .date .date-middle .date-middle1 .date-middle-input {
+  width: 203px;
+}
+#timeSelectorIndex .date .date-middle .date-middle1 span {
+  width: 53px;
+  height: 54px;
+  font-size: 17px;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #757a89;
+}
+#timeSelectorIndex .date .date-bottom {
+  padding: 46px 28px 0;
+  border-top: 1px solid rgba(228, 224, 224, 0.5);
+  width: 100%;
+  box-sizing: border-box;
+}
+#timeSelectorIndex .date .date-bottom span {
+  width: 112px;
+  height: 21px;
+  font-size: 15px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #757a89;
+  line-height: 21px;
+}
+#timeSelectorIndex .date .date-bottom strong {
+  flex: 1;
+  height: 21px;
+  font-size: 17px;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #206370;
+  line-height: 21px;
+}
+#timeSelectorIndex .earth {
+  height: 500px;
+}
+#timeSelectorIndex .earth .earth-list li {
+  border-bottom: 1px solid rgba(231, 230, 230, 0.5);
+}
+#timeSelectorIndex .earth .earth-list li .earth-box {
+  position: relative;
+  width: 65px;
+  height: 65px;
+}
+#timeSelectorIndex .earth .earth-list li .earth-box .earth-clock {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  border: 1px solid #d8d8d8;
+}
+#timeSelectorIndex .earth .earth-list li .earth-box .earth-clock .earth-clock-disk {
+  position: relative;
+  width: 61px;
+  height: 61px;
+  border-radius: 100%;
+  background-color: #656464;
+}
+#timeSelectorIndex .earth .earth-list li .earth-box .earth-clock .earth-clock-disk i {
+  width: 7px;
+  height: 7px;
+  border-radius: 100%;
+  background-color: #fff;
+}
+#timeSelectorIndex .earth .earth-list li .earth-box .earth-clock .earth-clock-disk::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 1px;
+  height: 3px;
+  background: #d8d8d8;
+}
+#timeSelectorIndex .earth .earth-list li .earth-box .earth-clock .earth-clock-disk::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  height: 3px;
+  background: #f5f5f5;
+}
+#timeSelectorIndex .earth .earth-list li .earth-box .earth-clock::before {
+  content: '';
+  position: absolute;
+  left: 2px;
+  top: 50%;
+  width: 3px;
+  height: 1px;
+  z-index: 10;
+  background: #f5f5f5;
+}
+#timeSelectorIndex .earth .earth-list li .earth-box .earth-clock::after {
+  content: '';
+  position: absolute;
+  right: 2px;
+  top: 50%;
+  width: 3px;
+  height: 1px;
+  z-index: 10;
+  background: #f5f5f5;
+}
+#timeSelectorIndex .earth .earth-list li .earth-box .square {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: 50% 50%;
+}
+#timeSelectorIndex .earth .earth-list li .earth-box .square::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 3px;
+  height: 50%;
+  background-color: #fff;
+}
+#timeSelectorIndex .earth .earth-list li .earth-box .earth-hour {
+  width: 26px;
+  height: 26px;
+  margin-left: -13px;
+  margin-top: -13px;
+  transform: rotate(0deg);
+}
+#timeSelectorIndex .earth .earth-list li .earth-box .earth-minute {
+  width: 38px;
+  height: 38px;
+  margin-left: -19px;
+  margin-top: -19px;
+  transform: rotate(0deg);
+}
+#timeSelectorIndex .earth .earth-list li .earth-box .earth-second {
+  width: 40px;
+  height: 40px;
+  margin-left: -20px;
+  margin-top: -20px;
+  transform: rotate(0deg);
+}
+#timeSelectorIndex .earth .earth-list li .earth-box .earth-hour::before {
+  width: 3px;
+  margin-left: -1.5px;
+}
+#timeSelectorIndex .earth .earth-list li .earth-box .earth-minute::before {
+  width: 2px;
+  margin-left: -1px;
+}
+#timeSelectorIndex .earth .earth-list li .earth-box .earth-second::before {
+  width: 1px;
+  margin-left: -0.5px;
+}
+#timeSelectorIndex .earth .earth-list li .cell {
+  width: 100%;
+  height: 83px;
+  padding-left: 17px;
+  padding-right: 28px;
+  box-sizing: border-box;
+}
+#timeSelectorIndex .earth .earth-list li .cell .earth-right {
+  width: 245px;
+}
+#timeSelectorIndex .earth .earth-list li .cell .earth-right .earth-right-top {
+  height: 22px;
+  font-size: 16px;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #121212;
+  line-height: 22px;
+}
+#timeSelectorIndex .earth .earth-list li .cell .earth-right .earth-right-bottom {
+  margin-top: 11px;
+  font-size: 14px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #757a89;
+}
+#timeSelectorIndex .earth .earth-list li .delete {
+  width: 170px;
+  height: 100%;
+  background-color: #e7e7e7;
+}
+#timeSelectorIndex .earth .earth-list li .delete div {
+  flex: 1;
+}
+#timeSelectorIndex .earth .earth-list li .delete div img {
+  width: 52px;
+}
+#timeSelectorIndex .earth .earth-list li .van-swipe-cell {
+  width: 100%;
+  height: 100%;
+}
+#timeSelectorIndex .earth .earth-list li .van-swipe-cell .van-swipe-cell__wrapper {
+  width: 100%;
+}
+#timeSelectorIndex .earth .earth-add {
+  padding-top: 80px;
+}
+#timeSelectorIndex .earth .earth-add .space-between {
+  padding: 0 34px;
+  box-sizing: border-box;
+  width: 146px;
+  height: 37px;
+  border-radius: 23px;
+  border: 1px solid #206370;
+  font-size: 15px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #206370;
+}
+#timeSelectorIndex .earth .earth-add .space-between img {
+  width: 12px;
+}
+#timeSelectorIndex .leapyear .leapyear-top {
+  width: 263px;
+  margin: 0 auto;
+  padding: 31px 0;
+}
+#timeSelectorIndex .leapyear .leapyear-top li {
+  width: 106px;
+  height: 38px;
+  background: #e7e7e7;
+  border-radius: 6px;
+  font-size: 15px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #ffffff;
+}
+#timeSelectorIndex .leapyear .leapyear-top .active {
+  background: #206370;
+}
+#timeSelectorIndex .leapyear .leapyear-middle {
+  margin: 0 auto;
+  padding-bottom: 20px;
+}
+#timeSelectorIndex .leapyear .leapyear-middle .leapyear-middle-text {
+  margin: 0 auto;
+  box-sizing: border-box;
+  width: 315px;
+  background: #ebebeb;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+#timeSelectorIndex .leapyear .leapyear-bottom {
+  padding-top: 24px;
+  width: 100%;
+  box-sizing: border-box;
+  border-top: 1px solid rgba(228, 224, 224, 0.5);
+}
+#timeSelectorIndex .leapyear .leapyear-bottom .leapyear-bottom-box {
+  width: 347px;
+  margin-left: 28px;
+}
+#timeSelectorIndex .leapyear .leapyear-bottom .leapyear-bottom-box li {
+  width: 80px;
+  height: 44px;
+  font-size: 17px;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #206370;
+  line-height: 44px;
+}
+#timeSelectorIndex .leapyear .leapyear-bottom .leapyear-bottom-box li:first-child {
+  font-size: 15px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #757a89;
+}
+#timeSelectorIndex .constellation .constellation-middle {
+  width: 315px;
+  padding: 30px 0;
+  margin: 0 auto;
+}
+#timeSelectorIndex .constellation .constellation-bottom {
+  border-top: 1px solid rgba(228, 224, 224, 0.5);
+  padding-top: 38px;
+}
+#timeSelectorIndex .constellation .constellation-bottom .bottom-top {
+  width: 315px;
+  padding-bottom: 22px;
+  margin: 0 auto;
+  height: 21px;
+  font-size: 15px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #757a89;
+}
+#timeSelectorIndex .constellation .constellation-bottom .bottom-bottom {
+  width: 315px;
+  margin: 0 auto;
+}
+#timeSelectorIndex .constellation .constellation-bottom .bottom-bottom li {
+  flex: 1;
+  width: 102px;
+  height: 24px;
+  font-size: 17px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #206370;
+  line-height: 24px;
+}
+#timeSelectorIndex .pop {
+  display: none;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+#timeSelectorIndex .pop .flex-bottom {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+#timeSelectorIndex .pop .flex-bottom .pop-box {
+  width: 100%;
+}
+#timeSelectorIndex input {
+  padding: 20px 38px 20px 21px;
+  width: 256px;
+  height: 21px;
+  background: #ebebeb;
+  border-radius: 4px;
+  font-size: 17px;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #121212;
+}
