@@ -10,7 +10,8 @@
   color: #000000;
   border-bottom: 1px solid rgba(225, 225, 225, 0.5);
 }
-#countryList ul li {
+#countryList li {
+  width: 100%;
   height: 55px;
   font-size: 15px;
   font-family: PingFangSC-Regular, PingFang SC;
@@ -18,10 +19,10 @@
   color: #757a89;
   border-bottom: 1px solid rgba(225, 225, 225, 0.5);
 }
-#countryList ul li .i-box {
+#countryList li .i-box {
   padding-right: 22px;
 }
-#countryList ul li .i-box i {
+#countryList li .i-box i {
   position: relative;
   display: block;
   width: 19px;
@@ -30,7 +31,7 @@
   border-top: 2px solid rgba(204, 204, 204, 0.6);
   border-bottom: 2px solid rgba(204, 204, 204, 0.6);
 }
-#countryList ul li .i-box i::before {
+#countryList li .i-box i::before {
   content: '';
   position: absolute;
   left: 0;
@@ -39,6 +40,13 @@
   height: 2px;
   background: rgba(204, 204, 204, 0.6);
   margin-top: -1px;
+}
+#countryList li strong {
+  width: 16px;
+  height: 17px;
+  background: url(../../../assets/timeSelector/right.png) no-repeat;
+  background-size: 100%;
+  background-position: left center;
 }
 #countryList .head-top {
   position: fixed;

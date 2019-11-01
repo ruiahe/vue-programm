@@ -17,7 +17,7 @@
                 <ul v-if="timeJson['type0']">
                     <li class="space-between">
                         <span>开始时间</span>
-                        <i class="center-v" @click="open_selector(0, 'start')">{{timeJson['type0']['startTime']}}</i>
+                        <i class="center-v" @click="open_selector(0, 'startTime')">{{timeJson['type0']['startTime']}}</i>
                     </li>
                     <li class="space-between">
                         <span>结束时间</span>
@@ -166,7 +166,7 @@
         <div class="pop">
             <div class="flex-bottom">
                 <div class="pop-box">
-                    <DatetimePicker :title="popTitle" @cancel='cancel' :type = "'datetime'" :formatter="formatter" v-model="currentDate" :min-date="minDate" :max-date="maxDate" @confirm = 'confirm'></DatetimePicker>
+                    <DatetimePicker :title="popTitle" @cancel='cancel' :type = "dateType" :formatter="formatter" v-model="currentDate" :min-date="minDate" :max-date="maxDate" @confirm = 'confirm'></DatetimePicker>
                     <!-- <DatetimePicker :title="popTitle" type = "year-month" :formatter="formatter" v-model="currentDate" :min-date="minDate" @confirm = 'confirm'></DatetimePicker> -->
                 </div>
             </div>
@@ -175,7 +175,7 @@
 </template>
 <script>
     import wHead from '@/page/common/windowHead/windowHead'
-    import { DatetimePicker, Switch, SwipeCell, Cell, Button } from 'vant';
+    import { DatetimePicker, Switch, SwipeCell } from 'vant';
     import { time } from '@/common/js/myApi'
     import { common } from '@/common/js/common'
     import $ from 'jquery'
@@ -185,9 +185,7 @@
             wHead,
             DatetimePicker,
             SwitchVant: Switch,
-            SwipeCell,
-            Cell,
-            Button
+            SwipeCell
         },
         data(){
             return {
@@ -208,7 +206,7 @@
                 currentDate: new Date(),
                 minDate: new Date(1900, 1, 1),
                 maxDate: new Date(2099, 12, 30),
-                chosenItem: {},
+                chosenItem: {id: 0, subId: 0},
                 popTitle: '开始时间',
                 checked: true,
                 timeJson: {},                                                           // 选择器的输入值（type1:间隔计算;type2:日期推算;type3:世界时间;type4:闰年计算;type5:生肖星座;
@@ -217,12 +215,15 @@
                     {time: 1572103813000, country: '华盛顿（美国）', dValue: '今天+1小时'},
                     {time: 1572503803000, country: '香港（中国）', dValue: '今天-8小时'},
                     {time: 1572503633000, country: '东京（日本）', dValue: '今天-6小时'}
-                ]
+                ],
+                dateType: 'date'
             }
         },
         methods:{
+            // 选择导航
             change_tab(type, tab){
                 this.timeJson['type' + tab]['chosenTab'] = type;
+                this.chosenItem['subId'] = type;
             },
             // 初始化 输入数据
             init(){
@@ -267,7 +268,7 @@
                 }
                 return str;
             },
-            // 选择导航
+            // 选择副导航
             chose_nav(i, el){
                 const liWidth = $($('.top-nav li')[0]).width();
                 const middleWidth = $('.top-nav-box').width()/2 - liWidth/2;
@@ -277,6 +278,7 @@
                 $('.top-nav li').removeClass('active');
                 $(el.target).addClass('active');
                 $('.top-nav').animate({scrollLeft: this.tabLeft}, 200);
+                this.chosenItem['id'] = i;
             },
             // 格式化时间选择器
             formatter(type, value) {
@@ -296,10 +298,11 @@
             // 确认
             confirm(value){
                 const _this = this;
-                console.log(value);
-                console.log(this.chosenNav);
-                // _this.timeJson['type'+_this.chosenNav['id']][_this.chosenNav['name']] = 
-                console.log(Date.parse(value))
+                const obj = common.change_to_date(Date.parse(value));
+                console.log(this.chosenItem['name']);
+                console.log(this.chosenItem['id']);
+                this.timeJson['type'+this.chosenItem['id']][this.chosenItem['name']] = obj['year'] + '年' + obj['month'] + '月' + obj['day'] + '日';
+                this.cancel();
             },
             // 关闭弹框
             cancel(){
@@ -311,8 +314,7 @@
             },
             // 打开时间选择器
             open_selector(ind, name){
-                console.log(ind);
-                console.log(name);
+                this.chosenItem['name'] = name;
                 $('.pop').fadeIn(200);
             },
             // 计算结果(0=>间隔计算，1=>日期推算，2=>世界时间，3=>闰年计算，4=>生肖星座)
