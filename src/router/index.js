@@ -113,7 +113,7 @@ export default new Router({
     {
       path: '/timeSelector/index',
       name: 'timeSelectorIndex',
-      meta: { keepAlive: false },
+      meta: { keepAlive: true },
       component: () => import('@/page/timeSelector/index/index')
     },
     // 时间计算器 -- 国家列表

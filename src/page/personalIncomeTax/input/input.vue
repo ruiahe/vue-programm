@@ -1158,13 +1158,6 @@
             },
             // 选择tab标签 & 选择时的动效
             chose_tab(item, el){
-                // const liWidth = $($('.can-scroll li')[0]).width();
-                // const middleWidth = $('.can-scroll').width()/2 - liWidth/2;
-                // const elLeft = liWidth*item.id;
-                // this.tabLeft = elLeft - middleWidth;
-                // $('.can-scroll li').removeClass('active');
-                // $(el.target).addClass('active');
-                // $('.can-scroll').animate({scrollLeft: this.tabLeft}, 200);
                 this.chosen["chosenTab"] = item;
                 this.chosen['chosenSubTab'] = 0;
                 this.chosenType2 = this.chosen['chosen'+item['id']+this.chosen['chosenSubTab']];

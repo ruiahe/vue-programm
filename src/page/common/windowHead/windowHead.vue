@@ -29,10 +29,10 @@
               </span>
           </div>
       </div>
+
       <div class="header-placeholder"></div>
   </div>
 </template>
-
 <script>
     import {common} from '@/common/js/common'
     export default {
@@ -56,7 +56,9 @@
         methods: {
           link_to(url,type){
             //   if(type == '探记说吧'){
-            //       this.$router.push({path: 'todayInHistory/list'});
+            //       this.$router.push({path: '/timeSelector/index'});
+            //   } else if (type == '心灵鸡汤'){
+            //       this.$router.push({path: '/personalIncomeTax/input'});
             //   } else {
                   this.$router.push({path: url});
             //   }
@@ -67,6 +69,7 @@
                 (path.indexOf('feed') > -1) || 
                 path.indexOf('mortgageCaculate/caculate') > -1 || 
                 path.indexOf('personalIncomeTax/input') > -1 || 
+                path.indexOf('timeSelector/index') > -1 || 
                 path.indexOf('todayInHistory/list') > -1;
               common.back(bol);
           },

@@ -3,374 +3,50 @@
         <div class="head-top">
             <wHead :titleJson='titleJson'></wHead>
             <div class="search">
-                <input class='color245' :class='{"long": searchFocus}' type="text" placeholder="搜索城市或国家名称" @focus="change_focus()" @blur="change_focus()">
+                <input class='color245' v-model="searchText" type="text" placeholder="搜索城市或国家名称" @focus="change_focus()" @input="search_list()">
             </div>
         </div>
         <div class="head-placeholder"></div>
-        <div class="local container">
+        <div class="local container" v-if="searchText.length < 0 || searchText.length == 0">
             <div class="title center-vl">当地时间</div>
             <ul class="local-txt">
-                <li class='center-vl'>北京（中国）</li>
+                <li class='center-vl'>
+                    {{local.cityName + ' （'+local.countyName+'）'}}
+                    <img src="../../../assets/timeSelector/local.png"/>
+                </li>
             </ul>
         </div>
-        <div class="attention-country container">
+        <div class="attention-country container" v-if="searchText.length < 0 || searchText.length == 0">
             <div class="title center-vl">关注国家</div>
-            <draggable :options="{draggable:'.item'}"
-              v-model="list2"
-              @change="change">
-                <li v-for="(item, index) in list2" class="item space-between" :key="index">
-                    <span>{{item.name}}</span> <i class='i-box'><i></i></i>  
+            <draggable :options="{draggable:'.item', filter: '.bbb'}" v-model="attentionList" @change="change" @move='start'>
+                <li v-for="(item, index) in attentionList" class="item space-between" :key="index">
+                    <span class="bbb center-vl">{{item.cityName+' （'+item.countyName+'）'}}</span> <i class='i-box'><i class="aaa"></i></i>  
                 </li>
           </draggable>
         </div>
         <div class="country-list container">
             <IndexBar :sticky-offset-top='stickyTop'>
-                <IndexAnchor index="A" />
-                <ul>
-                    <li class='space-between'>
-                        <span>阿比让（科特迪瓦）</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>啊啊啊啊啊</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>啊撒打发</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>安慰如下</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>啊joie今日分</span>
-                        <strong></strong>
-                    </li>
-                </ul>
-                <IndexAnchor index="B" />
-                <ul>
-                    <li class='space-between'>
-                        <span>报价送的肌肤</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>把士大夫</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>北京覅哦就扫i附件</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>边为皇后i就是</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>把违法的事</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>北京覅哦就扫i附件</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>被围殴警匪片</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>巴尔福的色如分手的v</span>
-                        <strong></strong>
-                    </li>
-                </ul>
-                <IndexAnchor index="C" />
-                <ul>
-                    <li class='space-between'>
-                        <span>报价送的肌肤</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>把士大夫</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>北京覅哦就扫i附件</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>边为皇后i就是</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>把违法的事</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>北京覅哦就扫i附件</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>被围殴警匪片</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>巴尔福的色如分手的v</span>
-                        <strong></strong>
-                    </li>
-                </ul>
-                <IndexAnchor index="D" />
-                <ul>
-                    <li class='space-between'>
-                        <span>报价送的肌肤</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>把士大夫</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>北京覅哦就扫i附件</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>边为皇后i就是</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>把违法的事</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>北京覅哦就扫i附件</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>被围殴警匪片</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>巴尔福的色如分手的v</span>
-                        <strong></strong>
-                    </li>
-                </ul>
-                <IndexAnchor index="E" />
-                <ul>
-                    <li class='space-between'>
-                        <span>报价送的肌肤</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>把士大夫</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>北京覅哦就扫i附件</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>边为皇后i就是</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>把违法的事</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>北京覅哦就扫i附件</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>被围殴警匪片</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>巴尔福的色如分手的v</span>
-                        <strong></strong>
-                    </li>
-                </ul>
-                <IndexAnchor index="F" />
-                <ul>
-                    <li class='space-between'>
-                        <span>报价送的肌肤</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>把士大夫</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>北京覅哦就扫i附件</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>边为皇后i就是</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>把违法的事</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>北京覅哦就扫i附件</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>被围殴警匪片</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>巴尔福的色如分手的v</span>
-                        <strong></strong>
-                    </li>
-                </ul>
-                <IndexAnchor index="G" />
-                <ul>
-                    <li class='space-between'>
-                        <span>报价送的肌肤</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>把士大夫</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>北京覅哦就扫i附件</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>边为皇后i就是</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>把违法的事</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>北京覅哦就扫i附件</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>被围殴警匪片</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>巴尔福的色如分手的v</span>
-                        <strong></strong>
-                    </li>
-                </ul>
-                <IndexAnchor index="H" />
-                <ul>
-                    <li class='space-between'>
-                        <span>报价送的肌肤</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>把士大夫</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>北京覅哦就扫i附件</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>边为皇后i就是</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>把违法的事</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>北京覅哦就扫i附件</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>被围殴警匪片</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>巴尔福的色如分手的v</span>
-                        <strong></strong>
-                    </li>
-                </ul>
-                <IndexAnchor index="I" />
-                <ul>
-                    <li class='space-between'>
-                        <span>报价送的肌肤</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>把士大夫</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>北京覅哦就扫i附件</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>边为皇后i就是</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>把违法的事</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>北京覅哦就扫i附件</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>被围殴警匪片</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>巴尔福的色如分手的v</span>
-                        <strong></strong>
-                    </li>
-                </ul>
-                <IndexAnchor index="J" />
-                <ul>
-                    <li class='space-between'>
-                        <span>报价送的肌肤</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>把士大夫</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>北京覅哦就扫i附件</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>边为皇后i就是</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>把违法的事</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>北京覅哦就扫i附件</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>被围殴警匪片</span>
-                        <strong></strong>
-                    </li>
-                    <li class='space-between'>
-                        <span>巴尔福的色如分手的v</span>
-                        <strong></strong>
-                    </li>
-                </ul>
+                <div v-for="(i, index) in countryList" :key="index">
+                    <IndexAnchor :index="i.initial" v-if="i.cityList.length>0"/>
+                    <ul>
+                        <li class='space-between' v-for="(item, ind) in i.cityList" :key="ind" @click="add_attention(item)">
+                            <span class="center-vl">{{item.cityName + ' ('+item.countyName+')'}}</span>
+                            <strong :class="{'active': item.cityIsFollowed}"></strong>
+                        </li>
+                    </ul>
+                </div>
             </IndexBar>
         </div>
+        <!-- 弱提示 -->
+        <span class="weakTip"></span>
     </div>
 </template>
 <script> 
     import wHead from '@/page/common/windowHead/windowHead';
     import { IndexBar, IndexAnchor, Cell } from 'vant';
+    import { addUserCity, listWorldCity, listUserCities, switchCity, sortUserCity } from '@/common/js/myApi';
     import draggable from 'vuedraggable';
+    import { common } from '@/common/js/common';
     import $ from 'jquery';
     export default {
         name: 'choseCity',
@@ -391,28 +67,73 @@
                 }, 
                 searchFocus: false,
                 stickyTop: 0,
-                list2: [
-                    {id:1, name: '北京（中国）'},
-                    {id:2, name: '华盛顿（美国）'},
-                    {id:3, name: '东京（日本）'},
-                    {id:4, name: '巴黎（法国）'},
-                    {id:5, name: '伦敦（英国）'},
-                    {id:6, name: '首尔（韩国）'},
-                ]
+                local: {},
+                attentionList: [],
+                defaultCountryList: [],
+                countryList: [],
+                isChange: false,
+                searchText: ''
             }
         },
         mounted(){
-            $('body').addClass('origin').removeClass('f7').removeClass('gray247');
+            $('body,html').addClass('origin').removeClass('gray245').removeClass('gray247').removeClass('f7').removeClass('fbfafa');
             this.stickyTop = $('#header').outerHeight(true) + $('.search').outerHeight(true);
+            this.local = this.$store.state.timeSelector.getLocation;
+            this.isChange = this.$route.query && this.$route.query.id ? this.$route.query.id : false;
+            $('body, html').animate({scrollTop: 0}, 0);
+            this.init();
         },
         methods:{
+            // 初始化
+            init(){
+                // 获取关注列表
+                listUserCities({ cityId: this.local.cityId }, (res) => {
+                    this.attentionList = res['data']['dataList'];
+                })
+                listWorldCity((res) => {
+                    this.countryList = JSON.parse(JSON.stringify(res['data']['dataList']));
+                    this.defaultCountryList = JSON.parse(JSON.stringify(res['data']['dataList']));
+                })
+            },
             // 输入时修改样式
             change_focus(){
                 this.searchFocus = !this.searchFocus;
             },
-            change: function (evt) {
-                console.log(evt)
+            change(evt) {
+                let list = [];
+                sortUserCity({cityList: this.attentionList}, res => {
+                    common.show_weakTip(res.message);
+                })
             },
+            // 添加关注
+            add_attention(i){
+                const _this = this;
+                if (!_this.isChange && !i.cityIsFollowed) {
+                    addUserCity({ cityId: i.cityId }, (res) => {
+                        common.show_weakTip(res.message);
+                        _this.init();
+                        common.back(false);
+                    })
+                } else if(_this.isChange) {
+                    switchCity({ followId: _this.isChange, cityId: i.cityId }, (res) => {
+                        common.show_weakTip(res.message);
+                        _this.init();
+                        common.back(false);
+                    })
+                }
+            },
+            // 根据搜索内容获取搜索列表
+            search_list(){
+                let arr = [];
+                this.defaultCountryList.forEach((list, index) => {
+                    arr = list['cityList'].filter(res => (res.cityName.indexOf(this.searchText) > -1 || res.countyName.indexOf(this.searchText) > -1) )
+                    this.countryList[index]['cityList'] = arr;
+                });
+            },
+            // 判断拖拽的
+            start(e){
+                return false;
+            }
         }
     }
 </script>
@@ -421,17 +142,17 @@
 </style>
 <style lang="less">
     .van-index-anchor{
-        height:55px;
-        font-size:16px;
-        font-family:PingFangSC-Medium,PingFang SC;
-        font-weight:500;
-        color:rgba(0,0,0,1);
-        line-height:55px;
-        padding:0;
-        border-bottom:1px solid rgba(225, 225, 225, 0.5);
+        height:55px!important;
+        font-size:16px!important;
+        font-family:PingFangSC-Medium,PingFang SC!important;
+        font-weight:500!important;
+        color:rgba(0,0,0,1)!important;
+        line-height:55px!important;
+        padding:0!important;
+        border-bottom:1px solid rgba(225, 225, 225, 0.5)!important;
     }
     .van-index-anchor.van-index-anchor--sticky{
-        width:100%;
-        padding-left:20px;
+        width:100%!important;
+        padding-left:20px!important;
     }
 </style>

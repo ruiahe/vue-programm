@@ -1,11 +1,7 @@
 import { post } from './axios'
-import QS from 'qs'
-const key = 'ff5181333f7100930cbaf117276119e7'; 
 // 历史上的今天 -- 列表
-// export const toh = (p, suc) => post('/api/a/toh', QS.stringify({...p,key: key}), suc, true);
 export const listHistoryEvents = (p, suc) => post('/historyEvent/listHistoryEvents', JSON.stringify(p), suc, false, true);
 // 历史上的今天 -- 详情
-// export const tohdet = (p, suc) => post('/api/a/tohdet', QS.stringify({...p,key: key}), suc, true);
 export const getEventDetail = (p, suc) => post('/historyEvent/getEventDetail', JSON.stringify(p), suc, false, true);
 // 获取北京时间
 export const time = (suc) => post('/date/getBJTime', {}, suc, false, true);
@@ -35,3 +31,15 @@ export const getRateValueByCityName = (p, suc) => post('/app/rate/getRateValueBy
 export const queryRateHistoryCityList = (suc) => post('/app/rate/queryRateHistoryCityList', JSON.stringify({}), suc, false, true);
 // 个税  --  根据城市id获取城市税率信息
 export const getRateValueByCityId = (p, suc) => post('/app/rate/getRateValueByCityId', JSON.stringify(p), suc, false, true);
+// 时间计算器  --  获取国家城市列表
+export const listWorldCity = (suc) => post('/app/worldtime/listWorldCity', JSON.stringify({}), suc, false, true);
+// 时间计算器  --  获取用户关注城市列表
+export const listUserCities = (p, suc) => post('/app/worldtime/listUserCities', JSON.stringify(p), suc, false, true);
+// 时间计算器  --  用户关注国家城市
+export const addUserCity = (p, suc) => post('/app/worldtime/addUserCity', JSON.stringify(p), suc, false, true);
+// 时间计算器  --  取消关注某国家时间
+export const removeUserCity = (p, suc) => post('/app/worldtime/removeUserCity', JSON.stringify(p), suc, false, true);
+// 时间计算器  --  修改关注国家的排序
+export const sortUserCity = (p, suc) => post('/app/worldtime/sortUserCity', JSON.stringify(p), suc, false, true);
+// 时间计算器  --  切换关注的城市
+export const switchCity = (p, suc) => post('/app/worldtime/switchCity', JSON.stringify(p), suc, false, true);

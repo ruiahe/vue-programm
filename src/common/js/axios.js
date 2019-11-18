@@ -46,16 +46,16 @@ export function get(url, params, calbackSuc, reset_headers, reset_host){
     post请求
     参数：url => 请求链接， params => 传参，callbackSuc => 成功回调， reset_headers => 是否需要重置请求头，reset_host => 是否需要重置域名
 */
-export function post(url, params, calbackSuc, reset_headers, reset_host) {
+export function post(url, params, calbackSuc, reset_headers, reset_host, err) {
     if(set_post_bol){
-        return net_result(url, params, calbackSuc, reset_headers, reset_host);
+        return net_result(url, params, calbackSuc, reset_headers, reset_host, err);
     } else {
         setTime(()=>{
-            return net_result(url, params, calbackSuc, reset_headers, reset_host);
+            return net_result(url, params, calbackSuc, reset_headers, reset_host, err);
         });
     }
 }
-function net_result(url, params, calbackSuc, reset_headers, reset_host){
+function net_result(url, params, calbackSuc, reset_headers, reset_host, err){
     if(reset_headers){
         type = {'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'};
         set_headers();
