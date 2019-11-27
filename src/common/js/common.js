@@ -1,37 +1,80 @@
-import config from '../json/config.json'
+import $ from 'jquery'
+// 设置info信息
 export const common = {
-    token: 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIyNzQiLCJpYXQiOjE1NjUzMzA4MDksInN1YiI6IjI3NCIsImlzcyI6InRhbmtlIiwiZXhwIjoxNTY3OTIyODA5fQ.WwmLyxKttyAf9hw8biLnQkR0R1e9CQm9TB89fWvZ-p4',
-    domain: getDomain(),
-    back: function(){
-        // alert(document.referrer);
-        // if(document.referrer){
-            // alert(1)
+    // 返回上一页
+    back: function(bol){
+        if (bol) {
+            common.link_to_app({
+                "methodName": "back"
+            });
+        }else {
             window.history.go(-1);
-        // }else {
-            // alert(2)
-        // }
+        }
     },
+    // 跳转到app
     link_to_app(obj){
-        alert('马上要跳转拉！');
-        alert(1)
-        alert(obj['titleId'])
-        alert(obj['methodName'])
-        // if(window.webkit.messageHandlers){
+        if(common.isAndroid()){
+            window.Android.linkTo(JSON.stringify(obj));
+        }else{
             window.webkit.messageHandlers.linkTo.postMessage(obj);
-        // } else {
-        //     alert('不是app内部跳转，需要跳转到下载');
-            // window.location.href=getDownLoadUrl();
-        // }
+        }
     },
     // 转换json字符串
     change_type(jsonStr){
         return JSON.parse(jsonStr);
     },
-    // 设备信息
-    jsonInfo: {}
-}
-// domain: beta => 测试；local => 本地； 
-function getDomain(){
-    var domain = config.domain == 'beta' ? 'http://test.36jiapp.com:8080/' : (config.domain == 'local' ? 'http://192.168.0.148:8080/' : '正式库域名');
-    return domain;
+    // 弱提示(展示文本)
+    show_weakTip(txt){
+        $('.weakTip').html(txt).fadeIn(0);
+        setTimeout(() => {
+            $('.weakTip').fadeOut(1000);
+        }, 2000)
+    },
+    // 时间戳获取日期、时间
+    change_to_date(t){
+        var get_y = new Date(t).getFullYear();
+        var get_mon = new Date(t).getMonth() + 1;
+        var get_d = new Date(t).getDate();
+        var get_h = new Date(t).getHours();
+        var get_m = new Date(t).getMinutes();
+        var get_s = new Date(t).getSeconds();
+        var get_week = new Date(t).getDay();
+        var y = get_y > 9 ? get_y : '0' + get_y; 
+        var mon = get_mon > 9 ? get_mon : '0' + get_mon; 
+        var d = get_d > 9 ? get_d : '0' + get_d; 
+        var h = get_h > 9 ? get_h : '0' + get_h; 
+        var m = get_m > 9 ? get_m : '0'+ get_m; 
+        var s = get_s > 9 ? get_s : '0'+ get_s; 
+        var w = get_week == 0 ? '日' : (get_week == 1 ? '一' : (get_week == 2 ? '二' : (get_week == 3 ? '三' : (get_week == 4 ? '四' : (get_week == 5 ? '五' : '六')))));
+        var obj = {
+            'year': y,
+            'month': mon,
+            'day': d,
+            'hour': h,
+            'minutes': m,
+            'seconds': s,
+            'week': w
+        }
+        return obj;
+    },
+    // 判断是否是安卓
+    isAndroid(){
+        var u = navigator.userAgent;
+        if (u.indexOf("Android") > -1 || u.indexOf("Linux") > -1) {
+            return true;
+        }
+        return false;
+    },
+    // 判断是否是ios
+    isIos(){
+        var u = navigator.userAgent;
+        if (u.indexOf("iPhone") > -1 || u.indexOf("iOS") > -1) {
+            return true;
+        }
+        return false;
+    },
+    // 格式化数据（保留2位小数，若为整数则添加2个0)
+    format_number(num){
+        return (Math.round(num*100)/100).toFixed(2);
+    }
 }

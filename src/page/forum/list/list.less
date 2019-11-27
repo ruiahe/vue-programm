@@ -1,0 +1,131 @@
+html{
+    #statement{
+        background-color: rgba(247,247,247,1);
+        overflow: hidden;
+        .statement-top{
+            background-color:#fff;
+            position: fixed;
+            top:0;
+            left:0;
+            width:100%;
+        }
+        .mescroll{
+            position: fixed;
+            left:0;
+            right:0;
+            top:75px;
+            bottom:70px!important;
+            height:auto;
+            width:100%;
+            box-sizing: border-box;
+            background-color:#f7f7f7;
+            .statement-tip{
+                padding-top:5px;
+                width:100%;
+                padding-bottom:25px;
+                font-size:15px;
+                font-family:PingFangSC-Regular;
+                font-weight:400;
+                color:rgba(155,155,155,1);
+                line-height:21px;
+                background-color:#fff;
+                text-align:center;
+                .container{
+                    width:83%;
+                }
+            }
+            .statement{
+                background:#F7F7F7;
+                .container{
+                    height:46px;
+                    background-color:transparent;
+                    .statement-num{
+                        font-size:13px;
+                        font-family:PingFangSC-Regular;
+                        font-weight:400;
+                        color:rgba(155,155,155,1);
+                    }
+                    .statement-sort{
+                        position: relative;
+                        padding-right:12px;
+                        font-size:13px;
+                        font-family:PingFangSC-Semibold;
+                        font-weight:600;
+                        color:rgba(126,133,145,1);
+                    }
+                    .statement-sort:before{
+                        position: absolute;
+                        right:0;
+                        top:5px;
+                        content: '';
+                        width:0;
+                        height:0;
+                        border:5px solid transparent;
+                        border-top-color: #7E8591;
+                    }
+                }
+            }
+            .statement.sticky{
+                position: fixed;
+                top:0;
+                left:0;
+                z-index:10000;
+                width:100%;
+            }
+			.statement.sticky-ios{
+				z-index: 9999;/*需设置zIndex,避免在悬停时,可能会被列表数据遮住*/
+				position: -webkit-sticky;
+				position: sticky;
+                top: 0;/*相对mescroll的div悬停的位置*/
+			}
+            .statement-placeholder{
+                height:46px;
+                width:100%;
+            }
+        }
+        .input-box{
+            position: fixed;
+            bottom:0;
+            left:0;
+            width: 100%;
+            height:77px;
+            background-color:#fff;
+            .input{
+                margin-top:8px;
+                padding:0 15px;
+                box-sizing: border-box;
+                height:36px;
+                background:rgba(244,244,244,1);
+                border-radius:19px;
+                img{
+                    width:16px;
+                    height:16px;
+                }
+                span{
+                    margin-left:3px;
+                    flex:1;
+                    height:21px;
+                    font-size:15px;
+                    font-family:PingFangSC;
+                    font-weight:400;
+                    color:rgba(193,193,193,1);
+                    line-height:21px;
+                    background:rgba(244,244,244,1);
+                }
+            }
+        }
+        .input-placehold{
+            height:77px;
+        }
+    }
+}
+@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio:2) {
+    html #statement .mescroll{
+        top:85px!important;
+    }
+}
+@media only screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio:3) {
+    html #statement .mescroll{
+        top:85px!important;
+    }
+}

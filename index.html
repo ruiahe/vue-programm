@@ -3,23 +3,15 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0， viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta content="black" name="apple-mobile-web-app-status-bar-style">
     <meta content="telephone=no, email=no" name="format-detection">
     <title>forum</title>
+     <!-- 获取地理位置 -->
+     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=K19IIWjXfIqBIGK1GOtCuVTDfI6PyTyu"></script>
   </head>
   <body>
     <div id="app"></div>
   </body>
-  <script>
-    var jsonInfoObj = {};
-    window.webkit.messageHandlers.getInfo.postMessage(null);
-    function getJson(json){
-        alert('开始传入');
-        jsonInfoObj = json;
-        alert(JSON.stringify(jsonInfoObj));
-    }
-  </script>
-  <script src='../src/common/common.js'></script>
 </html>

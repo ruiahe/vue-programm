@@ -1,0 +1,39 @@
+#swiper{
+    position: fixed;
+    top:0;
+    bottom:0;
+    height:auto;
+    left:0;
+    right:0;
+    background:rgba(0,0,0,1);
+    z-index:200;
+    color:#fff!important;
+    display:none;
+    .swiper-container{
+        position: relative;
+        width:100%;
+        height:100%;
+        .swiper-wrapper{
+            height:600px;
+            .swiper-slide{
+                box-sizing: border-box;
+                .slide-img{
+                    width:100%;
+                    height:100%;
+                    box-sizing: border-box;
+                    .slide-img-box{
+                        height:600px;
+                        box-sizing: border-box;
+                    }
+                }
+            }
+        }
+        .swiper-pagination{
+            position: absolute;
+            bottom:10px;
+            left:0;
+            width:100%;
+            font-size:14px;
+        }
+    }
+}

@@ -1,0 +1,89 @@
+#message{
+    .message-head{
+        border-bottom:1px solid #eee;
+    }
+    .mescroll{
+        position: fixed;
+        top:136px;
+        bottom:0;
+        height:auto;
+        background:#f7f7f7;
+        .mescroll-box{
+            margin-top:10px;
+        }
+    }
+    .tab-box{
+        padding:2px 0 9px;
+        background:#fff;
+        .tab{
+            position: relative;
+            display: flex;
+            width:300px;
+            li{
+                flex:1;
+                height:40px;
+                text-align:center;
+                font-size:15px;
+                font-family:PingFangSC-Regular;
+                font-weight:400;
+                color:rgba(193,193,193,1);
+                line-height:21px;
+                .li-txt{
+                    position: relative;
+                    span{
+                        background:#FF443E;
+                        font-size:8px;
+                        font-family:PingFangSC-Medium;
+                        font-weight:500;
+                        color:rgba(255,255,255,1);
+                        line-height:12px;
+                    }
+                    .jx{
+                        width:21px;
+                        height:12px;
+                        border-radius:6px;
+                        position: absolute;
+                        top:-3px;
+                        right:-16px;
+                    }
+                    .square{
+                        position: absolute;
+                        top:-3px;
+                        right:-7px;
+                        width:12px;
+                        height:12px;
+                        border-radius:100%;
+                    }
+                }
+            }
+            .chosen{
+                font-family:PingFangSC-Medium;
+                font-weight:500;
+                color:rgba(0,0,0,1);
+            }
+        }
+        .tab:before{
+            position: absolute;
+            bottom:0;
+            left:44px;
+            content:'';
+            width:12px;
+            height:2px;
+            border:none;
+            background:#565656;
+            transition:all 500ms;
+        }
+        .tab.second:before{
+            left:144px;
+        }
+        .tab.third:before{
+            left:244px;
+        }
+    }
+    .message-gray{
+        width:100%;
+        height:10px;
+        border:none;
+        background: #F7F7F7;
+    }
+}

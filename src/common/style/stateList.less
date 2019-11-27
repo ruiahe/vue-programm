@@ -10,6 +10,9 @@
             height:21px;
             border-radius: 100%;
             overflow:hidden;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
             img{
                 width:100%;
                 display:block;
@@ -29,6 +32,10 @@
             font-weight:400;
             color:rgba(205,205,205,1);
             .state-name{
+                max-width: 110px;
+                white-space:nowrap;
+                overflow:hidden;
+                text-overflow:ellipsis;
                 margin-left:10px;
                 font-size:15px;
                 font-family:PingFangSC-Medium;
@@ -38,6 +45,7 @@
             .state-img{
                 margin-left:4px;
                 width:12px;
+                margin-right:2px;
             }
             .state-version{
                 margin-left:10px;
@@ -63,8 +71,22 @@
             display: -webkit-box;
             -webkit-line-clamp: 2;
             line-clamp: 2;
+            word-break:break-all;
             -webkit-box-orient: vertical;
             span{
+                display:inline;
+                color:#709E91;
+            }
+        }
+        .middle-txt2{
+            font-size:15px;
+            font-family:PingFangSC-Regular;
+            font-weight:400;
+            color:rgba(76,76,76,1);
+            line-height:21px;
+            word-break:break-all;
+            span{
+                display:inline;
                 color:#709E91;
             }
         }
@@ -78,6 +100,7 @@
             font-weight:400;
             color:rgba(142,142,142,1);
             line-height:17px;
+            margin-top:7px;
             .reply-img{
                 margin-bottom:4px;
                 height:17px;
@@ -106,7 +129,11 @@
                 width:108px;
                 height:108px;
                 overflow:hidden;
-                margin: 2.5px 2.5px 0 2.5px;
+                margin: 5px 2.5px 0 2.5px;
+                background-position: center;
+                background-size: cover;
+                background-repeat: no-repeat;
+                border-radius: 4px;
                 img{
                     width:100%;
                     display:block;
@@ -136,23 +163,76 @@
             width:20px;
             margin-right:4px;
         }
-        .up{
+        i{
+            position: relative;
+            margin-right:4px;
             margin-left:24px;
+            font-style: normal;
+            width:20px;
+            height:20px;
         }
-        .state-time{
-            font-size:12px;
-            font-family:PingFangSC-Regular;
-            font-weight:400;
-            color:rgba(193,193,193,1);
+        i::before{
+            position: absolute;
+            bottom:0;
+            content: '';
+            width:20px;
+            height:60px;
+            background-image:url('../../assets/giveLike2.png')!important;
+            background-size:500px auto;
+            background-position-x:0px;
+            background-position-y:bottom;
+            background-repeat: no-repeat;
+        }
+        .isUp::before{
+            background-position-x:4%;
         }
         .state-operate{
+            .giveLike{
+                min-width:10px;
+            }
             .like{
                 color:#7BC3A1;
             }
+            strong{
+                min-width:10px;
+            }
         }
+        .animate{
+            span.center-v{
+                color:#7BC3A1;
+                ::before{
+                    -webkit-animation: test-gif 1s steps(24,start) 0ms;
+                    animation: test-gif 1s steps(23,start) 0ms;
+                }
+            }
+        }
+    }
+    .state-time{
+        font-size:12px;
+        font-family:PingFangSC-Regular;
+        font-weight:400;
+        color:rgba(193,193,193,1);
     }
 }
 .getUp .state-bottom{
     height:0;
     margin:0;
+}
+
+// 点赞动效
+@-webkit-keyframes test-gif{
+    0% {
+        background-position-x:4%;
+    }
+    to {
+        background-position-x:100%;
+    }
+}
+@keyframes test-gif{
+    0% {
+        background-position-x:4%;
+    }
+    to {
+        background-position-x:100%;
+    }
 }

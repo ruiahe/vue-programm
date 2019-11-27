@@ -1,0 +1,107 @@
+/*
+    头部标题样式   (正常手机：高度+padding-top是75px;xr得是89px)
+*/
+#header{
+    .header-box{
+        padding-top:20px;
+        position: fixed;
+        top:0;
+        left:0;
+        width:100%;
+        z-index:99;
+        height:55px;
+        background-color:#fff;
+        .space-between{
+            margin:0 auto;
+            width:335px;
+            height:55px;
+            .arrow{
+                width:80px;
+                font-size: 10px;
+                height:100%;
+                background-image: url('../../../assets/header/arrow.png');
+                background-size: 11px;
+                background-repeat: no-repeat;
+                background-position: left center;
+                img{
+                    width:10px;
+                }
+            }
+            .arrow.close{
+                background-image: url('../../../assets/caculate/closeX2.png');
+                background-size:16px;
+            }
+            .title{
+                flex:1;
+                text-align: center;
+                font-size:18px;
+                font-family:PingFangSC-Medium;
+                font-weight:500;
+                color:rgba(0,0,0,1);
+            }
+            .tool{
+                width:80px;
+                height:22px;
+                font-size:15px;
+                font-family:PingFangSC-Regular;
+                font-weight:400;
+                color:rgba(155,155,155,1);
+                line-height:21px;
+                text-align:right;
+                .center-vr{
+                    width:24px;
+                    height:24px;
+                    img{
+                        display:block;
+                        width:100%;
+                        height:100%;
+                    }
+                }
+            }
+            .calendar{
+                .center-vr{
+                    width:19px;
+                    height:19px;
+                }
+            }
+            .newFont{
+                font-size:30px;
+                background:rgba(126,133,145,1);
+            }
+            .hasRed{
+                position: relative;
+            }
+            .hasRed:before{
+                content:'';
+                position: absolute;
+                right:-4px;
+                top:0;
+                width:8px;
+                height:8px;
+                border:0;
+                border-radius: 100%;
+                background-color:#FF443E;
+            }
+        }
+    }
+    .header-placeholder{
+        height:75px;
+        width:100%;
+    }
+}
+@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio:2) {
+    #header .header-box{
+        padding-top:34px!important;
+    }
+    #header .header-placeholder{
+        height:89px!important;
+    }
+}
+@media only screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio:3) {
+    #header .header-box{
+        padding-top:34px!important;
+    }
+    #header .header-placeholder{
+        height:89px!important;
+    }
+}

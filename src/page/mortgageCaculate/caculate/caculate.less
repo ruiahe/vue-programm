@@ -1,0 +1,140 @@
+#caculate{
+    .top{
+        position: fixed;
+        top:0;
+        left:0;
+        width:100%;
+        background-color:#fff;
+        .nav{
+            width:365px;
+            position: relative;
+            height:48px;
+            margin: 0 auto;
+            li{
+                width:91.25px;
+                font-size:15px;
+                font-family:PingFangSC-Regular,PingFang SC;
+                font-weight:400;
+                color:rgba(212,214,221,1);
+                line-height:21px;
+                text-align:center;
+            }
+            .active{
+                font-size:17px;
+                font-weight:500;
+                color:rgba(104,196,161,1);
+                font-family:PingFangSC-Medium,PingFang SC;
+            }
+        }
+        .nav:before{
+            content:'';
+            position: absolute;
+            left:29.625px;
+            bottom:0;
+            width:30px;
+            height:2px;
+            // height:30px;
+            border:none;
+            // border:1px solid red;
+            background-color: #68C4A1;
+            transition: all 500ms;
+            -webkit-transition: all 500ms;
+            -o-transition: all 500ms;
+            -ms-transition: all 500ms;
+        }
+        .nav.left1:before{
+            left:29.625px;
+        }
+        .nav.left2:before{
+            left:121.875px;
+        }
+        .nav.left3:before{
+            left:212.125px;
+        }
+        .nav.left4:before{
+            left:304.375px;
+        }
+    }
+    .place-holder{
+        height:123px;
+    }
+    .content{
+        li{
+            height:auto;
+            overflow: hidden;
+            width:100%;
+            box-sizing: border-box;
+            border-bottom:1px solid rgba(238, 238, 238, 0.5);
+            .container{
+                height:55px;
+                span{
+                    font-size:15px;
+                    font-family:PingFangSC-Regular,PingFang SC;
+                    font-weight:400;
+                    color:rgba(117,122,137,1);
+                }
+                strong{
+                    font-size:14px;
+                    font-family:PingFangSC-Regular,PingFang SC;
+                    font-weight:400;
+                    color:rgba(212,214,221,1);
+                }
+                strong.hasNum{
+                    color:rgba(117,122,137,1);
+                }
+                i{
+                    font-size:14px;
+                    font-family:PingFangSC-Regular,PingFang SC;
+                    font-weight:400;
+                    font-style:normal;
+                    color:rgba(117,122,137,1);
+                    padding-right:21px;
+                    background-image: url('../../../assets/caculate/arrowRight.png');
+                    background-repeat: no-repeat;
+                    background-size: auto 12px;
+                    background-position: right center;
+                }
+                input{
+                    font-family:PingFangSC-Regular,PingFang SC;
+                    font-size:14px;
+                    flex:1!important;
+                    text-align: right;
+                    margin-right:2px;
+                    background-color:transparent;
+                    color:rgba(117,122,137,1);
+                    font-weight:400;
+                }
+            }
+        }
+        .unshow{
+            height:0;
+            border:none;
+        }
+        .btn{
+            border:none;
+            div{
+                width:195px;
+                height:42px;
+                background:rgba(104,196,161,1);
+                border-radius:21px;
+                font-size:18px;
+                font-family:PingFangSC-Medium,PingFang SC;
+                font-weight:500;
+                color:rgba(255,255,255,1);
+                line-height:42px;
+                text-align:center;
+                margin:60px auto 0;
+            }
+        }
+    }
+}
+@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio:2) {
+    #caculate .place-holder{
+        height:137px!important;
+    }
+}
+@media only screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio:3) {
+    #caculate .place-holder{
+        height:137px!important;
+    }
+}

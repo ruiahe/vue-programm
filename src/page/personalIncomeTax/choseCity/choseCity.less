@@ -1,0 +1,106 @@
+#choseCity{
+    .container{
+        width:335px;
+        margin: 0 auto;
+    }
+    #header{
+    }
+    .search{
+        position: relative;
+        padding:8px 0;
+        height:40px;
+        input{
+            display:block;
+            width:273px;
+            height:22px;
+            padding:9px 10px 9px 52px;
+            background:#EEEEEF;
+            border-radius:20px;
+            font-size:14px;
+            font-family:PingFang-SC;
+            color:rgba(119,119,119,1);
+        }
+        i{
+            position: absolute;
+            top:17px;
+            left:18px;
+            width:24px;
+            height:24px;
+            background-image: url(../../../assets/nav_icon_search_black.png);
+            background-size: 100%;
+            background-position: center;
+        }
+    }
+    .history{
+        .history-title{
+            padding:12px 0 3px;
+            height:21px;
+            font-size:15px;
+            font-family:PingFang-SC;
+            // font-weight:500;
+            color:rgba(0,0,0,1);
+            line-height:21px;
+        }
+        .list-con{
+            position: relative;
+            .list{
+                padding-bottom: 21px;
+                width:323px;
+                margin: 0 auto;
+                overflow: hidden;
+                li{
+                    margin: 7px 6px;
+                    float: left;
+                    width:92px;
+                    height:34px;
+                    font-size:14px;
+                    font-family:PingFang-SC;
+                    // font-weight:500;
+                    color:rgba(51,51,51,1);
+                    border-radius:17px;
+                    border:0.5px solid rgba(151,151,151,1);
+                }
+            }
+        }
+        .list-con::after{
+            content: '';
+            position: absolute;
+            bottom:0;
+            left:0;
+            width:100%;
+            height:10px;
+            background:rgba(247,247,247,1);
+        }
+    }
+    .city-list{
+        padding-left:20px;
+        li{
+            height:60px;  
+            border-bottom: 1px solid #F7F7F7;
+            span{
+                font-size:15px;
+                font-family:PingFang-SC;
+                // font-weight:500;
+                color:rgba(31,31,31,1);
+            }
+            i{
+                width:45px;
+                height:45px;
+                transform: rotate(-90deg);
+                background-image: url(../../../assets/caculate/arrowRightSalary.png);
+                background-size: 12px auto;
+                background-position: center;
+                background-repeat: no-repeat;
+            }
+        }
+    }
+    .noCity{
+        text-align:center;
+        height:60px;
+        font-size:14px;
+        font-family:PingFangSC-Regular,PingFangSC;
+        font-weight:400;
+        color:rgba(183,194,201,1);
+        line-height:60px;
+    }
+}

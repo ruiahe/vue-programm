@@ -1,0 +1,405 @@
+#taxInput{
+    .top-title{
+        position: fixed;
+        top:0;
+        left:0;
+        z-index:100;
+        width:100%;
+        box-sizing: border-box;
+        background:rgba(255,255,255,1);
+        box-shadow:0px 2px 10px 0px rgba(0,0,0,0.04);
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+        overflow: hidden;
+        .hidden-scroll{
+            height:64px;
+            .can-scroll{
+                width:100%;
+                overflow-y: hidden;
+                overflow-x:auto;
+                padding-bottom:24px;
+                ul{
+                    padding-left:22px;
+                    width:922px;
+                    overflow: hidden;
+                    li{
+                        padding: 0 13px;
+                        float: left;
+                        height:60px;
+                        font-size:14px;
+                        font-family:PingFang-SC-Medium,PingFang-SC;
+                        color:rgba(102,102,102,1);
+                        transition: all 100ms;
+                    }
+                    .active{
+                        font-size:18px;
+                        font-family:PingFang-SC-Bold,PingFang-SC;
+                        font-weight:600;
+                        color:rgba(0,0,0,1);
+                        transition: all 100ms;
+                    }
+                }
+            }
+        }
+    }
+    .top-placeholder{
+        height:139px;
+    }
+    .sub-tab{
+        position: relative;
+        width:237px;
+        margin:0 auto;
+        font-size:15px;
+        font-family:PingFang-SC-Medium,PingFang-SC;
+        font-weight:500;
+        color:rgba(0,0,0,1);
+        li{
+            width:70px;
+            height:48px;
+        }
+        .active{
+            font-weight:bold;
+            color:rgba(31,99,112,1);
+        }
+    }
+    .sub-tab::after{
+        content:'';
+        position: absolute;
+        left:28px;
+        bottom:0px;
+        width:15px;
+        border:none;
+        height:4px;
+        background:rgba(30,98,111,1);
+        border-radius:2px;
+        transition: all 200ms;
+    }
+    .sub-tab.right::after{
+        left:195px;
+        transition: all 200ms;
+    }
+    .content{
+        margin:0 auto 0;
+        width:343px;
+        box-sizing: border-box;
+        .salary{
+            margin:6px auto 0;
+            .section{
+                margin-top:10px;
+                background-color:#fff;
+                border-radius:8px;
+                .li{
+                    width:311px;
+                    margin-left: 16px;
+                    height:60px;
+                    i{
+                        width:30px;
+                        height:30px;
+                        background-color: #1F6370;
+                        border-radius: 100%;
+                        background-image: url(../../../assets/salary-1.png);
+                        background-size: 100%;
+                    }
+                    .i2{background-image: url(../../../assets/salary-2.png);}
+                    .i3{background-image: url(../../../assets/salary-3.png);}
+                    .i4{background-image: url(../../../assets/salary-4.png);}
+                    .i5{background-image: url(../../../assets/salary-5.png);}
+                    section{
+                        width:269px;
+                        height:100%;
+                        font-size:15px;
+                        font-family:PingFang-SC;
+                        color:rgba(31,31,31,1);
+                        border-bottom:1px solid #F7F7F7;
+                        font-weight:100;
+                        strong{
+                            position: relative;
+                            width:46px;
+                            height:21px;
+                            font-size:15px;
+                            font-family:PingFang-SC;
+                            font-weight:200px;
+                            color:rgba(130,137,149,1);
+                        }
+                        strong::after{
+                            content:'';
+                            position: absolute;
+                            right:0;
+                            width:13px;
+                            height:100%;
+                            background-image: url(../../../assets/caculate/arrowRightSalary.png);
+                            background-size: 100%;
+                            background-position: right center;
+                            background-repeat: no-repeat;
+                            transform: rotate(-90deg);
+                        }
+                        span:first-child{
+                            flex:1;
+                        }
+                        span.val{
+                            width:73px;
+                            height:30px;
+                            line-height: 30px;
+                            text-align: right;
+                            font-size:15px;
+                            font-family:PingFang-SC;
+                            color:rgba(130,137,149,1);
+                        }
+                        .val{
+                            font-size:15px;
+                            font-family:PingFang-SC;
+                            font-weight:500;
+                            color:rgba(85,85,85,1);
+                        }
+                        input.val{
+                            width:73px;
+                            line-height:12px;
+                            height:12px!important;
+                            // padding: 9px 0;
+                            padding-top:9px;
+                            background:rgba(0,0,0,0.1);
+                            text-align: right;
+                        }
+                        .please-input{
+                            width:73px;
+                            height:12px;
+                            padding: 9px 0;
+                            border-radius:6px;
+                            font-size:15px;
+                            font-family:PingFangSC-Regular,PingFang SC;
+                            color:rgba(162,162,162,1);
+                            text-align:right;
+                        }
+                    }
+                }
+                .has-show-more{
+                    display:none;
+                    width:311px;
+                    margin-left: 16px;
+                    .show-more{
+                        li{
+                            padding-bottom:10px;
+                            .has-desc{
+                                position: relative;
+                                width:auto;
+                                height:26px;
+                                line-height:26px;
+                                padding-left:14px;
+                                font-size:13px;
+                                font-family:PingFang-SC;
+                                font-weight:500;
+                                color:rgba(89,89,89,1);
+                            }
+                            .customize{
+                                width:73px;
+                                font-size:12px;
+                                height:30px;
+                                line-height:30px;
+                                background:rgba(246,246,246,1);
+                                border-radius:6px;
+                                font-family:PingFang-SC;
+                                .please-input2{
+                                    width:55px;
+                                    height:12px;
+                                    padding: 8px 0 9px;
+                                    font-size:12px;
+                                    font-family:PingFangSC-Regular,PingFang SC;
+                                    color:rgba(162,162,162,1);
+                                    text-align:center;
+                                    background:transparent;
+                                }
+                                span{
+                                    width:14px;
+                                    text-align:left;
+                                    color:rgba(162,162,162,1);
+                                    font-family:PingFangSC-Regular,PingFang SC;
+                                }
+                            }
+                            .please-input{
+                                width:73px;
+                                height:12px;
+                                padding: 9px 0;
+                                background:rgba(246,246,246,1);
+                                border-radius:6px;
+                                font-size:12px;
+                                font-family:PingFangSC-Regular,PingFang SC;
+                                color:rgba(162,162,162,1);
+                                text-align:center;
+                            }
+                            .has-desc::before{
+                                content:'';
+                                position: absolute;
+                                top:10px;
+                                left:0;
+                                width:5px;
+                                height:5px;
+                                border:none;
+                                background-color: #D8D8D8;
+                                border-radius: 100%;
+                            }
+                        }
+                    }
+                }
+                .li:last-child{
+                    section{
+                        border:none;
+                    }
+                }
+                .showMore{
+                    section{
+                        border-bottom: 1px solid #fff!important;
+                        strong::after{
+                            transform: rotate(0deg);
+                        }
+                    }
+                }
+            }
+            .caculate{
+                margin-top:36px;
+            }
+        }
+        .input-one{
+            margin-top:14px;
+            min-height: 582px;
+            background:rgba(255,255,255,1);
+            border-radius:8px;
+            border:1px solid #fff;
+            ul{
+                li{
+                    margin-top: 20px;
+                    .input-one-input{
+                        margin-top:17px;
+                    }
+                }
+            }
+            .caculate{
+                margin-top:67px;
+            }
+            .tip{
+                position: relative;
+                height:16px;
+                font-size:11px;
+                font-family:PingFang-SC;
+                // font-weight:500;
+                color:#9E9E9E;
+                line-height:16px;
+                padding-left:30px;
+                margin-top:13px;
+            }
+            .tip::before{
+                content: '*';
+                position: absolute;
+                top:2px;
+                left:20px;
+                color:#1F6370;
+            }
+        }
+        .input-one.min-margin{
+            .caculate{
+                margin-top:29px;
+            }
+        }
+        .input-button{
+            margin-top:14px;
+            min-height: 582px;
+            background:rgba(255,255,255,1);
+            border-radius:8px;
+            border:1px solid #fff;
+            .input-one-input{
+                margin-bottom:0;
+                margin-top:17px;
+            }
+            .button{
+                width:292px;
+                margin:12px auto 41px;
+                li{
+                    width:141px;
+                    height:44px;
+                    border-radius:22px;
+                    background:rgba(247,247,247,1);
+                    font-size:14px;
+                    font-family:PingFang-SC;
+                    // font-weight:500;
+                    color:rgba(79,79,79,1);
+                }
+                .active{
+                    color:rgba(31,99,112,1);
+                    background:rgba(31,99,112,0.2);
+                }
+            }
+            .content{
+                margin:0 auto 20px;
+                width:309px;
+                font-size:12px;
+                font-family:PingFang-SC;
+                // font-weight:500;
+                color:rgba(144,144,144,1);
+                line-height:20px;
+            }
+            .input-button-title{
+                padding-top:20px;
+            }
+        }
+        .sub-title,
+        .title{
+            position: relative;
+            padding-left:42px;
+            height:20px;
+            font-size:14px;
+            font-family:PingFang-SC;
+            // font-weight:500;
+            color:rgba(79,79,79,1);
+            line-height:20px;
+        }
+        .sub-title{
+            padding-left: 26px;
+        }
+        .title::before{
+            position: absolute;
+            left:26px;
+            top:4px;
+            content:'';
+            width:4px;
+            height:12px;
+            border:none;
+            background-color:#1F6370;
+        }
+        .input-one-input{
+            display:block;
+            padding:15px 18px;
+            // margin: 17px auto 29px;
+            margin: 0 auto;
+            width:256px;
+            height:14px;
+            background:rgba(247,247,247,1);
+            border-radius:22px;
+            font-size:14px;
+            font-family:PingFangSC-Regular,PingFang SC;
+            // font-weight:500;
+            color:rgba(79,79,79,1);
+        }
+        .caculate{
+            display:block;
+            width:292px;
+            height:48px;
+            line-height:48px;
+            background:rgba(31,99,112,1);
+            border-radius:23px;
+            font-size:18px;
+            font-family:PingFang-SC;
+            color:rgba(255,255,255,1);
+            border:none;
+            margin:0 auto 29px;
+        }
+    }
+}
+@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio:2) {
+    #taxInput .top-placeholder{
+        height:153px!important;
+    }
+}
+@media only screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio:3) {
+    #taxInput .top-placeholder{
+        height:153px!important;
+    }
+}

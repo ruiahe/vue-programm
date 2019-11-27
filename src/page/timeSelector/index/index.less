@@ -1,0 +1,562 @@
+#timeSelectorIndex{
+    .top{
+        .top-box{
+            position: fixed;
+            top:0;
+            left:0;
+            width:100%;
+            z-index:10;
+            overflow:hidden;
+            border-bottom-right-radius: 20px;
+            border-bottom-left-radius: 20px;
+            box-shadow:0px 2px 7px 0px rgba(236,236,236,0.5);  
+            .top-nav-box{
+                height:57px;
+                overflow:hidden;
+                .top-nav{
+                    padding-bottom:20px;
+                    overflow: hidden;
+                    overflow-x: auto;
+                    height:57px;
+                    background: #fff;
+                    border-bottom-right-radius: 20px;
+                    border-bottom-left-radius: 20px;
+                    .nav{
+                        width:450px;
+                        height:100%;
+                        padding: 0 5px;
+                        li{
+                            position: relative;
+                            width:88px;
+                            height:100%;
+                            font-size:15px;
+                            font-family:PingFangSC-Regular,PingFang SC;
+                            font-weight:400;
+                            color:rgba(212,214,221,1);
+                            box-sizing: border-box;
+                        }
+                        .active{
+                            font-size:17px;
+                            font-family:PingFangSC-Medium,PingFang SC;
+                            font-weight:500;
+                            color:rgba(32,99,112,1);
+                        }
+                        li.active::after{
+                            position: absolute;
+                            left:50%;
+                            bottom:3px;
+                            content:'';
+                            width:2px;
+                            height:8px;
+                            background-color:#206370;
+                            border:none;
+                        }
+                    }
+                }
+            }
+        }
+        .top-placeholder{
+            height: 134px;
+        }
+    }
+    .interval{
+        .interval-top{
+            ul{
+                li{
+                    padding: 0 20px;
+                    height:54px;
+                    border-bottom:1px solid rgba(238, 238, 238, 0.6);
+                    span{
+                        font-size:16px;
+                        font-family:PingFangSC-Regular,PingFang SC;
+                        font-weight:400;
+                        color:rgba(18,18,18,1);
+                    }
+                    i{
+                        position: relative;
+                        height:100%;
+                        padding-right:16px;
+                        font-size:16px;
+                        font-family:PingFangSC-Medium,PingFang SC;
+                        font-weight:500;
+                        color:rgba(18,18,18,1);
+                        font-style: normal;
+                    }
+                    i::before{
+                        position: absolute;
+                        content:'';
+                        top: 0;
+                        right:0;
+                        width:8px;
+                        height:100%;
+                        background-image:url(../../../assets/timeSelector/timeSelector-arrow.png);
+                        background-position: center right;
+                        background-size: 8px auto;
+                        background-repeat: no-repeat;
+                    }
+                }
+                li:last-child{
+                    border:none;
+                }
+            }
+        }
+        .interval-middle{
+            width:100%;
+            height:8px;
+            background:rgba(235,235,235,1);
+        }
+        .interval-bottom{
+            ul{
+                li{
+                    padding:0px 20px;
+                    height:44px;
+                    border-bottom:1px solid rgba(245, 245, 245, 0.6);
+                    span{
+                        height:22px;
+                        font-size:16px;
+                        font-family:PingFangSC-Regular,PingFang SC;
+                        font-weight:400;
+                        color:rgba(117,122,137,1);
+                        line-height:22px;
+                    }
+                }
+                li:last-child{
+                    border:none;
+                }
+            }
+        }
+    }
+    .date{
+        .date-top{
+            padding:30px 0;
+            width:315px;
+            margin: 0 auto;
+            li{
+                width: 77px;
+                height:30px;
+                background:rgba(181,203,208,1);
+                border-radius:6px;
+                font-size:13px;
+                font-family:PingFangSC-Regular,PingFang SC;
+                font-weight:400;
+                color:rgba(255,255,255,1);
+            }
+            .active{
+                background:rgba(32,99,112,1);
+            }
+        }
+        .date-middle{
+            padding:10px 0 30px;
+            width:315px;
+            margin: 0 auto;
+            .date-middle1{
+                margin-bottom:20px;
+                span{
+                    width:53px;
+                    height:54px;
+                    font-size:17px;
+                    font-family:PingFangSC-Medium,PingFang SC;
+                    font-weight:500;
+                    color:rgba(117,122,137,1);
+                }
+                .input-box{
+                    position: relative;
+                    width:262px;
+                    background:rgba(235,235,235,1);
+                    border-radius:4px;
+                    .date-middle-input{
+                        position: relative;
+                        z-index:10;
+                        width:203px!important;
+                        padding: 20px 38px 20px 21px;
+                        background-color:transparent;
+                    }
+                    .placeholder{
+                        position: absolute;
+                        top:0;
+                        left:0;
+                        z-index:1;
+                        padding: 20px 38px 20px 21px;
+                        font-size:15px!important;
+                        font-family:PingFangSC-Regular,PingFang SC!important;
+                        font-weight:400!important;
+                        color:rgba(198,198,198,1)!important;
+                    }
+                }
+            }
+        }
+        .date-bottom{
+            padding: 46px 28px 0;
+            border-top: 1px solid rgba(228, 224, 224, 0.5);
+            width:100%;
+            box-sizing: border-box;
+            span{
+                width:112px;
+                height:21px;
+                font-size:15px;
+                font-family:PingFangSC-Regular,PingFang SC;
+                font-weight:400;
+                color:rgba(117,122,137,1);
+                line-height:21px;
+            }
+            strong{
+                flex:1;
+                height:21px;
+                font-size:17px;
+                font-family:PingFangSC-Medium,PingFang SC;
+                font-weight:500;
+                color:rgba(32,99,112,1);
+                line-height:21px;
+            }
+        }
+    }
+    .earth{
+        .earth-list{
+            li{
+                border-bottom:1px solid rgba(231, 230, 230, 0.5);
+                // 时钟
+                .earth-box{
+                    position: relative;
+                    width:65px;
+                    height:65px;
+                    .earth-clock{
+                        position: relative;
+                        width:65px;
+                        height:65px;
+                        border-radius:100%;
+                        border:1px solid rgba(216, 216, 216, 1);
+                        box-sizing: border-box;
+                        .earth-clock-disk{
+                            position: relative;
+                            width:61px;
+                            height:61px;
+                            border-radius: 100%;
+                            background-color:#656464;
+                            i{
+                                width:7px;
+                                height:7px;
+                                border-radius: 100%;
+                                background-color:#fff;
+                            }
+                        }
+                        .earth-clock-disk::before{
+                            content:'';
+                            position: absolute;
+                            top:0;
+                            left:50%;
+                            width:1px;
+                            height:3px;
+                            background: rgba(216, 216, 216, 1);
+                        }
+                        .earth-clock-disk::after{
+                            content:'';
+                            position: absolute;
+                            bottom:0;
+                            left:50%;
+                            width:1px;
+                            height:3px;
+                            background: rgba(245, 245, 245, 1);
+                        }
+                    }
+                    .earth-clock::before{
+                        content:'';
+                        position: absolute;
+                        left:2px;
+                        top:50%;
+                        width:3px;
+                        height:1px;
+                        z-index:10;
+                        background: rgba(245, 245, 245, 1);
+                    }
+                    .earth-clock::after{
+                        content:'';
+                        position: absolute;
+                        right:2px;
+                        top:50%;
+                        width:3px;
+                        height:1px;
+                        z-index:10;
+                        background: rgba(245, 245, 245, 1);
+                    }
+                    .square{
+                        position: absolute;
+                        top:50%;
+                        left:50%;
+                        transform-origin: 50% 50%;
+                    }
+                    .square::before{
+                        content:'';
+                        position: absolute;
+                        top:0;
+                        left:50%;
+                        width:3px;
+                        height:50%;
+                        background-color:#fff;
+                    }
+                    .earth-hour{
+                        width:26px;
+                        height:26px;
+                        margin-left:-13px;
+                        margin-top:-13px;
+                        transform: rotate(0deg);
+                    }
+                    .earth-minute{
+                        width:38px;
+                        height:38px;
+                        margin-left:-19px;
+                        margin-top:-19px;
+                        transform: rotate(0deg);
+                    }
+                    .earth-second{
+                        width:40px;
+                        height:40px;
+                        margin-left:-20px;
+                        margin-top:-20px;
+                        transform: rotate(0deg);
+                    }
+                    .earth-hour::before{
+                        width:3px;
+                        margin-left:-1.5px;
+                    }
+                    .earth-minute::before{
+                        width:2px;
+                        margin-left:-1px;
+                    }
+                    .earth-second::before{
+                        width:1px;
+                        margin-left:-0.5px;
+                    }
+                }
+                // 单元格样式
+                .cell{
+                    width:321px;
+                    height:83px;
+                    margin-left:17px;
+                    .earth-right{
+                        width:237px;
+                        margin-left:30px;
+                        .earth-right-top{
+                            height:22px;
+                            font-size:16px;
+                            font-family:PingFangSC-Medium,PingFang SC;
+                            font-weight:500;
+                            color:rgba(18,18,18,1);
+                            line-height:22px;
+                            white-space:nowrap;
+                        }
+                        .earth-right-bottom{
+                            width:100%;
+                            margin-top:11px;
+                            font-size:14px;
+                            font-family:PingFangSC-Regular,PingFang SC;
+                            font-weight:400;
+                            color:rgba(117,122,137,1);
+                            span{
+                                position: relative;
+                            }
+                            strong{
+                                width:85px;
+                                text-align:right;
+                            }
+                            .local::after{
+                                content: '';
+                                position: absolute;
+                                right:-20px;
+                                top:0;
+                                width:10px;
+                                height:100%;
+                                background-image: url(../../../assets/timeSelector/local.png);
+                                background-size: 100% auto;
+                                background-position: 0 0;
+                                background-repeat: no-repeat;
+                            }
+                        }
+                    }
+                }
+                // 删除和切换
+                .delete{
+                    width:170px;
+                    height:100%;
+                    background-color:rgba(231, 231, 231, 1);
+                    div{
+                        flex:1;
+                        img{
+                            width:52px;
+                        }
+                    }
+                }
+                .van-swipe-cell{
+                    width:100%;
+                    height:100%;
+                    .van-swipe-cell__wrapper{
+                        width:100%;
+                    }
+                }
+            }
+        }
+        .earth-add{
+            padding-top:80px;
+            padding-bottom: 80px;
+            .space-between{
+                padding: 0 34px;
+                box-sizing: border-box;
+                width:146px;
+                height:37px;
+                border-radius:23px;
+                border:1px solid rgba(32,99,112,1);
+                font-size:15px;
+                font-family:PingFangSC-Regular,PingFang SC;
+                font-weight:400;
+                color:rgba(32,99,112,1);
+                img{
+                    width:12px;
+                }
+            }
+        }
+        .earth-add.gray{
+            .space-between{
+                color:rgba(214,214,214,1);
+                border-color:rgba(214,214,214,1);
+            }
+        }
+    }
+    .leapyear{
+        .leapyear-top{
+            width:263px;
+            margin:0 auto;
+            padding:31px 0;
+            li{
+                width:106px;
+                height:38px;
+                background:rgba(231,231,231,1);
+                border-radius:6px;
+                font-size:15px;
+                font-family:PingFangSC-Regular,PingFang SC;
+                font-weight:400;
+                color:rgba(255,255,255,1);
+            }
+            .active{
+                background:rgba(32,99,112,1);
+            }
+        }
+        .leapyear-middle{
+            margin: 0 auto;
+            padding-bottom:20px;
+            .leapyear-middle-text{
+                margin:0 auto;
+                box-sizing: border-box;
+                width:315px;
+                background:rgba(235,235,235,1);
+                border-radius:4px;
+                margin-bottom:20px;
+            }
+        }
+        .leapyear-bottom{
+            padding-top:24px;
+            width:100%;
+            box-sizing: border-box;
+            border-top:1px solid rgba(228, 224, 224, 0.5);
+            .leapyear-bottom-box{
+                width:347px;
+                margin-left:28px;
+                li{
+                    width:80px;
+                    height:44px;
+                    font-size:17px;
+                    font-family:PingFangSC-Medium,PingFang SC;
+                    font-weight:500;
+                    color:rgba(32,99,112,1);
+                    line-height:44px;
+                    float:left;
+                }
+                li:first-child{
+                    font-size:15px;
+                    font-family:PingFangSC-Regular,PingFang SC;
+                    font-weight:400;
+                    color:rgba(117,122,137,1);
+                }
+            }
+        }
+    }
+    .constellation{
+        .constellation-middle{
+            width:315px;
+            padding:30px 0;
+            margin:0 auto;
+        }
+        .constellation-bottom{
+            border-top:1px solid rgba(228, 224, 224, 0.5);
+            padding-top:38px;
+            .bottom-top{
+                width:315px;
+                padding-bottom:22px;
+                margin: 0 auto;
+                height:21px;
+                font-size:15px;
+                font-family:PingFangSC-Regular,PingFang SC;
+                font-weight:400;
+                color:rgba(117,122,137,1);
+            }
+            .bottom-bottom{
+                width:315px;
+                margin: 0 auto;
+                li{
+                    flex:1;
+                    width:102px;
+                    height:24px;
+                    font-size:17px;
+                    font-weight:400;
+                    line-height:24px;
+                    font-family:PingFangSC-Medium,PingFang SC;
+                    font-weight:500;
+                    color:rgba(32,99,112,1);
+                }
+            }
+        }
+    }
+    .pop{
+        display:none;
+        position: fixed;
+        top:0;
+        bottom:0;
+        left:0;
+        right:0;
+        z-index:20;
+        width:100%;
+        background-color:rgba(0,0,0,0.4);
+        .flex-bottom{
+            width:100%;
+            height:100%;
+            box-sizing: border-box;
+            .pop-box{
+                width:100%;
+            }
+        }
+    }
+    input{
+        padding: 20px 38px 20px 21px;
+        width:256px;
+        height:17px;
+        line-height: normal;
+        background:rgba(235,235,235,1);
+        border-radius:4px;
+        font-size:17px;
+        font-family:PingFangSC-Medium,PingFang SC;
+        font-weight:500;
+        color:rgba(18,18,18,1);
+        background-image: url(../../../assets/timeSelector/fullArrowGray.png);
+        background-size:19px;
+        background-position: 278px center;
+        background-repeat: no-repeat;
+    }
+}
+@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio:2) {
+    #timeSelectorIndex .top-placeholder{
+        height:146px!important;
+    }
+}
+@media only screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio:3) {
+    #timeSelectorIndex .top-placeholder{
+        height:146px!important;
+    }
+}

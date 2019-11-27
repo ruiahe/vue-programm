@@ -3,18 +3,24 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import axios from 'axios'
+import store from './store/index'
 import 'amfe-flexible/index.js'
-import Axios from 'axios'
 
-Vue.prototype.$axios = Axios;
-Axios.defaults.baseURL = '/192.168.0.148';
-Axios.defaults.headers.post['Content-Type'] = 'application/json';
-Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
+  store,
+  axios,
   components: { App },
-  template: '<App/>'
+  template: '<App/>',
 })
+//封装成一个指令
+// Vue.directive('highlight', (el) => {
+//   let blocks = el.querySelectorAll('pre code')
+//   blocks.forEach((block) => {
+//       hljs.highlightBlock(block)
+//   })
+// })
