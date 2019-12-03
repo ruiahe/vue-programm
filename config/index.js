@@ -17,6 +17,20 @@ module.exports = {
           '^/api/a': ''  // 替换target中的请求地址，也就是说以后你在请求http://api.douban.com/v2/XXXXX这个地址的时候直接写成/api即可。
         }
       },
+      '/api/c': {
+        target:'http://22.188.70.100:80/isap/manager/isap', // 你请求的第三方接口
+        changeOrigin:true, // 在本地会创建一个虚拟服务端，然后发送请求的数据，并同时接收请求的数据，这样服务端和服务端进行数据的交互就不会有跨域问题
+        pathRewrite:{  // 路径重写，
+          '^/api/c': ''  // 替换target中的请求地址，也就是说以后你在请求http://api.douban.com/v2/XXXXX这个地址的时候直接写成/api即可。
+        }
+      },
+      '/api/d': {
+        target:'http://192.168.8.119:8090', // 你请求的第三方接口
+        changeOrigin:true, // 在本地会创建一个虚拟服务端，然后发送请求的数据，并同时接收请求的数据，这样服务端和服务端进行数据的交互就不会有跨域问题
+        pathRewrite:{  // 路径重写，
+          '^/api/d': ''  // 替换target中的请求地址，也就是说以后你在请求http://api.douban.com/v2/XXXXX这个地址的时候直接写成/api即可。
+        }
+      },
       '/api/b': {
         target:'http://v.juhe.cn/todayOnhistory',
         changeOrigin:true,
