@@ -1,6 +1,13 @@
 import { post } from './axios'
+import QS from 'qs'
+const key = 'ff5181333f7100930cbaf117276119e7'; 
 // 历史上的今天 -- 列表
-export const listHistoryEvents = (p, suc) => post('/historyEvent/listHistoryEvents', JSON.stringify(p), suc, false, true);
+export const toh = (p, suc) => post('/api/a/toh', QS.stringify({...p,key: key}), suc, true);
+export const test = (p, suc) => post('http://22.188.70.100:80/isap/manager/isap/queryGplsCusAddressListByAddressType', JSON.stringify({...p}), suc, false);
+export const test2 = (p, suc) => post('/api/d/demo/task/taskList', JSON.stringify({...p}), suc, false);
+// export const test2 = (p, suc) => post('http://192.168.8.119:8090/demo/task/taskList', JSON.stringify({...p}), suc, false);
+export const tohdet = (p, suc) => post('/api/a/tohdet', QS.stringify({...p,key: key}), suc, true);
+export const listHistoryEvents = (p, suc) => post('/historyEvent/listHistoryEvents', JSON.stringify(p), suc, true, true);
 // 历史上的今天 -- 详情
 export const getEventDetail = (p, suc) => post('/historyEvent/getEventDetail', JSON.stringify(p), suc, false, true);
 // 获取北京时间
